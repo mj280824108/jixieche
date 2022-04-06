@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcSiteMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcSite" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="site_name" property="siteName" jdbcType="VARCHAR" />
+    <result column="province_code" property="provinceCode" jdbcType="INTEGER" />
+    <result column="city_code" property="cityCode" jdbcType="INTEGER" />
+    <result column="district_code" property="districtCode" jdbcType="INTEGER" />
+    <result column="site_address" property="siteAddress" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="into_flag" property="intoFlag" jdbcType="INTEGER" />
+    <result column="del_state" property="delState" jdbcType="INTEGER" />
+    <result column="open_flag" property="openFlag" jdbcType="INTEGER" />
+    <result column="shoulder" property="shoulder" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="buy_description" property="buyDescription" jdbcType="VARCHAR" />
+    <result column="closing_notice" property="closingNotice" jdbcType="LONGVARCHAR" />
+    <result column="closing_start_time" property="closingStartTime" jdbcType="TIMESTAMP" />
+    <result column="closing_end_time" property="closingEndTime" jdbcType="TIMESTAMP" />
+    <result column="bank_account_name" property="bankAccountName" jdbcType="VARCHAR" />
+    <result column="bank_account_code" property="bankAccountCode" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, site_name, province_code, city_code, district_code, site_address, longitude, 
+    latitude, into_flag, del_state, open_flag, shoulder, phone, buy_description, closing_notice, closing_start_time, closing_end_time, bank_account_name, bank_account_code, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, site_name AS siteName, province_code AS provinceCode, city_code AS cityCode, 
+    district_code AS districtCode, site_address AS siteAddress, longitude, latitude, 
+    into_flag AS intoFlag, del_state AS delState, open_flag AS openFlag, shoulder, phone, buy_description AS buyDescription, closing_notice AS closingNotice,
+    closing_start_time AS closingStartTime, closing_end_time AS closingEndTime, bank_account_name AS bankAccountName, bank_account_code AS bankAccountCode,create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_site
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcSite" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_site
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="siteName != null" >
+        site_name,
+      </if>
+      <if test="provinceCode != null" >
+        province_code,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="districtCode != null" >
+        district_code,
+      </if>
+      <if test="siteAddress != null" >
+        site_address,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="intoFlag != null" >
+        into_flag,
+      </if>
+      <if test="delState != null" >
+        del_state,
+      </if>
+      <if test="openFlag != null" >
+        open_flag,
+      </if>
+      <if test="closingNotice != null" >
+        closing_notice,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="siteName != null" >
+        #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="districtCode != null" >
+        #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="siteAddress != null" >
+        #{siteAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="intoFlag != null" >
+        #{intoFlag,jdbcType=INTEGER},
+      </if>
+      <if test="delState != null" >
+        #{delState,jdbcType=INTEGER},
+      </if>
+      <if test="openFlag != null" >
+        #{openFlag,jdbcType=INTEGER},
+      </if>
+      <if test="closingNotice != null" >
+        #{closingNotice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcSite" >
+    update jxc_site
+    <set >
+      <if test="siteName != null" >
+        site_name = #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        province_code = #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="districtCode != null" >
+        district_code = #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="siteAddress != null" >
+        site_address = #{siteAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="intoFlag != null" >
+        into_flag = #{intoFlag,jdbcType=INTEGER},
+      </if>
+      <if test="delState != null" >
+        del_state = #{delState,jdbcType=INTEGER},
+      </if>
+      <if test="openFlag != null" >
+        open_flag = #{openFlag,jdbcType=INTEGER},
+      </if>
+      <if test="closingNotice != null" >
+        closing_notice = #{closingNotice,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcSite" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_site
+    <where >
+      <if test="siteName != null" >
+        AND site_name = #{siteName,jdbcType=VARCHAR}
+      </if>
+      <if test="provinceCode != null" >
+        AND province_code = #{provinceCode,jdbcType=INTEGER}
+      </if>
+      <if test="cityCode != null" >
+        AND city_code = #{cityCode,jdbcType=INTEGER}
+      </if>
+      <if test="districtCode != null" >
+        AND district_code = #{districtCode,jdbcType=INTEGER}
+      </if>
+      <if test="siteAddress != null" >
+        AND site_address = #{siteAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="longitude != null" >
+        AND longitude = #{longitude,jdbcType=VARCHAR}
+      </if>
+      <if test="latitude != null" >
+        AND latitude = #{latitude,jdbcType=VARCHAR}
+      </if>
+      <if test="intoFlag != null" >
+        AND into_flag = #{intoFlag,jdbcType=INTEGER}
+      </if>
+      <if test="delState != null" >
+        AND del_state = #{delState,jdbcType=INTEGER}
+      </if>
+      <if test="openFlag != null" >
+        AND open_flag = #{openFlag,jdbcType=INTEGER}
+      </if>
+      <if test="closingNotice != null" >
+        AND closing_notice = #{closingNotice,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectMySiteListByUserId" resultType="com.weiwei.jixieche.vo.MySiteListVo">
+    SELECT DISTINCT ors.site_id AS siteId,
+				s.site_name AS siteName,
+				s.site_address AS siteAddress,
+				s.into_flag AS intoFlag,
+				s.open_flag AS openFlag
+    FROM jxc_order_ref_site ors
+    LEFT JOIN jxc_site s ON s.id = ors.site_id
+    WHERE ors.user_id = #{userId}
+    GROUP BY ors.site_id , ors.state
+    ORDER BY ors.state DESC
+  </select>
+
+  <select id="queryJxcSiteBankAccountBySiteId" resultType="com.weiwei.jixieche.bean.JxcSiteBankAccount">
+    SELECT bank_card_name AS bankCardName,
+           bank_card_number AS bankCardNumber,
+           card_real_name AS cardRealName
+    FROM jxc_site_bank_account
+    WHERE site_id = #{siteId}
+    AND disabled = 1
+  </select>
+
+  <select id="selectSiteIdList" resultType="java.lang.Integer">
+    SELECT DISTINCT ors.site_id
+    FROM jxc_project_order po
+    LEFT JOIN jxc_order_ref_site ors ON ors.tenantry_order_id = po.id
+    WHERE po.user_id = #{userId}
+    AND (po.order_state = 0 OR po.order_state = 2)
+  </select>
+
+  <select id="checkSiteState" resultType="com.weiwei.jixieche.vo.MySiteListVo">
+    SELECT ors.site_id AS siteId,
+    s.site_name AS siteName,
+    s.site_address AS siteAddress,
+    s.into_flag AS intoFlag,
+    s.open_flag AS openFlag,
+    ors.state AS state
+    FROM jxc_order_ref_site ors
+    LEFT JOIN jxc_site s ON s.id = ors.site_id
+    WHERE ors.user_id = #{userId}
+    AND ors.site_id = #{siteId}
+    GROUP BY ors.site_id , ors.state
+    ORDER BY ors.state DESC
+  </select>
+
+  <select id="getLowerPrice" resultType="java.math.BigDecimal">
+    SELECT ifnull(MIN(price),0) AS price
+    FROM jxc_site_coupon_type
+    WHERE site_id = #{siteId}
+    AND shelf_flag = 1
+  </select>
+
+  <select id="selectJxcSiteCouponTypeList" resultType="com.weiwei.jixieche.bean.JxcSiteCouponType">
+    SELECT id,
+           capacity,
+           site_id AS siteId,
+           coupon_type AS couponType,
+           price,
+           stock_num AS stockNum,
+           shelf_flag AS shelfFlag
+    FROM jxc_site_coupon_type
+    WHERE site_id = #{siteId}
+    AND shelf_flag = 1
+    GROUP BY coupon_type,capacity
+  </select>
+
+  <insert id="insertSiteOrder" parameterType="com.weiwei.jixieche.vo.JxcSiteOrderVo">
+    INSERT INTO jxc_site_order(id,site_id,tenantry_id,total_amount) VALUE (#{siteOrder.id},#{siteOrder.siteId},#{siteOrder.tenantryId},#{siteOrder.totalAmount})
+  </insert>
+
+  <select id="getSiteCouponType" resultType="com.weiwei.jixieche.bean.JxcSiteCouponType">
+    SELECT id,capacity,site_id AS siteId,coupon_type AS couponType,price,stock_num AS stockNum,shelf_flag AS shelfFlag
+    FROM jxc_site_coupon_type
+    WHERE id = #{couponTypeId}
+  </select>
+
+  <insert id="insertSiteOrderDetail" parameterType="com.weiwei.jixieche.bean.JxcSiteCouponOrder">
+    INSERT INTO jxc_site_coupon_order(order_id,coupon_type_id,num,price) VALUE (#{siteOrderDetail.orderId},#{siteOrderDetail.couponTypeId},#{siteOrderDetail.num},#{siteOrderDetail.price})
+  </insert>
+
+  <select id="countSoilCoupon" resultType="java.lang.Integer">
+    SELECT count(sc.id)
+    FROM jxc_site_order so
+    LEFT JOIN jxc_site_coupon sc ON sc.order_id = so.id
+    LEFT JOIN jxc_site_coupon_type sct ON sct.id = sc.coupon_type_id
+    WHERE so.tenantry_id = #{tenantryId}
+    AND so.site_id = #{siteId}
+    <if test="couponType != null">
+    AND sct.coupon_type = #{couponType}
+    AND sc.coupon_flag = 0
+    AND order_flag != 2
+    </if>
+  </select>
+
+  <select id="sumRealAmount" resultType="java.math.BigDecimal">
+    SELECT ifnull(sum(so.real_amount),0) AS  totalAmount
+    FROM jxc_site_order so
+    WHERE so.tenantry_id = #{tenantryId}
+    AND so.site_id = #{siteId}
+    AND order_flag != 2
+  </select>
+
+  <select id="countCouponOrder" resultType="java.lang.Integer">
+    SELECT count(so.id)
+    FROM jxc_site_order so
+    WHERE so.tenantry_id = #{tenantryId}
+    AND so.site_id = #{siteId}
+    AND order_flag != 2
+  </select>
+
+  <select id="selectSiteOrderList" parameterType="com.weiwei.jixieche.vo.JxcSiteOrderVo" resultType="com.weiwei.jixieche.vo.JxcSiteOrderVo">
+    SELECT id,total_amount AS totalAmount,
+            IFNULL(real_amount,0) AS realAmount,
+          order_Flag AS orderFlag,
+          DATE_FORMAT(create_time,'%Y-%m-%d %H:%i') AS createTime
+    FROM jxc_site_order
+    WHERE order_Flag != 2
+      <if test="siteOrderVo.siteId != null">
+      AND site_id = #{siteOrderVo.siteId}
+      </if>
+      <if test="siteOrderVo.tenantryId != null">
+      AND tenantry_id = #{siteOrderVo.tenantryId}
+      </if>
+      <if test="siteOrderVo.id != null">
+        AND id = #{siteOrderVo.id}
+      </if>
+  </select>
+
+  <select id="selectSiteCouponOrderList" resultType="com.weiwei.jixieche.vo.JxcSiteCouponOrderVo">
+    SELECT sct.capacity,sct.coupon_type AS couponType,sco.price,IFNULL(sum(sco.num),0) AS num ,IFNULL(SUM(sco.real_num),0) AS realNum
+    FROM jxc_site_coupon_order sco
+    LEFT JOIN jxc_site_coupon_type sct ON sct.id = sco.coupon_type_id
+    WHERE sco.order_id = #{orderId}
+    GROUP BY sct.capacity,sct.coupon_type
+  </select>
+  <select id="querySiteOrderDetailVoByOrderId" resultType="com.weiwei.jixieche.vo.SiteOrderDetailVo">
+    SELECT 	so.id AS orderId,
+            so.site_id AS siteId,
+            so.total_amount AS totalAmount,
+            so.real_amount AS realAmount,
+            ss.shoulder,
+            ss.phone,
+            so.order_flag AS orderFlag,
+            DATE_FORMAT(so.create_time,'%Y-%m-%d %H:%i:%s') AS createTime
+    FROM jxc_site_order so
+    LEFT JOIN jxc_site ss ON ss.id = so.site_id
+    WHERE so.id = #{orderId}
+  </select>
+
+  <select id="getGiveOutTime" resultType="java.lang.String">
+    SELECT DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') AS giveOutTime
+    FROM jxc_site_coupon
+    WHERE order_id = #{orderId}
+    LIMIT 1
+  </select>
+
+  <update id="cancelSiteOrder">
+      UPDATE jxc_site_order
+      SET order_flag = 2
+      WHERE id = #{orderId}
+      AND order_flag = 0;
+  </update>
+
+  <select id="countSoilCouponNum" resultType="java.lang.Integer">
+    SELECT count(sc.id) AS num
+    FROM jxc_site_coupon sc
+    LEFT JOIN jxc_site_coupon_type st ON st.id = sc.coupon_type_id
+    LEFT JOIN jxc_site_order so ON so.id = sc.order_id
+    WHERE so.site_id = #{siteOrderVo.siteId}
+    AND so.tenantry_id = #{siteOrderVo.tenantryId}
+    AND st.coupon_type = #{siteOrderVo.couponType}
+    <if test="flag == 1">
+      AND (sc.coupon_flag = 0 OR sc.coupon_flag = 1)
+    </if>
+    <if test="flag == 2">
+      AND (sc.coupon_flag = 2 OR sc.coupon_flag = 3)
+    </if>
+    <if test="capacity != null">
+      AND st.capacity = #{capacity}
+    </if>
+  </select>
+
+  <select id="queryCouponCapacity" resultType="java.lang.Integer">
+    SELECT st.capacity
+    FROM jxc_site_coupon sc
+    LEFT JOIN jxc_site_coupon_type st ON st.id = sc.coupon_type_id
+    LEFT JOIN jxc_site_order so ON so.id = sc.order_id
+    WHERE so.site_id = #{siteOrderVo.siteId}
+    AND so.tenantry_id = #{siteOrderVo.tenantryId}
+    AND st.coupon_type = #{siteOrderVo.couponType}
+    <if test="flag == 1">
+      AND (sc.coupon_flag = 0 OR sc.coupon_flag = 1)
+    </if>
+    <if test="flag == 2">
+      AND (sc.coupon_flag = 2 OR sc.coupon_flag = 3)
+    </if>
+    GROUP BY st.capacity
+    ORDER BY st.capacity ASC
+  </select>
+
+  <select id="selectSiteCouponList" resultType="com.weiwei.jixieche.vo.JxcSiteCouponVo">
+    SELECT sc.id, st.capacity, sc.coupon_flag AS couponFlag, sc.machine_id AS machineId, mm.machine_card_no AS machineCardNo
+    FROM jxc_site_coupon sc
+    LEFT JOIN jxc_site_coupon_type st ON st.id = sc.coupon_type_id
+    LEFT JOIN jxc_site_order so ON so.id = sc.order_id
+    LEFT JOIN jxc_machine mm ON mm.id = sc.machine_id
+    WHERE so.site_id = #{siteOrderVo.siteId}
+    AND so.tenantry_id = #{siteOrderVo.tenantryId}
+    AND st.coupon_type = #{siteOrderVo.couponType}
+    <if test="flag == 1">
+      AND (sc.coupon_flag = 0 OR sc.coupon_flag = 1)
+    </if>
+    <if test="flag == 2">
+      AND (sc.coupon_flag = 2 OR sc.coupon_flag = 3)
+    </if>
+  </select>
+
+  <select id="selectSiteCouponUsedList" resultType="com.weiwei.jixieche.vo.JxcSiteCouponVo">
+    SELECT sc.id,
+            st.coupon_type AS couponType,
+            st.capacity,
+            sc.coupon_flag AS couponFlag,
+            sc.abnormal_type AS abnormalType,
+            sc.abnormal_causes AS abnormalCauses,
+            mm.machine_card_no AS machineCardNo,
+            sc.abnormal_img AS abnormalImg
+    FROM jxc_site_coupon sc
+    LEFT JOIN jxc_site_coupon_type st ON st.id = sc.coupon_type_id
+    LEFT JOIN jxc_machine mm ON mm.id = sc.machine_id
+    WHERE sc.site_id = #{siteId}
+      AND sc.coupon_flag = 2
+    <if test="tabFlag == 1">
+      AND sc.abnormal_type = 0
+    </if>
+    <if test="tabFlag == 2">
+      AND (sc.abnormal_type = 1 OR sc.abnormal_type = 2)
+    </if>
+  </select>
+
+  <!-- 消纳场信息 -->
+    <select id="getSiteByUserId" resultType="com.weiwei.jixieche.bean.JxcSite">
+      select js.id, js.site_name as siteName from jxc_admin_ref_site jars
+        left join jxc_site js on jars.site_id = js.id
+        where jars.user_id = #{userId}
+    </select>
+
+</mapper>

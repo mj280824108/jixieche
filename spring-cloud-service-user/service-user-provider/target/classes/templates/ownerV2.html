@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-size: inherit!important;
+        }
+
+        .container {
+            color: rgba(255, 255, 255, 1);
+            font-family: PingFangSC-Regular;
+        }
+
+        .content {
+            width: 100%;
+            background: url(/images/beijing.png) no-repeat left top;
+            background-size: cover;
+        }
+
+        header {
+            text-align: center;
+            position: relative;
+            background: #1c1b20;
+            padding: 1.75rem 0 .75rem;
+        }
+
+        a,
+        a:hover {
+            text-decoration: none;
+            color: #000;
+            bottom: .75rem;
+        }
+
+        a.back {
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        a.back img {
+            position: relative;
+            top: .125rem;
+            width: 1.5rem;
+        }
+
+        .title {
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .logo {
+            padding: .8125rem 1rem;
+        }
+
+        .logo img {
+            width: 6.8125rem;
+            height: 1.25rem;
+        }
+
+        .welcome {
+            text-align: center;
+        }
+
+        .welTitle {
+            width: 9.5625rem;
+            height: 3.1875rem;
+        }
+
+        .jizhu {
+            width: 18.0625rem;
+            height: 3.0625rem;
+        }
+
+        .register {
+            width: 2.125rem;
+            height: 1.3125rem;
+            margin-bottom: .375rem;
+        }
+
+        .subtit {
+            margin-top: .6875rem;
+            width: 7.3125rem;
+            height: 2.5rem;
+        }
+
+        .down {
+            width: 19.625rem;
+            height: 13.125rem;
+            text-align: center;
+            background: url(/images/down-bg.png) no-repeat left top;
+            background-size: 100%;
+            margin: .75rem auto;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .down a.btn {
+            display: block;
+            width: 11.625rem;
+            background: url(/images/btn.png) no-repeat left top;
+            background-size: 100%;
+            font-size: 1.125rem;
+            color: #fff;
+            padding: 1rem 0 1.5625rem;
+            font-family: PingFang-SC-Heavy;
+            position: absolute;
+            bottom: -1.5625rem;
+        }
+
+        .down img {
+            width: .9375rem;
+            height: .9375rem;
+            position: relative;
+            top: .125rem;
+        }
+        .benefit{
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .benefit .top {
+            width: 11.1875rem;
+            height: 2.1875rem;
+            line-height:  2.1875rem;
+            background: url(/images/bene-bg.png) no-repeat center center;
+            background-size: 100%;
+            text-align: center;
+            font-size: 1.125rem;
+            position: absolute;
+            top: -0.5625rem;
+        }
+        .benefit .body{
+            width: 20.25rem;
+            height: 29.625rem;
+        }
+        .join{
+            font-size: .8125rem;
+            padding: 0 1.25rem;
+            overflow: hidden;
+            background: #3C4161;
+        }
+        .join div {
+            display: inline-block;
+            padding: 1.1875rem 0;
+        }
+        .join a{
+            display: inline-block;
+            width: 4.375rem;
+            height: 1.875rem;
+            text-align: center;
+            line-height: 1.875rem;
+            background: #fff;
+            border-radius: .125rem;
+            font-size: .8125rem;
+            color: #3C4161;
+            float: right;
+            margin: .75rem 0;
+        }
+    </style>
+    <script>
+        //适配
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if (clientWidth >= 640) {
+                        docEl.style.fontSize = '16px';
+                    } else {
+                        docEl.style.fontSize = 16 * (clientWidth / 640) + 'px';
+                    }
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 头部 -->
+       <!--  <header class="header">
+            <a class="back" href="javaScript:history.go(-1);">
+                <img src="images/back.png">
+                <span>返回</span>
+            </a>
+            <div class="title"> 喂喂机械邀请注册 </div>
+        </header> -->
+        <!-- body -->
+        <div class="content">
+            <div class="logo">
+                <img src="/images/logo.jpg" alt="">
+            </div>
+            <div class="welcome">
+                <p>
+                    <img class="welTitle" src="/images/welcome.png" alt="">
+                    <img class="register" src="/images/register.png" alt="">
+                </p>
+                <p>
+                    <img class="jizhu" src="/images/title.png" alt="">
+                </p>
+                <p>
+                    <img class="subtit" src="/images/subtitle.png" alt="">
+                </p>
+            </div>
+            <div class="down">
+                <a id="btn" class="btn">
+                    点击下载
+                    <img src="/images/right.png" alt="">
+                </a>
+            </div>
+            <div class="benefit">
+                <div class="top">
+                    车主版四大优势
+                </div>
+                <div style="width:100%;text-align: center;">
+                        <img class="body" src="/images/benefit.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <div class="join">
+                <div>你还在等什么，赶紧加入吧！！！</div>
+                <a id="DApp">立即加入</a>
+        </div>
+    </div>
+    <script>
+        var downland=function () {
+            var ua = navigator.userAgent.toLowerCase();
+            console.log(ua);
+            var isAndroid = ua.indexOf('android') != -1;
+            var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+            if(isIos){
+                window.location.href='https://itunes.apple.com/cn/app/id1454609157?mt=8'
+            }
+            if(isAndroid){
+                window.location.href='https://www.pgyer.com/A8Cb'
+            }
+        }
+
+        $('#DApp').click(function () {
+            downland()
+        })
+        $('#btn').click(function () {
+            downland()
+        })
+    </script>
+</body>
+
+</html>

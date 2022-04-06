@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcProject" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_leader" property="projectLeader" jdbcType="VARCHAR" />
+    <result column="leader_phone" property="leaderPhone" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="INTEGER" />
+    <result column="district_code" property="districtCode" jdbcType="INTEGER" />
+    <result column="project_address" property="projectAddress" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="land_license_img" property="landLicenseImg" jdbcType="VARCHAR" />
+    <result column="license_start_date" property="licenseStartDate" jdbcType="DATE" />
+    <result column="license_end_date" property="licenseEndDate" jdbcType="DATE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_id, img_id, project_name, project_leader, leader_phone, longitude, latitude, 
+    city_code, district_code, project_address,start_date, end_date, land_license_img,
+    license_start_date, license_end_date, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, user_id AS userId, img_id AS imgId, project_name AS projectName, project_leader AS projectLeader, 
+    leader_phone AS leaderPhone, longitude, latitude, city_code AS cityCode, district_code AS districtCode, 
+    project_address AS projectAddress, DATE_FORMAT(start_date,'%Y-%m-%d') AS startDate, DATE_FORMAT(end_date,'%Y-%m-%d') AS endDate,
+    land_license_img AS landLicenseImg, license_start_date AS licenseStartDate, license_end_date AS licenseEndDate, 
+    create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultType="com.weiwei.jixieche.bean.JxcProject" parameterType="java.lang.Integer" >
+    select 
+    <include refid="BaseAliasColumn" />
+    from jxc_project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcProject" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="imgId != null" >
+        img_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="projectLeader != null" >
+        project_leader,
+      </if>
+      <if test="leaderPhone != null" >
+        leader_phone,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="districtCode != null" >
+        district_code,
+      </if>
+      <if test="projectAddress != null" >
+        project_address,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="landLicenseImg != null" >
+        land_license_img,
+      </if>
+      <if test="licenseStartDate != null" >
+        license_start_date,
+      </if>
+      <if test="licenseEndDate != null" >
+        license_end_date,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectLeader != null" >
+        #{projectLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderPhone != null" >
+        #{leaderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="districtCode != null" >
+        #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="projectAddress != null" >
+        #{projectAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="landLicenseImg != null" >
+        #{landLicenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseStartDate != null" >
+        #{licenseStartDate,jdbcType=DATE},
+      </if>
+      <if test="licenseEndDate != null" >
+        #{licenseEndDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcProject" >
+    update jxc_project
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectLeader != null" >
+        project_leader = #{projectLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderPhone != null" >
+        leader_phone = #{leaderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="districtCode != null" >
+        district_code = #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="projectAddress != null" >
+        project_address = #{projectAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="landLicenseImg != null" >
+        land_license_img = #{landLicenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseStartDate != null" >
+        license_start_date = #{licenseStartDate,jdbcType=DATE},
+      </if>
+      <if test="licenseEndDate != null" >
+        license_end_date = #{licenseEndDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcProject" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_project
+    <where >
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="imgId != null" >
+        AND img_id = #{imgId,jdbcType=INTEGER}
+      </if>
+      <if test="projectName != null" >
+        AND project_name = #{projectName,jdbcType=VARCHAR}
+      </if>
+      <if test="projectLeader != null" >
+        AND project_leader = #{projectLeader,jdbcType=VARCHAR}
+      </if>
+      <if test="leaderPhone != null" >
+        AND leader_phone = #{leaderPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="longitude != null" >
+        AND longitude = #{longitude,jdbcType=VARCHAR}
+      </if>
+      <if test="latitude != null" >
+        AND latitude = #{latitude,jdbcType=VARCHAR}
+      </if>
+      <if test="cityCode != null" >
+        AND city_code = #{cityCode,jdbcType=INTEGER}
+      </if>
+      <if test="districtCode != null" >
+        AND district_code = #{districtCode,jdbcType=INTEGER}
+      </if>
+      <if test="projectAddress != null" >
+        AND project_address = #{projectAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="startDate != null" >
+        AND start_date = #{startDate,jdbcType=DATE}
+      </if>
+      <if test="endDate != null" >
+        AND end_date = #{endDate,jdbcType=DATE}
+      </if>
+      <if test="landLicenseImg != null" >
+        AND land_license_img = #{landLicenseImg,jdbcType=VARCHAR}
+      </if>
+      <if test="licenseStartDate != null" >
+        AND license_start_date = #{licenseStartDate,jdbcType=DATE}
+      </if>
+      <if test="licenseEndDate != null" >
+        AND license_end_date = #{licenseEndDate,jdbcType=DATE}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <select id="checkDistrictCode" resultType="java.util.HashMap">
+    SELECT d.pid,CASE WHEN exists (SELECT 1 FROM jxc_opened_city oc WHERE oc.city_id = d.pid) THEN 1 ELSE 0 END AS isOpened
+	FROM jxc_area d
+    WHERE d.id = #{districtId}
+  </select>
+
+  <select id="checkCityCode" resultType="java.lang.Integer">
+    SELECT city_id
+    FROM jxc_opened_city
+    WHERE city_id = #{cityId}
+  </select>
+
+  <select id="selectJxcProjectList" resultType="com.weiwei.jixieche.bean.JxcProject">
+    SELECT <include refid="BaseAliasColumn" />
+    FROM jxc_project
+    WHERE
+      user_id = #{userId}
+    <if test="flag != null">
+      <if test="flag == 0">
+        AND end_date &gt;= DATE_FORMAT(NOW(),'%Y-%m-%d')
+      </if>
+      <if test="flag == 1">
+      AND end_date &lt; DATE_FORMAT(NOW(),'%Y-%m-%d')
+      </if>
+    </if>
+    <if test="flag == null">
+      ORDER BY create_time DESC
+    </if>
+  </select>
+
+  <select id="tenantryViewMachineList" resultType="com.weiwei.jixieche.vo.JxcMachineListVo">
+    SELECT
+    po.id AS orderId,
+    oo.id AS ownerOrderId,
+    oo.machine_id AS machineId,
+    mm.machine_card_no AS machineCardNo,
+    ow.real_name as ownerName,
+    ow.phone AS phone,
+    po.account_method AS accountMethod,
+    DATE_FORMAT(po.start_date,'%Y-%m-%d') AS startDate,
+    DATE_FORMAT(po.end_date,'%Y-%m-%d') AS endDate,
+    po.order_state AS orderState,
+    oo.order_state AS ownerOrderState,
+    t.totalRouteCount,
+    mm.machine_img AS machineImg
+    FROM
+    jxc_owner_order oo
+    LEFT JOIN jxc_project_order po ON po.id = oo.tenantry_order_id
+    LEFT JOIN jxc_machine mm ON mm.id = oo.machine_id
+    LEFT JOIN jxc_user ow ON ow.id = oo.user_id
+    LEFT JOIN (
+    SELECT
+    owner_order_id,
+    count(id) AS totalRouteCount
+    FROM
+    jxc_machine_route
+    GROUP BY
+    owner_order_id
+    ) t ON t.owner_order_id = oo.id
+    WHERE
+    po.project_id = #{projectId}
+    <if test="flag == 1">
+      AND oo.order_state = 0
+    </if>
+    <if test="flag == 2">
+      AND oo.order_state = 2
+    </if>
+    <if test="flag == 3">
+      AND ((po.order_state = 2 AND oo.order_state = 3) OR oo.order_state = 3 OR oo.order_state = 4)
+    </if>
+  </select>
+
+  <select id="getScoreIdByTargetId" resultType="java.lang.Long">
+    SELECT ifnull(score_id,-1) AS scoreId FROM jxc_score WHERE target_id =#{targetId} AND order_id = #{orderId} AND score_type = 1 order by update_time desc limit 1
+  </select>
+
+  <select id="selectProjectProgressByDay" resultType="com.weiwei.jixieche.vo.JxcProjectProgressVo">
+    SELECT t.dateStr,t3.totalCount,ifnull(t1.totalNoPay,0) AS totalNoPay,ifnull(t2.totalPay,0) AS totalPay
+    FROM (
+    SELECT DATE_FORMAT(ifnull(mr.start_time,mr.end_time),'%Y-%m-%d') AS dateStr,count(mr.id) AS totalCount
+    FROM jxc_machine_route mr
+    LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+    WHERE po.project_id = #{projectId}
+    AND (mr.abnormal_type != 0 OR mr.pay_state != 0)
+    GROUP BY dateStr
+    ORDER BY dateStr DESC ) t
+    LEFT JOIN (SELECT SUM(mr.amount) AS totalNoPay,DATE_FORMAT(ifnull(mr.start_time,mr.end_time),'%Y-%m-%d') AS dateStr
+    FROM jxc_machine_route mr
+    LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+    WHERE po.project_id = #{projectId}
+    AND mr.pay_state = 1
+    GROUP BY dateStr ORDER BY dateStr DESC) t1 ON t1.dateStr = t.dateStr
+    LEFT JOIN (SELECT SUM(mr.amount) AS totalPay,DATE_FORMAT(ifnull(mr.start_time,mr.end_time),'%Y-%m-%d') AS dateStr
+    FROM jxc_machine_route mr
+    LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+    WHERE po.project_id = #{projectId}
+    AND mr.pay_state = 2
+    GROUP BY dateStr ORDER BY dateStr DESC) t2 ON t2.dateStr = t.dateStr
+    LEFT JOIN (SELECT count(mr.id) AS totalCount,DATE_FORMAT(ifnull(mr.start_time,mr.end_time),'%Y-%m-%d') AS dateStr
+    FROM jxc_machine_route mr
+    LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+    WHERE po.project_id = #{projectId}
+    AND (mr.abnormal_type != 0 OR mr.pay_state != 0)
+    GROUP BY dateStr ORDER BY dateStr DESC) t3 ON t3.dateStr = t.dateStr
+  </select>
+
+  <select id="selectProjectTotalProgress" resultType="com.weiwei.jixieche.vo.JxcProjectTotalProgressVo">
+    SELECT pp.project_name AS projectName,
+            MAX(po.estimate_transport_times) AS totalTransportTimes,
+            count(mr.id) AS totalCompleteTimes,
+			ifnull(t2.totalPayAmount,0) totalPayAmount
+    FROM  jxc_project pp
+    LEFT JOIN jxc_project_order po ON pp.id = project_id
+    LEFT JOIN jxc_machine_route mr  ON  po.id = mr.tenantry_order_id
+   LEFT JOIN (SELECT po.project_id,SUM(mr.amount) AS totalPayAmount
+              FROM jxc_machine_route mr
+              LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+              WHERE po.project_id = #{projectId}
+              AND mr.pay_state = 2
+            ) t2 ON t2.project_id = po.project_id
+    WHERE (po.project_id = #{projectId} AND ISNULL(mr.id))
+    OR (po.project_id = #{projectId} AND (mr.abnormal_type != 0 OR mr.pay_state != 0))
+  </select>
+
+  <select id="countOrderByProjectId" resultType="int">
+    SELECT count(id)
+    FROM jxc_project_order
+    WHERE project_id = #{projectId}
+  </select>
+
+  <delete id="delProject">
+    DELETE FROM jxc_project WHERE id = #{projectId}
+  </delete>
+
+  <select id="getSendOrderFlag" resultType="java.lang.Integer">
+    SELECT send_order
+    FROM jxc_user
+    WHERE id = #{userId}
+  </select>
+
+
+</mapper>

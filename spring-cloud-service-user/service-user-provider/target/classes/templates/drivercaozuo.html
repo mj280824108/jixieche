@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>司机操作</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/md5.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.7.0/animate.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            padding: 0px 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div style="font-size: 0.30rem;color: #7E818E;;margin-bottom: 0.29rem;margin-top: 0.15rem;padding: 0.24rem 0.2rem  0.24rem 0.3rem;background: #F9FAFB;">
+        <p>1、泥头车需要设置司机才能进行接单</p>
+        <p>2、装车完成后需要司机展示二维码给施工方扫码记录</p>
+        <p>3、进入消纳场后需要消纳场扫司机二维码记录结束</p>
+        <p>4、有出发和结束记录会记录趟数并获取收益</p>
+    </div>
+    <div style="font-size: 0.28rem;color: #333333;;margin-bottom: 0.28rem;margin-top: 0.15rem; ">
+        第一步：司机开工前点击上班按钮，进入上班中状态
+    </div>
+    <div>
+        <img style="width: 100%;" src="/images/banStep_1.png" alt="">
+    </div>
+    <div style="font-size: 0.28rem;color: #333333;;margin-bottom: 0.28rem;margin-top: 0.15rem; ">
+        第二步：司机装货开出施工地点击二维码给施工方扫码记录出发时间
+    </div>
+    <div>
+        <img style="width: 100%;" src="/images/banStep_2.png" alt="">
+    </div>
+    <div style="font-size: 0.28rem;color: #333333;;margin-bottom: 0.28rem;margin-top: 0.15rem; ">
+        第三步：司机进入消纳场前点开二维码给消纳场员工扫码确定
+    </div>
+    <div>
+        <img style="width: 100%;" src="/images/banStep_3.png" alt="">
+    </div>
+    <div style="font-size: 0.32rem;color: #999999;;margin-bottom: 0.77rem;margin-top: 0.26rem; ">
+        展示司机二维码给施工地或者消纳场扫码记录趟数，并获取收益。下班点击下班按钮方便下个上班司机上班。
+    </div>
+</div>
+</body>
+<script >
+    (function(){
+        var currClientWidth,
+            fontValue,
+            originWidth;
+        originWidth = 750;//ui设计稿的宽度，一般750或640
+        __resize();
+
+        window.addEventListener('resize', __resize, false);
+        function __resize() {
+            currClientWidth = document.documentElement.clientWidth;
+            if (currClientWidth > 768){
+                currClientWidth = 768;
+            }
+            if (currClientWidth < 320){
+                currClientWidth = 320;
+            }
+            fontValue = ((625 * currClientWidth) / originWidth).toFixed(2);
+            document.documentElement.style.fontSize = fontValue + '%';
+            console.log(document.documentElement.style.fontSize);
+        }
+    })();
+</script>
+<script >
+
+</script>
+</html>

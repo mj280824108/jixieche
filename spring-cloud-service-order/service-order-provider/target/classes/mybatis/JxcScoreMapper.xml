@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcScore" >
+    <id column="score_id" property="scoreId" jdbcType="BIGINT" />
+    <result column="source_id" property="sourceId" jdbcType="BIGINT" />
+    <result column="target_id" property="targetId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="score_type" property="scoreType" jdbcType="TINYINT" />
+    <result column="score" property="score" jdbcType="REAL" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="fire_words" property="fireWords" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    score_id, source_id, target_id, order_id, score_type, score, content, fire_words,
+    create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    score_id AS scoreId, source_id AS sourceId, target_id AS targetId, order_id AS orderId,
+    score_type AS scoreType, score, content, fire_words AS fireWords, create_time AS createTime, 
+    update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_score
+    where score_id = #{scoreId,jdbcType=BIGINT}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcScore" >
+    insert into jxc_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scoreId != null" >
+        score_id,
+      </if>
+      <if test="sourceId != null" >
+        source_id,
+      </if>
+      <if test="targetId != null" >
+        target_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="scoreType != null" >
+        score_type,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="fireWords != null" >
+        fire_words,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scoreId != null" >
+        #{scoreId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="targetId != null" >
+        #{targetId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreType != null" >
+        #{scoreType,jdbcType=TINYINT},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=REAL},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fireWords != null" >
+        #{fireWords,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcScore" >
+    update jxc_score
+    <set >
+      <if test="sourceId != null" >
+        source_id = #{sourceId,jdbcType=BIGINT},
+      </if>
+      <if test="targetId != null" >
+        target_id = #{targetId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreType != null" >
+        score_type = #{scoreType,jdbcType=TINYINT},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=REAL},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fireWords != null" >
+        fire_words = #{fireWords,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where score_id = #{scoreId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcScore" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_score
+    <where >
+      <if test="sourceId != null" >
+        AND source_id = #{sourceId,jdbcType=BIGINT}
+      </if>
+      <if test="targetId != null" >
+        AND target_id = #{targetId,jdbcType=BIGINT}
+      </if>
+      <if test="orderId != null" >
+        AND order_id = #{orderId,jdbcType=VARCHAR}
+      </if>
+      <if test="scoreType != null" >
+        AND score_type = #{scoreType,jdbcType=TINYINT}
+      </if>
+      <if test="score != null" >
+        AND score = #{score,jdbcType=REAL}
+      </if>
+      <if test="content != null" >
+        AND content = #{content,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="fireWords != null" >
+        AND fire_words = #{fireWords,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!--************************-->
+  <!--查询最新100条数据提取热词-->
+  <select id="queryTopScoreList" resultType="com.weiwei.jixieche.bean.JxcScore">
+    SELECT content
+    from jxc_score  WHERE content is not null
+    ORDER BY update_time desc LIMIT 100
+  </select>
+
+</mapper>

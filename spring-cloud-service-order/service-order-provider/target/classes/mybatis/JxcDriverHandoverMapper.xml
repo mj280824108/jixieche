@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcDriverHandoverMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcDriverHandover" >
+    <id column="route_id" property="routeId" jdbcType="BIGINT" />
+    <result column="third_id_down" property="thirdIdDown" jdbcType="VARCHAR" />
+    <result column="third_id_up" property="thirdIdUp" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    route_id, third_id_down, third_id_up, create_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    route_id AS routeId, third_id_down AS thirdIdDown, third_id_up AS thirdIdUp, create_time AS createTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_driver_handover
+    where route_id = #{routeId,jdbcType=BIGINT}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcDriverHandover" >
+    insert into jxc_driver_handover
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="routeId != null" >
+        route_id,
+      </if>
+      <if test="thirdIdDown != null" >
+        third_id_down,
+      </if>
+      <if test="thirdIdUp != null" >
+        third_id_up,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="routeId != null" >
+        #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="thirdIdDown != null" >
+        #{thirdIdDown,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdIdUp != null" >
+        #{thirdIdUp,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcDriverHandover" >
+    update jxc_driver_handover
+    <set >
+      <if test="thirdIdDown != null" >
+        third_id_down = #{thirdIdDown,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdIdUp != null" >
+        third_id_up = #{thirdIdUp,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where route_id = #{routeId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcDriverHandover" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_driver_handover
+    <where >
+      <if test="thirdIdDown != null" >
+        AND third_id_down = #{thirdIdDown,jdbcType=VARCHAR}
+      </if>
+      <if test="thirdIdUp != null" >
+        AND third_id_up = #{thirdIdUp,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_driver_handover
+    where route_id = #{routeId,jdbcType=BIGINT}
+  </select>
+</mapper>

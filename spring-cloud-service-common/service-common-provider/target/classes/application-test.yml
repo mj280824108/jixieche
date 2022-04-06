@@ -1,0 +1,169 @@
+server:
+  port: 8083
+  #站内信配置
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  max-http-header-size: 4048576
+
+spring:
+  application:
+    name: common-service-provider
+#数据库连接，应用名称以及文件上传设置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.79.4.103:3306/jxc-cloud?characterEncoding=utf8&useSSL=false&useJDBCCompliantTimezoneShift=true
+    username: root
+    password: xyx@123
+  redis:
+    database: 0
+    #host: 192.168.0.221
+    host: 172.18.10.6
+    port: 6379
+    #password: gongyou2018
+    password: jxc2018
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 10000ms
+  rabbitmq:
+    host: 120.79.4.103
+    port: 5672
+    username: gongyou
+    password: 123456
+eureka:
+  instance:
+    prefer-ip-address: true
+    #Eureka客户端向服务端发送心跳的时间间隔，单位为秒（客户端告诉服务端自己会按照该规则），默认30
+    lease-renewal-interval-in-seconds: 5
+    #Eureka服务端在收到最后一次心跳之后等待的时间上限，单位为秒，超过则剔除（客户端告诉服务端按照此规则等待自己），默认90
+    lease-expiration-duration-in-seconds: 7
+  client:
+    registry-fetch-interval-seconds: 5 #eureka client刷新本地缓存时间，默认30
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
+
+mybatis:
+  type-aliases-package: com.weiwei.jixieche.bean
+  mapper-locations: classpath:mybatis/*.xml,classpath:mybatis/*/*.xml
+
+#OSS配置
+#https://blog.csdn.net/hcjsjqjssm/article/details/80977735
+oss:
+  image:
+    endpoint: http://app.vvjx.cn
+    keyid: LTAIVdZxyuaWDtTk
+    keysecret: tTV2hHsf7FedFMEoOx8QnUXXJsDwi6
+    bucketname1: jixieche
+    filehost: ceshi/adminimg
+
+#阿里短信key和secret
+alimsg:
+  key: LTAIVdZxyuaWDtTk
+  secret: tTV2hHsf7FedFMEoOx8QnUXXJsDwi6
+  #控制是否推送到苹果手机生产环境
+  flag: false
+
+#华为推送参数
+pushkit:
+  owner:
+    secret: 6690d7e42660167e7631f27358141713b8af8d27e9482af9c6282e48b4f1b964
+    id: 100910545
+    page: com.gyzj.mechanicalsowner
+  url:
+    token: https://login.cloud.huawei.com/oauth2/v2/token
+    push: https://api.push.hicloud.com/pushsend.do?nsp_ctx=%7b%22ver%22%3a%221%22%2c+%22appId%22%3a%22100910545%22%7d
+
+#信鸽推送参数
+pushxg:
+  owner:
+    id: aa80270c0f6c1
+    secret: 3b4adaf4eecee5da01a313b86ccbfa23
+  url:
+    push: https://openapi.xg.qq.com/v3/push/app
+#小米推送参数
+pushmi:
+  owner:
+    id: 2882303761517942570
+    key: 5571794264570
+    secret: 86/Imeix5u4Vii3RImc6JQ==
+    page: com.gyzj.mechanicalsowner
+  ten:
+    id: 2882303761517942571
+    key: 5681794253571
+    secret: Lct6/0hHTgz1HTVjf4IYxw==
+    page: com.gyzj.mechanicalsuser
+#魅族推送参数
+pushmz:
+  owner:
+    appid: 122150
+    appkey: 061dddaf775046b280f13a1bf5ec2c93
+    appsecret: 403aac02346a49e4a5cef025041cf4df
+    page: com.gyzj.mechanicalsowner
+  ten:
+    appid: 122151
+    appkey: 2a0cbbf493d64122b803a64768a94d7a
+    appsecret: 471d005a6f764c98833efb159f6462d5
+    page: com.gyzj.mechanicalsuser
+
+#短信是否发送
+short:
+  msg: true
+
+#百度鹰眼
+eagle:
+  eyes:
+    ak: 2bCjcdq2nDOA4BZf24wcezoFM5yQbYcD
+    serviceId: 212169
+    urlAddEntity: http://yingyan.baidu.com/api/v3/entity/add
+    urlQueryEntity: http://yingyan.baidu.com/api/v3/entity/list
+    urlGetDistace: http://yingyan.baidu.com/api/v3/track/getdistance
+
+#极光推送配置账号参数
+jpush:
+  app:
+    ownerKey: 09f5c44bcc0cdaded442ec4a
+    ownerSecret: e8a9fa6c3a841c61e8fb5cc7
+    tenantryKey: c39e592d40c83ddbeeed5d3f
+    tenantrySecret: b8afc93cd4eddf39d2901ccc
+    batchSendSize: 200
+  #是否推送
+  flag: false
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#声明Feign的 hystrix支持,如果设置为true，则断路器备用方法将不起作用，默认为false
+feign:
+     hystrix:
+         enabled: true
+#hystrix的超时时间
+hystrix:
+    command:
+        default:
+            execution:
+              timeout:
+                enabled: true
+              isolation:
+                    thread:
+                        timeoutInMilliseconds: 9000
+#ribbon的超时时间
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+#日志记录设置
+logging:
+  file: /www/wwwlogs/springcloud/commonProvider/yytn.log
+  level:
+       com:
+           weiwei:
+                    jixieche: trace
+       root: warn

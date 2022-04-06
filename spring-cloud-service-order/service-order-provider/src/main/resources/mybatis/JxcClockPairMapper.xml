@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcClockPairMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcClockPair" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="clock_id" property="clockId" jdbcType="BIGINT" />
+    <result column="clock_in_id" property="clockInId" jdbcType="BIGINT" />
+    <result column="driver_id" property="driverId" jdbcType="INTEGER" />
+    <result column="machine_id" property="machineId" jdbcType="INTEGER" />
+    <result column="short_job_id" property="shortJobId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="pay_state" property="payState" jdbcType="INTEGER" />
+    <result column="apply_state" property="applyState" jdbcType="INTEGER" />
+    <result column="fact_amount" property="factAmount" javaType="INTEGER" />
+    <result column="clock_count" property="clockCount" javaType="INTEGER" />
+    <result column="total_route" property="totalRoute" javaType="INTEGER" />
+    <result column="work_hours" property="workHours" javaType="DOUBLE" />
+    <result column="over_train_num" property="overTrainNum" javaType="INTEGER" />
+    <result column="clock_date" property="clockDate" javaType="DATE" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, clock_id, clock_in_id, driver_id, machine_id, short_job_id, create_time, pay_state, 
+    apply_state, fact_amount, clock_count, total_route, work_hours, over_train_num
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, clock_id AS clockId, clock_in_id AS clockInId, driver_id AS driverId, machine_id AS machineId, 
+    short_job_id AS shortJobId, create_time AS createTime, pay_state AS payState, apply_state AS applyState,
+    fact_amount as factAmount, clock_count as clockCount, total_route as totalRoute, work_hours as work_hours,
+    over_train_num as overTrainNum
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_clock_pair
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcClockPair" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_clock_pair
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clockId != null" >
+        clock_id,
+      </if>
+      <if test="clockInId != null" >
+        clock_in_id,
+      </if>
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="machineId != null" >
+        machine_id,
+      </if>
+      <if test="shortJobId != null" >
+        short_job_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="payState != null" >
+        pay_state,
+      </if>
+      <if test="applyState != null" >
+        apply_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clockId != null" >
+        #{clockId,jdbcType=BIGINT},
+      </if>
+      <if test="clockInId != null" >
+        #{clockInId,jdbcType=BIGINT},
+      </if>
+      <if test="driverId != null" >
+        #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="machineId != null" >
+        #{machineId,jdbcType=INTEGER},
+      </if>
+      <if test="shortJobId != null" >
+        #{shortJobId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payState != null" >
+        #{payState,jdbcType=INTEGER},
+      </if>
+      <if test="applyState != null" >
+        #{applyState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcClockPair" >
+    update jxc_clock_pair
+    <set >
+      <if test="clockId != null" >
+        clock_id = #{clockId,jdbcType=BIGINT},
+      </if>
+      <if test="clockInId != null" >
+        clock_in_id = #{clockInId,jdbcType=BIGINT},
+      </if>
+      <if test="driverId != null" >
+        driver_id = #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="machineId != null" >
+        machine_id = #{machineId,jdbcType=INTEGER},
+      </if>
+      <if test="shortJobId != null" >
+        short_job_id = #{shortJobId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payState != null" >
+        pay_state = #{payState,jdbcType=INTEGER},
+      </if>
+      <if test="applyState != null" >
+        apply_state = #{applyState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcClockPair" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_clock_pair
+    <where >
+      <if test="clockId != null" >
+        AND clock_id = #{clockId,jdbcType=BIGINT}
+      </if>
+      <if test="clockInId != null" >
+        AND clock_in_id = #{clockInId,jdbcType=BIGINT}
+      </if>
+      <if test="driverId != null" >
+        AND driver_id = #{driverId,jdbcType=INTEGER}
+      </if>
+      <if test="machineId != null" >
+        AND machine_id = #{machineId,jdbcType=INTEGER}
+      </if>
+      <if test="shortJobId != null" >
+        AND short_job_id = #{shortJobId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="payState != null" >
+        AND pay_state = #{payState,jdbcType=INTEGER}
+      </if>
+      <if test="applyState != null" >
+        AND apply_state = #{applyState,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+
+    <!--*******************************************************-->
+  <!--批量更新台班支付状态-->
+  <update id="updateBatchClockPayStatus" parameterType="com.weiwei.jixieche.vo.UpdateBatchClockPayStatusVo">
+    UPDATE jxc_clock_pair SET pay_state =#{payState}  WHERE jmr.id IN
+    <foreach collection="clockIdList" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+
+  <!-- 更新台班支付状态 -->
+  <update id="updateClockPayStatus">
+    UPDATE jxc_clock_pair SET pay_state = 1  WHERE clock_id = #{clockId}
+  </update>
+
+    <!-- 更新台班申请状态为申诉中 -->
+    <update id="updateClockApplyState">
+        UPDATE jxc_clock_pair SET apply_state = 1  WHERE clock_id = #{clockId}
+    </update>
+
+    <!-- 检查是否有未支付 -->
+  <select id="getCountPayByDriverId" resultType="java.lang.Integer">
+    SELECT
+        count( jcp.id )
+    FROM
+        jxc_clock_pair jcp
+    WHERE
+        jcp.driver_id = #{driverId}
+        AND jcp.short_job_id = #{shortJobId}
+        AND pay_state = 0
+  </select>
+
+  <!-- 司机考勤工资 -->
+  <select id="getDriverClockDateById" resultType="com.weiwei.jixieche.vo.ClockRecordVo">
+    SELECT
+        jcp.clock_id as clockId,
+        jcp.driver_id as driverId,
+        jcp.machine_id as machineId,
+        jcp.short_job_id as shortJobId,
+        jcp.pay_state as payState,
+        jcp.apply_state as applyState,
+        jcp.clock_date as clockDate,
+        jcp.fact_amount as factAmount,
+        jcp.clock_count as clockCount,
+        jcp.total_route as totalTrainNum,
+        jcp.work_hours as workHours,
+        jcp.over_train_num as overTrainNum,
+        jm.machine_card_no as machineCarNo
+    FROM
+        jxc_clock_pair jcp
+        LEFT JOIN jxc_machine jm on jcp.machine_id = jm.id
+        <where>
+          <if test="params.driverId != null and params.driverId != ''">
+            jcp.driver_id = #{params.driverId}
+          </if>
+          <if test="params.shortJobId != null and params.shortJobId != ''">
+            and jcp.short_job_id = #{params.shortJobId}
+          </if>
+          <if test="params.clockDate != null and params.clockDate != ''">
+            and jcp.clock_date = #{params.clockDate}
+          </if>
+          <if test="params.lastPageLastId != null and params.lastPageLastId != ''">
+            <![CDATA[ and jcp.clock_id < #{params.lastPageLastId} ]]>
+          </if>
+          <if test="params.clockId != null and params.clockId != ''">
+            and jcp.clock_id = #{params.clockId}
+          </if>
+        </where>
+    limit 10
+  </select>
+
+  <select id="hasNextPage" resultType="java.lang.Long">
+      SELECT
+        jcp.clock_id as clockId
+      FROM
+        jxc_clock_pair jcp
+        LEFT JOIN jxc_machine jm on jcp.machine_id = jm.id
+        <where>
+          <if test="params.driverId != null and params.driverId != ''">
+            jcp.driver_id = #{params.driverId}
+          </if>
+          <if test="params.shortJobId != null and params.shortJobId != ''">
+            and jcp.short_job_id = #{params.shortJobId}
+          </if>
+          <if test="params.clockDate != null and params.clockDate != ''">
+            and jcp.clock_date = #{params.clockDate}
+          </if>
+          <if test="params.lastPageLastId != null and params.lastPageLastId != ''">
+            <![CDATA[ and jcp.clock_id < #{params.lastPageLastId} ]]>
+          </if>
+        </where>
+      limit 1
+  </select>
+
+  <!-- 司机打卡记录 -->
+  <select id="getDriverClockDate" resultType="com.weiwei.jixieche.vo.ClockRecordVo">
+    select t.* from (
+    SELECT
+    null AS clockId,
+    jci.driver_id AS driverId,
+    '' AS machineId,
+    jci.short_job_id AS shortJobId,
+    0 AS payState,
+    0 AS applyState,
+    DATE_FORMAT( now( ), '%Y-%m-%d' ) AS clockDate,
+    0 AS factAmount,
+    0 AS clockCount,
+    0 AS totalTrainNum,
+    0 AS workHours,
+    0 AS overTrainNum,
+    '' AS machineCarNo
+    from jxc_clock_in_out_pair jci
+    WHERE
+    jci.short_job_id IS NOT NULL
+    AND (DATE_FORMAT( jci.clock_out_time, '%Y-%m-%d' ) = DATE_FORMAT( now( ), '%Y-%m-%d' ) or jci.clock_out_time is null)
+    <if test="params.driverUserId != null and params.driverUserId != ''">
+      and jci.driver_id = #{params.driverUserId}
+    </if>
+    <if test="params.shortJobId != null and params.shortJobId != ''">
+      and jci.short_job_id = #{params.shortJobId}
+    </if>
+    group by jci.clock_out_time
+    union
+    SELECT
+    jcp.clock_id as clockId,
+    jcp.driver_id as driverId,
+    jcp.machine_id as machineId,
+    jcp.short_job_id as shortJobId,
+    jcp.pay_state as payState,
+    jcp.apply_state as applyState,
+    jcp.clock_date as clockDate,
+    jcp.fact_amount as factAmount,
+    jcp.clock_count as clockCount,
+    jcp.total_route as totalTrainNum,
+    jcp.work_hours as workHours,
+    jcp.over_train_num as overTrainNum,
+    jm.machine_card_no as machineCarNo
+    FROM
+    jxc_clock_pair jcp
+    LEFT JOIN jxc_machine jm on jcp.machine_id = jm.id
+    ) t
+    <where>
+      <if test="params.driverUserId != null and params.driverUserId != ''">
+        t.driverId = #{params.driverUserId}
+      </if>
+      <if test="params.shortJobId != null and params.shortJobId != ''">
+        and t.shortJobId = #{params.shortJobId}
+      </if>
+      <if test="params.clockDate != null and params.clockDate != ''">
+        and t.clockDate = #{params.clockDate}
+      </if>
+      <if test="params.lastPageLastId != null and params.lastPageLastId != ''">
+        <![CDATA[ and t.clockId < #{params.lastPageLastId} ]]>
+      </if>
+      <if test="params.clockId != null and params.clockId != ''">
+        and t.clockId = #{params.clockId}
+      </if>
+    </where>
+    order by clockDate desc
+    limit 10
+  </select>
+
+  <select id="hasNextPageDriverClockDate" resultType="java.lang.Long">
+    SELECT
+      jcp.clock_id as clockId
+    FROM
+    jxc_clock_pair jcp
+    LEFT JOIN jxc_machine jm on jcp.machine_id = jm.id
+    <where>
+      <if test="params.driverUserId != null and params.driverUserId != ''">
+        jcp.driver_id = #{params.driverUserId}
+      </if>
+      <if test="params.shortJobId != null and params.shortJobId != ''">
+        and jcp.short_job_id = #{params.shortJobId}
+      </if>
+      <if test="params.clockDate != null and params.clockDate != ''">
+        and jcp.clock_date = #{params.clockDate}
+      </if>
+      <if test="params.lastPageLastId != null and params.lastPageLastId != ''">
+        <![CDATA[ and jcp.clock_id < #{params.lastPageLastId} ]]>
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <!-- 查询台班信息 -->
+  <select id="getByClockId" resultType="com.weiwei.jixieche.bean.JxcClockPair">
+    select driver_id as driverId, short_job_id as shortJobId, fact_amount as factAmount from jxc_clock_pair where clock_id = #{clockId}
+  </select>
+
+</mapper>

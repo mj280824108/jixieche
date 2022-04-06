@@ -1,0 +1,3 @@
+2020-03-11 10:46:45.800 INFO  [main] com.weiwei.jixieche.eureka.JixiecheEurekaApplication.logStartupProfileInfo:679 -The following profiles are active: dev
+2020-03-11 10:46:48.288 INFO  [main] c.sun.jersey.server.impl.application.WebApplicationImpl._initiate:815 -Initiating Jersey application, version 'Jersey: 1.19.1 03/11/2016 02:08 PM'
+2020-03-11 10:46:49.995 INFO  [main] com.weiwei.jixieche.eureka.JixiecheEurekaApplication.logStarted:59 -Started JixiecheEurekaApplication in 5.509 seconds (JVM running for 7.946)

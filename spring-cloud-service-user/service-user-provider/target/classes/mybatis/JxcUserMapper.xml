@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcUserMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="third_id" property="thirdId" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="user_source" property="userSource" jdbcType="INTEGER" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="pay_pwd" property="payPwd" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, phone, password, third_id, state, user_source, real_name, sex, head_img, pay_pwd,
+    create_time, update_time, last_login_time, score
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, phone, password, third_id AS thirdId, state, user_source AS userSource, real_name AS realName,
+    sex, head_img AS headImg, pay_pwd AS payPwd, create_time AS createTime, update_time AS updateTime,
+    last_login_time AS lastLoginTime, score
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcUser" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="thirdId != null" >
+        third_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="userSource != null" >
+        user_source,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="headImg != null" >
+        head_img,
+      </if>
+      <if test="payPwd != null" >
+        pay_pwd,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdId != null" >
+        #{thirdId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="userSource != null" >
+        #{userSource,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="headImg != null" >
+        #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="payPwd != null" >
+        #{payPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcUser" >
+    update jxc_user
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdId != null" >
+        third_id = #{thirdId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="userSource != null" >
+        user_source = #{userSource,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="payPwd != null" >
+        pay_pwd = #{payPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null" >
+        head_img = #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcUser" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_user
+    <where >
+      <if test="phone != null" >
+        AND phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null" >
+        AND password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="thirdId != null" >
+        AND third_id = #{thirdId,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null" >
+        AND state = #{state,jdbcType=INTEGER}
+      </if>
+      <if test="userSource != null" >
+        AND user_source = #{userSource,jdbcType=INTEGER}
+      </if>
+      <if test="realName != null" >
+        AND real_name = #{realName,jdbcType=VARCHAR}
+      </if>
+      <if test="sex != null" >
+        AND sex = #{sex,jdbcType=INTEGER}
+      </if>
+      <if test="headImg != null" >
+        AND head_img = #{headImg,jdbcType=VARCHAR}
+      </if>
+      <if test="payPwd != null" >
+        AND pay_pwd = #{payPwd,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="lastLoginTime != null" >
+        AND last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="score != null" >
+        AND score = #{score,jdbcType=DOUBLE}
+      </if>
+    </where>
+  </select>
+
+  <!--*********************************************-->
+  <!--根据用户userId查询用户角色信息-->
+  <select id="queryUserRoleByUserId" parameterType="com.weiwei.jixieche.vo.UserRoleVo" resultType="com.weiwei.jixieche.vo.UserRoleVo">
+      select jur.user_id AS userId,jr.id AS roleId,jur.id AS userRoleId,jr.role_name AS roleName
+      from jxc_user_role jur LEFT JOIN jxc_role jr ON jur.role_id = jr.id
+      WHERE jur.user_id =#{userId}
+  </select>
+
+  <!--机主个人信息-->
+  <select id="queryOwnerInfo" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.OwnerInfoVo">
+        SELECT ju.id AS userId,ju.head_img AS headImg,ifnull(juc.real_name,ju.real_name) AS realName,ju.phone AS phone,juc.id AS confirmId,
+        juc.card_code AS cardCode,juc.confirm_type AS confirmType,juc.owner_confirm_status AS ownerConfirmStatus
+        FROM jxc_user ju
+        LEFT JOIN jxc_user_confirm juc ON ju.id = juc.user_id
+        WHERE ju.id = #{userId}
+  </select>
+
+  <!--承租方个人信息-->
+  <select id="queryTenInfo" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.TenUserInfoVo">
+    SELECT ju.id AS userId,ju.head_img AS headImg,juc.real_name AS realName,ju.phone AS phone,juc.id AS confirmId,
+    juc.card_code AS cardCode,juc.confirm_type AS confirmType,juc.person_confirm_status AS personConfirmStatus,
+	juc.company_confirm_status AS companyConfirmStatus
+    FROM jxc_user ju
+    LEFT JOIN jxc_user_confirm juc ON ju.id = juc.user_id
+    WHERE ju.id = #{userId}
+  </select>
+
+  <!--司机个人信息-->
+  <select id="queryDriverInfo" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.DriverUserInfoVo">
+    SELECT ju.id AS userId,ju.head_img AS headImg,juc.real_name AS realName,ju.phone AS phone,juc.id AS confirmId,
+    juc.card_code AS cardCode,juc.confirm_type AS confirmType,
+    juc.certificate_validity_time AS certificateValidityTime,juc.licence_validity_time AS licenceValidityTime,
+    juc.driver_confirm_status AS driverConfirmStatus,juc.mud_driver_confirm_status AS mudDriverConfirmStatus
+    FROM jxc_user ju
+    LEFT JOIN jxc_user_confirm juc ON ju.id = juc.user_id
+    WHERE ju.id = #{userId}
+  </select>
+
+  <!--根据用户手机号和角色id查询用户信息-->
+  <select id="queryInfoByPhoneRoleId" parameterType="com.weiwei.jixieche.vo.UserRoleInfoVo" resultType="com.weiwei.jixieche.vo.UserRoleInfoVo">
+      select ju.id AS userId,ju.phone AS phone,jur.role_id AS roleId from jxc_user ju
+      LEFT JOIN jxc_user_role jur ON ju.id = jur.user_id
+      WHERE ju.phone =#{phone} AND jur.role_id=#{roleId}
+  </select>
+
+  <!--查询用户基本信息-->
+  <select id="queryUserInfo" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.UserInfoVo">
+      SELECT ju.id AS userId,ju.phone AS phone, ifnull(juc.real_name,ju.real_name) AS realName,ju.head_img AS headImg,juc.card_code AS cardCode,
+		ju.third_id as thirdId,juc.id AS confirmId,juc.confirm_type AS confirmType,juc.person_confirm_status AS personConfirmStatus,
+		juc.company_confirm_status AS companyConfirmStatus,juc.owner_confirm_status AS  ownerConfirmStatus,
+		juc.driver_confirm_status AS driverConfirmStatus,juc.mud_driver_confirm_status AS mudDriverConfirmStatus
+      FROM jxc_user ju
+      LEFT JOIN jxc_user_confirm juc ON ju.id = juc.user_id
+      WHERE ju.id = #{userId}
+  </select>
+
+  <!--查询用户基本信息-->
+  <select id="queryUserInfoByThirdId" resultType="com.weiwei.jixieche.vo.UserInfoVo">
+    SELECT ju.id AS userId,ju.phone AS phone, ifnull(juc.real_name,ju.real_name) AS realName,ju.head_img AS headImg,juc.card_code AS cardCode,
+    ju.third_id as thirdId,juc.id AS confirmId,juc.confirm_type AS confirmType,juc.person_confirm_status AS personConfirmStatus,
+    juc.company_confirm_status AS companyConfirmStatus,juc.owner_confirm_status AS  ownerConfirmStatus,
+    juc.driver_confirm_status AS driverConfirmStatus,juc.mud_driver_confirm_status AS mudDriverConfirmStatus
+    FROM jxc_user ju
+    LEFT JOIN jxc_user_confirm juc ON ju.id = juc.user_id
+    WHERE ju.third_id = #{thirdId,jdbcType=VARCHAR}
+  </select>
+
+  <!--查询司机未完成的机主订单的数量-->
+  <select id="queryDriverUnDoneOrder" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      select count(id) AS jobCount from (
+      select jsjrd.id,jsjrd.driver_id,jsjrd.state from jxc_short_job_ref_driver jsjrd
+      WHERE jsjrd.driver_id = #{userId})a WHERE a.state = 0 OR a.state = 1
+  </select>
+
+  <!--根据userId查询用户支付密码-->
+  <select id="queryUserPayPwdByUserId" parameterType="java.lang.Integer" resultType="java.lang.String">
+      SELECT pay_pwd AS payPwd FROM  jxc_user WHERE id = #{userId}
+  </select>
+
+  <!--根据userId查询店铺-->
+  <select id="queryShopsByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      SELECT ifnull(jms.id,0) AS shopsId FROM jxc_market_shops jms WHERE jms.shop_keeper_id = #{userId}
+  </select>
+
+</mapper>

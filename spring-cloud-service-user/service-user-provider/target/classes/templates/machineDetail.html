@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>市场详情</title>
+    <link rel="stylesheet" href="/css/machine.css">
+    <link rel="stylesheet" href="/css/iconfont.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.bootcss.com/vue/2.4.0/vue.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        // 适配
+        (function(doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if (clientWidth >= 640) {
+                        docEl.style.fontSize = '100px';
+                    } else {
+                        docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+                    }
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .hidden{
+            position:fixed;
+            overflow-y:hidden;
+        }
+        body{
+            margin: 0;
+        }
+        /*伪元素是行内元素 正常浏览器清除浮动方法*/
+        .clearfix:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        .titles{
+            font-size:18px;
+            font-family:PingFangSC;
+            font-weight:600;
+            color:rgba(51,51,51,1);
+        }
+        .container{
+            padding: 15px;
+        }
+        .authorInfo{
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .authorInfo span{
+            float: left;
+        }
+        .authorInfo .author{
+            margin-right: 15px;
+        }
+        .authorInfo .hasee{
+            float: right;
+            margin-right: 10px;
+        }
+        .content{
+            font-size: 14px;
+            color: #999;
+            margin-top: 20px;
+        }
+        .mainTitle{
+            margin: 10px 0;
+        }
+        .content .topIcon,.content .boIcon{
+            font-size: 12px;
+            opacity:0.24;
+        }
+        .footer{
+            color: #999;
+            font-size: 12px;
+            margin: 40px 0;
+            line-height: 19px;
+        }
+        .downApp{
+            width: 100%;
+            position: fixed;
+            bottom: 0px;
+            z-index: 9999 ;
+        }
+        button{
+            width:100%;
+            height:50px;
+            border: none;
+            background:rgba(60,65,97,1);
+            border-radius:50px;
+            color: #fff;
+            font-size: 18px;
+        }
+        .el-carousel__item h3 {
+            color: #475669;
+            font-size: 14px;
+            opacity: 0.75;
+            line-height: 150px;
+            margin: 0;
+        }
+
+        .el-carousel__item:nth-child(2n) {
+            background-color: #99a9bf;
+        }
+
+        .el-carousel__item:nth-child(2n+1) {
+            background-color: #d3dce6;
+        }
+    </style>
+</head>
+
+<body style="background: #F5F5F5;">
+<div id="app" >
+    <div >
+        <div  class="title" style="font-size:0;background: #ffffff;font-weight: bold">
+            <img  style="width: 100px;height: 18px;margin-top:10px;margin-left: 10px;" src="/images/logo.jpg" alt="">
+        </div>
+        <div  class="title" style="font-size:0;background: #ffffff;font-weight: bold">
+            <i style="display: inline-block;height: 1px;width: 100%;background: #f0f0f0;margin-bottom:10px;margin-top:10px"></i>
+        </div>
+        <div  class="title" >
+            <!--<swipe :options="swipeOptions" v-if="realeseType==2||realeseType==4||realeseType==6" >-->
+                    <!--<swipe-item v-for="(item,index) in imgUrls"><img  style="width: 100%;height: 170px;" :src="item" alt=""></swipe-item>-->
+                <!--&lt;!&ndash;<swipe-item><img style="width: 100%;" src="/images/banner_2.jpg" alt=""></swipe-item>&ndash;&gt;-->
+                <!--&lt;!&ndash;<swipe-item><img style="width: 100%;" src="/images/banner_3.jpg" alt=""></swipe-item>&ndash;&gt;-->
+            <!--</swipe>-->
+            <el-carousel height="170px" v-if="realeseType==2||realeseType==4||realeseType==6" >
+                <el-carousel-item  v-for="item in imgUrls" :key="item">
+                    <img style="width: 100%;height: 170px;" :src="item" alt="">
+                </el-carousel-item>
+            </el-carousel>
+        </div>
+
+         <div class="price container" style="background: #FFFFFF;">
+             <!--<div><span style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">8902</span><span style="font-size: 0.16rem;color:#FE585A;">元/月</span>-->
+                 <!--<span style="font-weight: bold;font-size: 0.21rem;color: #F96A0E">8902</span><span style="font-size: 0.18rem;color: #F96A0E;">元/台班</span>-->
+                 <!--<span style="font-weight: bold;font-size: 0.21rem;color: #F96A0E">8902</span><span style="font-size: 0.18rem;color: #F96A0E;">元/小时</span>-->
+             <!--</div>-->
+             <div v-if="realeseType==1" class="title" style="font-size:0.16rem;color:#FE585A;font-weight: bold">
+                 <span v-if="form.buyPriceDown!=''&&form.buyPriceDown!=null&&form.buyPriceDown!=undefined&&form.buyType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.buyPriceDown>10000?(Math.floor(form.buyPriceDown/10000*100)/100+'万元'):(form.buyPriceDown+'元')}} ~</span>
+                 <span v-if="form.buyPriceDown==''||form.buyPriceDown==null||form.buyPriceDown==undefined&&form.buyType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">0元 ~</span>
+                 <span v-if="form.buyPriceTop!=''&&form.buyPriceTop!=null&&form.buyPriceTop!=undefined&&form.buyType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.buyPriceTop>10000?(Math.floor(form.buyPriceTop/10000*100)/100+'万元'):(form.buyPriceTop+'元')}}</span>
+                 <span v-if="form.buyPriceTop==''||form.buyPriceTop==null||form.buyPriceTop==undefined&&form.buyType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">0元</span>
+                 <span v-if="form.buyType==1">面议</span>
+
+             </div>
+             <div v-if="realeseType==2" class="title" style="font-size:0.16rem;color:#FE585A;font-weight: bold">
+                 <span v-if="form.salePrice!=''&&form.salePrice!=null&&form.salePrice!=undefined&&form.buyType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.salePrice>10000?(Math.floor(form.salePrice/10000*100)/100+'万元'):(form.salePrice+'元')}}</span>
+                 <span v-if="form.salePrice==''||form.salePrice==null||form.salePrice==undefined&&form.buyType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">0元</span>
+                 <span v-if="form.buyType==1">面议</span>
+             </div>
+             <div v-if="realeseType==3" class="title" style="font-size:0.16rem;color: #333333;font-weight: bold">
+                 <span v-if="form.leaseMonthPrice!==''&&form.leaseMonthPrice!==null&&form.leaseMonthPrice!==undefined" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.leaseMonthPrice>10000?(Math.floor(form.leaseMonthPrice/10000*100)/100+'万元/月'):(form.leaseMonthPrice+'元/月')}}</span>
+                 <span v-if="form.leaseTeamPrice!==''&&form.leaseTeamPrice!==null&&form.leaseTeamPrice!==undefined" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.leaseTeamPrice>10000?(Math.floor(form.leaseTeamPrice/10000*100)/100+'万元/台班'):(form.leaseTeamPrice+'元/台班')}}</span>
+                 <span v-if="form.leaseHourPrice!==''&&form.leaseHourPrice!==null&&form.leaseHourPrice!==undefined" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.leaseHourPrice>10000?(Math.floor(form.leaseHourPrice/10000*100)/100+'万元/小时'):(form.leaseHourPrice+'元/小时')}}</span>
+                 <!--<span v-if="form.rentType=='2'" style="font-weight: bold;font-size: 0.21rem;color: #F96A0E">{{form.leaseTeamPrice}}</span><span v-if="form.rentType=='2'"  style="font-size: 0.18rem;color: #F96A0E;">元/台班</span>-->
+                 <!--<span v-if="form.rentType=='3'" style="font-weight: bold;font-size: 0.21rem;color: #F96A0E">{{form.leaseHourPrice}}</span><span v-if="form.rentType=='3'"  style="font-size: 0.18rem;color: #F96A0E;">元/小时</span>-->
+             </div>
+             <div v-if="realeseType==4" class="title" style="font-size:0.16rem;color: #333333;font-weight: bold">
+                 <span v-if="form.leaseMonthPrice!==''&&form.leaseMonthPrice!==null&&form.leaseMonthPrice!==undefined" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.leaseMonthPrice>10000?(Math.floor(form.leaseMonthPrice/10000*100)/100+'万元/月'):(form.leaseMonthPrice+'元/月')}}</span>
+                 <span v-if="form.leaseTeamPrice!==''&&form.leaseTeamPrice!==null&&form.leaseTeamPrice!==undefined" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.leaseTeamPrice>10000?(Math.floor(form.leaseTeamPrice/10000*100)/100+'万元/台班'):(form.leaseTeamPrice+'元/台班')}}</span>
+                 <span v-if="form.leaseHourPrice!==''&&form.leaseHourPrice!==null&&form.leaseHourPrice!==undefined" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.leaseHourPrice>10000?(Math.floor(form.leaseHourPrice/10000*100)/100+'万元/小时'):(form.leaseHourPrice+'元/小时')}}</span>
+             </div>
+
+             <div v-if="realeseType==5" class="title" style="font-size:0.16rem;color:#FE585A;font-weight: bold">
+                 <span v-if="form.sourceBuyDownPrice!=''&&form.sourceBuyDownPrice!=null&&form.sourceBuyDownPrice!=undefined&&form.sourceType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.sourceBuyDownPrice>10000?(Math.floor(form.sourceBuyDownPrice/10000*100)/100+'万元'):(form.sourceBuyDownPrice+'元')}} ~</span>
+                 <span v-if="form.sourceBuyDownPrice==''||form.sourceBuyDownPrice==null||form.sourceBuyDownPrice==undefined&&form.sourceType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">0元 ~</span>
+                 <span v-if="form.sourceBuyTopPrice!=''&&form.sourceBuyTopPrice!=null&&form.sourceBuyTopPrice!=undefined&&form.sourceType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.sourceBuyTopPrice>10000?(Math.floor(form.sourceBuyTopPrice/10000*100)/100+'万元'):(form.sourceBuyTopPrice+'元')}}</span>
+                 <span v-if="form.sourceBuyTopPrice==''||form.sourceBuyTopPrice==null||form.sourceBuyTopPrice==undefined&&form.sourceType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">0元</span>
+                 <span v-if="form.buyType==1"></span>
+             </div>
+             <div v-if="realeseType==6" class="title" style="font-size:0.16rem;color: #333333;font-weight: bold">
+                 <!--<span style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">8902</span><span style="font-size: 0.16rem;color:#FE585A;">元/月</span>-->
+                 <span v-if="form.sourceSalePrice!=''&&form.sourceSalePrice!=null&&form.sourceSalePrice!=undefined&&form.sourceType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">{{form.sourceSalePrice>10000?(Math.floor(form.sourceSalePrice/10000*100)/100+'万元'):(form.sourceSalePrice+'元')}}</span>
+                 <span v-if="form.sourceSalePrice==''||form.sourceSalePrice==null||form.sourceSalePrice==undefined&&form.sourceType==2" style="font-weight:bold;font-size: 0.30rem;color:#FE585A;">0元</span>
+                 <span v-if="form.sourceType==1"></span>
+             </div>
+             <div class="title" style="font-size:0.18rem;color: #333333;font-weight: bold;margin-top: 7px;">【<span>{{typeList[parseInt(realeseType)-1]}}</span>】{{form.title}}</div>
+             <div style="text-align: right;color: #999999;margin-top: 13px;font-size: 0.14rem"><span style="display: inline-block;margin-right: 0.55rem;"><i style="vertical-align: middle;font-size: 0.12rem;margin-right: 0.1rem;" class="icon iconfont">&#xe613;</i>{{formData.createTime}}</span></div>
+         </div>
+        <div v-if="realeseType==3" class="machineInfo container" style="background: #FFFFFF;margin-top: 0.1rem;">
+            <p style="font-size: 0.14rem;color: #333333;"><span style="margin-right: 0.2rem;font-weight: bold">求租地址</span><span>{{form.projectAddress}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">机械类型</span><span>{{form.machineName}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">进场时间</span><span>{{form.projectStartTime}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">预计工期</span><span>{{form.estimateProjectTime}}</span></p>
+        </div>
+         <div v-if="realeseType==4" class="machineInfo container" style="background: #FFFFFF;margin-top: 0.1rem;">
+             <p style="font-size: 0.14rem;color: #333333;"><span style="margin-right: 0.2rem;font-weight: bold">出售地址</span><span>{{form.parkeAddress}}</span></p>
+             <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">机械类型</span><span>{{form.machineName}}</span></p>
+             <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">出厂时间</span><span>{{form.productTime}}</span></p>
+             <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">品牌型号</span><span>{{form.brandName}}</span></p>
+         </div>
+        <div v-if="realeseType==5||realeseType==6" class="machineInfo container" style="background: #FFFFFF;margin-top: 0.1rem;">
+            <p style="font-size: 0.14rem;color: #333333;"><span style="margin-right: 0.2rem;font-weight: bold">资源地址</span><span>{{form.sourceAddress}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">资源类型</span><span>{{form.resourceName}}</span></p>
+        </div>
+        <div v-if="realeseType==1" class="machineInfo container" style="background: #FFFFFF;margin-top: 0.1rem;">
+            <p style="font-size: 0.14rem;color: #333333;"><span style="margin-right: 0.2rem;font-weight: bold">停放地址</span><span>{{form.parkeAddress}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">机械类型</span><span>{{form.machineName}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">品牌类型</span><span>{{form.brandName}}</span></p>
+        </div>
+        <div v-if="realeseType==2" class="machineInfo container" style="background: #FFFFFF;margin-top: 0.1rem;">
+            <p style="font-size: 0.14rem;color: #333333;"><span style="margin-right: 0.2rem;font-weight: bold">停放地址</span><span>{{form.parkeAddress}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">机械类型</span><span>{{form.machineName}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">出厂时间</span><span>{{form.productTime}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">品牌型号</span><span>{{form.brandName}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">新旧程度</span><span>{{newOld[form.newDegreeLevel]}}</span></p>
+        </div>
+        <div v-if="realeseType==3" class="machineDec container" style="background: #FFFFFF;margin-top: 0.1rem;">
+            <p style="font-size: 0.14rem;color: #333333;font-weight: bold">详细需求</p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;" >{{form.requestDetails}}</p>
+        </div>
+        <div  v-if="realeseType==4||realeseType==1||realeseType==2" class="machineDec container" style="background: #FFFFFF;margin-top: 0.1rem;">
+            <p style="font-size: 0.14rem;color: #333333;font-weight: bold">机械简介</p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;" >{{form.requestDetails}}</p>
+        </div>
+        <div v-if="realeseType==5" class="machineDec container" style="background: #FFFFFF;margin-top: 0.1rem;">
+            <p style="font-size: 0.14rem;color: #333333;font-weight: bold">详细需求</p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;" >{{form.requestDetails}}</p>
+        </div>
+        <div v-if="realeseType==6" class="machineDec container" style="background: #FFFFFF;margin-top: 0.1rem;">
+            <p style="font-size: 0.14rem;color: #333333;font-weight: bold">资源信息</p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;" >{{form.requestDetails}}</p>
+        </div>
+        <div class="shopInfo container" style="background: #FFFFFF;margin-top: 0.1rem;">
+            <p style="font-size: 0.14rem;color: #333333;"><span style="margin-right: 0.2rem;font-weight: bold">店家名称</span><span>{{form.shopName}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">联系人  </span><span>{{form.shopKeeperName}}</span></p>
+            <p style="font-size: 0.14rem;color: #333333;margin-top: 15px;"><span style="margin-right: 0.2rem;font-weight: bold">联系方式</span><span>{{form.personPhone}}</span></p>
+        </div>
+    </div>
+    <div :class="isShow?'downAppBO':'downApp'" style="font-size: 0.14rem;">
+        <div v-if="isDown" style="background:rgba(255, 255, 255, 0.5);font-weight: bold;color: #000;text-align: center"><i  @click="getAll" style="vertical-align: middle;font-size:0.3rem" class="icon iconfont">&#xe612;</i></div>
+        <div style="padding-bottom: 0.1rem;background: #fff;">
+            <button @click="haveDownApp">下载APP查看全文</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data:function() {
+            return{
+                swipeOptions: {
+                    startSlide: 0,
+                    speed: 300,
+                    auto: 4000,
+                    continuous: true,
+                    disableScroll: false,
+                    stopPropagation: false,
+                    callback: function (index, slide) { console.log('slide changes') },
+                    transitionEnd: function (index, slide) { console.log('slide transition ends') }
+                },
+                realeseType:2,   //0：求租,1:出租：2：资源求购;3:资源出售,4:机械求租,5：机械出售
+                //1：机械求购,2:机械出售：3：机械求租;4:机械出租,5:资源求购,6：资源出售
+                // typeList:['求租','出租','求购','出售','求购','出售'],
+                typeList:['求购','出售','求租','出租','求购','出售'],
+                newOld:['旧','一成新','两成新','三成新','四成新','五成新','六成新','七成新','八成新','九成新','全新'],
+                // realeseType
+                form:{},
+                formData:{},
+                imgUrls:['1'],
+                isDown:true,
+                areaCode:"420100",
+                userType:"1",
+                isShow:false,
+                id:204,
+            }
+        },
+        methods: {
+            getAll:function(){
+                document.getElementsByTagName('body')[0].classList.remove("hidden");
+                this.isShow=true
+                this.isDown=false
+            },
+            getData(){
+                let This=this
+                axios.get( 'https://api.admin.vvjx.cn:7000/jxcMarketRelease/findById', {
+                    params: {
+                        id:this.id,
+                        realeseType:this.realeseType
+                    }
+                }).then(function(res){
+                    console.log(This);
+                    This.form=res.data.data
+                    if(res.data.data.salePictures!=''&&res.data.data.salePictures!=null&&res.data.data.salePictures!=undefined){
+                        This.imgUrls=res.data.data.salePictures.split(',')
+                    }
+                    console.log(This.imgUrls);
+                }).catch(function(err){
+                })
+            },
+            getFormData(){
+                let This=this
+                axios.post( 'https://api.admin.vvjx.cn:7000/jxcMarketRelease/queryReleaseViewCount', {
+                   id:this.id
+                }).then(function(res){
+                    console.log(res.data.data);
+                    This.formData=res.data.data
+                }).catch(function(err){
+                })
+            },
+            haveDownApp(){
+                var ua = window.navigator.userAgent.toLowerCase();
+                if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                    this.show = false
+                    var isAndroid = ua.indexOf('android') != -1;
+                    var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+                    console.log(isAndroid);
+                    console.log(isIos);
+                    if (this.userType == 0) {
+                        if (isIos) {
+                            window.location.href = 'https://itunes.apple.com/cn/app/id1454609172?mt=8'
+                        }
+                        if (isAndroid) {
+                            window.location.href = 'https://www.pgyer.com/iN3l'
+                        }
+                    } else if (this.userType == 1) {
+                        if (isIos) {
+                            window.location.href = 'https://itunes.apple.com/cn/app/id1454609157?mt=8'
+                        }
+                        if (isAndroid) {
+                            window.location.href = 'https://www.pgyer.com/A8Cb'
+                        }
+                    }
+                }else {
+                    this.show = false
+                    var isAndroid = ua.indexOf('android') != -1;
+                    var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+                    console.log(isAndroid);
+                    console.log(isIos);
+                    if (this.userType == 0) {
+                        if (isIos) {
+                            window.location.href = 'https://itunes.apple.com/cn/app/id1454609172?mt=8'
+                        }
+                        if (isAndroid) {
+                            window.location.href = 'https://www.pgyer.com/iN3l'
+                        }
+                    } else if (this.userType == 1) {
+                        if (isIos) {
+                            window.location.href = 'https://itunes.apple.com/cn/app/id1454609157?mt=8'
+                        }
+                        if (isAndroid) {
+                            window.location.href = 'https://www.pgyer.com/A8Cb'
+                        }
+                    }
+                }
+            },
+            getPar: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg); //匹配目标参数
+                if (r != null) return unescape(r[2]); return null; //返回参数值
+            }
+        },
+
+        created:function(){
+            this.formData={id:1}
+            $('html ,body').animate({scrollTop: 0}, 200,'linear',function () {
+                // document.querySelector('body').style.height= window.screen.height*window.devicePixelRatio+'px'
+                var mobileHeight=window.innerHeight+"px";
+                document.getElementsByTagName('html')[0].style.minHeight=mobileHeight;
+                document.getElementsByTagName('body')[0].classList.add("hidden");
+            });
+            this.id= this.getPar("id")
+            this.userType= this.getPar("userType")
+            this.realeseType= this.getPar("realeseType")
+            this. getData()
+            this. getFormData()
+        }
+    })
+</script>
+</body>
+
+</html>

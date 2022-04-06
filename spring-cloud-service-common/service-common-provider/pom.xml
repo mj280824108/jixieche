@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.weiwei.jixieche</groupId>
+        <artifactId>common-provider</artifactId>
+        <version>2.0</version>
+        <relativePath>../../spring-cloud-common/common-provider/pom.xml</relativePath>
+    </parent>
+
+
+    <artifactId>service-common-provider</artifactId>
+    <name>service-common-provider</name>
+    <description>Demo project for Spring Boot</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.weiwei.jixieche</groupId>
+            <artifactId>service-common-bean</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.weiwei.jixieche</groupId>
+            <artifactId>common-utils</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/cn.jpush.api/jpush-client -->
+        <dependency>
+            <groupId>cn.jpush.api</groupId>
+            <artifactId>jpush-client</artifactId>
+            <version>3.3.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <!--  螺丝帽(第三方短信api)  -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-bundle</artifactId>
+            <version>1.19</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.32.Final</version>
+        </dependency>
+
+        <!--springboot2.0加入websocket-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+            <version>1.3.5.RELEASE</version>
+        </dependency>
+
+        <!-- 阿里云OSS-->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <!-- ali fastJson 夹包-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!--小米推送-->
+        <dependency>
+            <groupId>com.push.mi</groupId>
+            <artifactId>MiJsonSimple</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+        <!--小米推送-->
+        <dependency>
+            <groupId>com.push.mi</groupId>
+            <artifactId>MiPushSdkServer</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <!--魅族推送-->
+        <dependency>
+            <groupId>com.push.mz</groupId>
+            <artifactId>MzPushSdkServer</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!--阿里短信推送-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <finalName>common-provider</finalName>
+    </build>
+</project>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcAndroidAppVersionMapper" >
+  <sql id="BaseAliasColumn">
+    id, version, app_client AS appClient, is_test AS isTest,
+    is_force AS isForce, description, apk_size AS apkSize,
+    DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS createTime
+  </sql>
+
+  <select id="selectOne" resultType="com.weiwei.jixieche.bean.JxcAndroidAppVersion">
+    SELECT
+    <include refid="BaseAliasColumn"/>
+    FROM jxc_android_app_version
+    WHERE version = #{version} AND app_client = #{appClient} AND is_test = #{isTest}
+    LIMIT 1
+  </select>
+
+  <select id="selectLatest" resultType="com.weiwei.jixieche.bean.JxcAndroidAppVersion">
+    SELECT
+    <include refid="BaseAliasColumn"/>
+    FROM jxc_android_app_version
+    WHERE app_client = #{appClient} AND is_test = #{isTest}
+    ORDER BY version DESC LIMIT 1
+  </select>
+
+  <select id="countForceVersionBetween" resultType="java.lang.Integer">
+        SELECT count(1) from jxc_android_app_version
+        WHERE is_test = #{isTest} AND app_client = #{appCLient}
+        AND version &gt; #{version} AND version &lt; #{latestVersion}
+        AND is_force = 1
+    </select>
+
+</mapper>

@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcMarketShopsMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcMarketShops" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="shop_keeper_id" property="shopKeeperId" jdbcType="INTEGER" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="shop_big_img" property="shopBigImg" jdbcType="VARCHAR" />
+    <result column="shop_small_imgs" property="shopSmallImgs" jdbcType="VARCHAR" />
+    <result column="shop_address" property="shopAddress" jdbcType="VARCHAR" />
+    <result column="shop_star" property="shopStar" jdbcType="INTEGER" />
+    <result column="shop_product" property="shopProduct" jdbcType="VARCHAR" />
+    <result column="shop_service" property="shopService" jdbcType="VARCHAR" />
+    <result column="shop_area_id" property="shopAreaId" jdbcType="INTEGER" />
+    <result column="shop_open_time" property="shopOpenTime" jdbcType="VARCHAR" />
+    <result column="sale_type_name" property="saleTypeName" jdbcType="VARCHAR" />
+    <result column="collection_number" property="collectionNumber" jdbcType="INTEGER" />
+    <result column="licence_img_url" property="licenceImgUrl" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="shop_phone" property="shopPhone" jdbcType="VARCHAR" />
+    <result column="shop_status" property="shopStatus" jdbcType="INTEGER" />
+    <result column="confirm_status" property="confirmStatus" jdbcType="INTEGER" />
+    <result column="shop_longitude" property="shopLongitude" jdbcType="VARCHAR" />
+    <result column="shop_latitude" property="shopLatitude" jdbcType="VARCHAR" />
+    <result column="described" property="described" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, shop_keeper_id, shop_name, shop_big_img, shop_small_imgs, shop_address, shop_star,
+    shop_product, shop_service, shop_area_id, shop_open_time, sale_type_name, collection_number,
+    licence_img_url, person_name, shop_phone, shop_status, confirm_status, shop_longitude,
+    shop_latitude, described, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, shop_keeper_id AS shopKeeperId, shop_name AS shopName, shop_big_img AS shopBigImg,
+    shop_small_imgs AS shopSmallImgs, shop_address AS shopAddress, shop_star AS shopStar,
+    shop_product AS shopProduct, shop_service AS shopService, shop_area_id AS shopAreaId,
+    shop_open_time AS shopOpenTime, sale_type_name AS saleTypeName, collection_number AS collectionNumber,
+    licence_img_url AS licenceImgUrl, person_name AS personName, shop_phone AS shopPhone,
+    shop_status AS shopStatus, confirm_status AS confirmStatus, shop_longitude AS shopLongitude,
+    shop_latitude AS shopLatitude, described, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_market_shops
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcMarketShops" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_market_shops
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopKeeperId != null" >
+        shop_keeper_id,
+      </if>
+      <if test="shopName != null" >
+        shop_name,
+      </if>
+      <if test="shopBigImg != null" >
+        shop_big_img,
+      </if>
+      <if test="shopSmallImgs != null" >
+        shop_small_imgs,
+      </if>
+      <if test="shopAddress != null" >
+        shop_address,
+      </if>
+      <if test="shopStar != null" >
+        shop_star,
+      </if>
+      <if test="shopProduct != null" >
+        shop_product,
+      </if>
+      <if test="shopService != null" >
+        shop_service,
+      </if>
+      <if test="shopAreaId != null" >
+        shop_area_id,
+      </if>
+      <if test="shopOpenTime != null" >
+        shop_open_time,
+      </if>
+      <if test="saleTypeName != null" >
+        sale_type_name,
+      </if>
+      <if test="collectionNumber != null" >
+        collection_number,
+      </if>
+      <if test="licenceImgUrl != null" >
+        licence_img_url,
+      </if>
+      <if test="personName != null" >
+        person_name,
+      </if>
+      <if test="shopPhone != null" >
+        shop_phone,
+      </if>
+      <if test="shopStatus != null" >
+        shop_status,
+      </if>
+      <if test="confirmStatus != null" >
+        confirm_status,
+      </if>
+      <if test="shopLongitude != null" >
+        shop_longitude,
+      </if>
+      <if test="shopLatitude != null" >
+        shop_latitude,
+      </if>
+      <if test="described != null" >
+        described,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopKeeperId != null" >
+        #{shopKeeperId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopBigImg != null" >
+        #{shopBigImg,jdbcType=VARCHAR},
+      </if>
+      <if test="shopSmallImgs != null" >
+        #{shopSmallImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="shopAddress != null" >
+        #{shopAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shopStar != null" >
+        #{shopStar,jdbcType=INTEGER},
+      </if>
+      <if test="shopProduct != null" >
+        #{shopProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="shopService != null" >
+        #{shopService,jdbcType=VARCHAR},
+      </if>
+      <if test="shopAreaId != null" >
+        #{shopAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="shopOpenTime != null" >
+        #{shopOpenTime,jdbcType=VARCHAR},
+      </if>
+      <if test="saleTypeName != null" >
+        #{saleTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionNumber != null" >
+        #{collectionNumber,jdbcType=INTEGER},
+      </if>
+      <if test="licenceImgUrl != null" >
+        #{licenceImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null" >
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopPhone != null" >
+        #{shopPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="shopStatus != null" >
+        #{shopStatus,jdbcType=INTEGER},
+      </if>
+      <if test="confirmStatus != null" >
+        #{confirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shopLongitude != null" >
+        #{shopLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="shopLatitude != null" >
+        #{shopLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="described != null" >
+        #{described,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcMarketShops" >
+    update jxc_market_shops
+    <set >
+      <if test="shopKeeperId != null" >
+        shop_keeper_id = #{shopKeeperId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null" >
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopBigImg != null" >
+        shop_big_img = #{shopBigImg,jdbcType=VARCHAR},
+      </if>
+      <if test="shopSmallImgs != null" >
+        shop_small_imgs = #{shopSmallImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="shopAddress != null" >
+        shop_address = #{shopAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shopStar != null" >
+        shop_star = #{shopStar,jdbcType=INTEGER},
+      </if>
+      <if test="shopProduct != null" >
+        shop_product = #{shopProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="shopService != null" >
+        shop_service = #{shopService,jdbcType=VARCHAR},
+      </if>
+      <if test="shopAreaId != null" >
+        shop_area_id = #{shopAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="shopOpenTime != null" >
+        shop_open_time = #{shopOpenTime,jdbcType=VARCHAR},
+      </if>
+      <if test="saleTypeName != null" >
+        sale_type_name = #{saleTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionNumber != null" >
+        collection_number = #{collectionNumber,jdbcType=INTEGER},
+      </if>
+      <if test="licenceImgUrl != null" >
+        licence_img_url = #{licenceImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null" >
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopPhone != null" >
+        shop_phone = #{shopPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="shopStatus != null" >
+        shop_status = #{shopStatus,jdbcType=INTEGER},
+      </if>
+      <if test="confirmStatus != null" >
+        confirm_status = #{confirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shopLongitude != null" >
+        shop_longitude = #{shopLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="shopLatitude != null" >
+        shop_latitude = #{shopLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="described != null" >
+        described = #{described,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcMarketShops" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_market_shops
+    <where >
+      <if test="shopKeeperId != null" >
+        AND shop_keeper_id = #{shopKeeperId,jdbcType=INTEGER}
+      </if>
+      <if test="shopName != null" >
+        AND shop_name = #{shopName,jdbcType=VARCHAR}
+      </if>
+      <if test="shopBigImg != null" >
+        AND shop_big_img = #{shopBigImg,jdbcType=VARCHAR}
+      </if>
+      <if test="shopSmallImgs != null" >
+        AND shop_small_imgs = #{shopSmallImgs,jdbcType=VARCHAR}
+      </if>
+      <if test="shopAddress != null" >
+        AND shop_address = #{shopAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="shopStar != null" >
+        AND shop_star = #{shopStar,jdbcType=INTEGER}
+      </if>
+      <if test="shopProduct != null" >
+        AND shop_product = #{shopProduct,jdbcType=VARCHAR}
+      </if>
+      <if test="shopService != null" >
+        AND shop_service = #{shopService,jdbcType=VARCHAR}
+      </if>
+      <if test="shopAreaId != null" >
+        AND shop_area_id = #{shopAreaId,jdbcType=INTEGER}
+      </if>
+      <if test="shopOpenTime != null" >
+        AND shop_open_time = #{shopOpenTime,jdbcType=VARCHAR}
+      </if>
+      <if test="saleTypeName != null" >
+        AND sale_type_name = #{saleTypeName,jdbcType=VARCHAR}
+      </if>
+      <if test="collectionNumber != null" >
+        AND collection_number = #{collectionNumber,jdbcType=INTEGER}
+      </if>
+      <if test="licenceImgUrl != null" >
+        AND licence_img_url = #{licenceImgUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="personName != null" >
+        AND person_name = #{personName,jdbcType=VARCHAR}
+      </if>
+      <if test="shopPhone != null" >
+        AND shop_phone = #{shopPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="shopStatus != null" >
+        AND shop_status = #{shopStatus,jdbcType=INTEGER}
+      </if>
+      <if test="confirmStatus != null" >
+        AND confirm_status = #{confirmStatus,jdbcType=INTEGER}
+      </if>
+      <if test="shopLongitude != null" >
+        AND shop_longitude = #{shopLongitude,jdbcType=VARCHAR}
+      </if>
+      <if test="shopLatitude != null" >
+        AND shop_latitude = #{shopLatitude,jdbcType=VARCHAR}
+      </if>
+      <if test="described != null" >
+        AND described = #{described,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!--***********************************************-->
+
+  <!--自定义计算距离SQL语句-->
+  <sql id="caculateDistance">
+    IFNULL(ROUND(
+    6378.138 * 2 * ASIN(
+    SQRT(POW(SIN((${latitude} * PI() / 180 - shop_latitude * PI() / 180) / 2),2) +
+    COS(${latitude} * PI() / 180) * COS(shop_latitude * PI() / 180) * POW(
+    SIN((${longitude} * PI() / 180 - shop_longitude * PI() / 180) / 2),2))) * 1000
+    ), 0) AS distance
+  </sql>
+
+  <!--店铺搜索认证(距离,人气,标题)-->
+  <select id="searchShopsList" parameterType="com.weiwei.jixieche.vo.SearchShopsListVo" resultType="com.weiwei.jixieche.vo.SearchShopsListVo">
+    SELECT jms.id AS shopsId,jms.shop_name AS shopName,
+    jms.confirm_status AS confirmStatus,jms.shop_big_img AS shopBigImg,jms.shop_small_imgs AS shopSmallImgs,
+    jms.shop_keeper_id AS shopKeeperId
+    <if test="longitude != null and latitude !=null">
+      ,
+      <include refid="caculateDistance"/>
+    </if>
+    FROM jxc_market_shops jms
+    <where>
+      <if test="shopName != null and shopName !=''" >
+        AND shop_name like concat('%',#{shopName},'%')
+      </if>
+      <if test="confirmStatus != null" >
+        AND confirm_status = #{confirmStatus,jdbcType=INTEGER}
+      </if>
+      <if test="distanceType == 1 ">
+        ORDER BY distance
+      </if>
+      <if test="distanceType == 2 ">
+        ORDER BY distance DESC
+      </if>
+    </where>
+  </select>
+
+ <!-- 根据userId查询自己的店铺-->
+  <select id="queryShopsByUserId" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.bean.JxcMarketShops">
+      select <include refid="BaseAliasColumn"/> from jxc_market_shops WHERE shop_keeper_id = #{userId}
+  </select>
+
+  <!--根据userId查询用户头像作为店铺头像-->
+  <select id="queryHeadImgByUserId" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select ju.head_img AS headImg from jxc_user ju WHERE ju.id = #{userId}
+  </select>
+
+  <!--根据店铺id查询开店人的userId-->
+  <select id="queryUserIdByShopId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select jms.shop_keeper_id AS userId from jxc_market_shops jms
+    WHERE jms.id = #{shopId}
+  </select>
+
+</mapper>

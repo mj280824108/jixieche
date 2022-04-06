@@ -1,0 +1,93 @@
+server:
+  port: 8088
+  #站内信配置
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  max-http-header-size: 4048576
+
+spring:
+  application:
+    name: information-service-provider
+#数据库连接，应用名称以及文件上传设置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.79.4.103:3306/jxc?characterEncoding=utf8&useSSL=false&useJDBCCompliantTimezoneShift=true
+    username: root
+    password: xyx@123
+  redis:
+    database: 0
+    # Redis服务器地址
+    host: 172.18.10.6
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: jxc2018
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 10000ms
+  rabbitmq:
+    host: 120.79.4.103
+    port: 5672
+    username: gongyou
+    password: 123456
+eureka:
+  instance:
+    prefer-ip-address: true
+    #Eureka客户端向服务端发送心跳的时间间隔，单位为秒（客户端告诉服务端自己会按照该规则），默认30
+    lease-renewal-interval-in-seconds: 5
+    #Eureka服务端在收到最后一次心跳之后等待的时间上限，单位为秒，超过则剔除（客户端告诉服务端按照此规则等待自己），默认90
+    lease-expiration-duration-in-seconds: 7
+  client:
+    registry-fetch-interval-seconds: 5 #eureka client刷新本地缓存时间，默认30
+    serviceUrl:
+      defaultZone: http://120.79.4.103:8081/eureka/
+
+mybatis:
+  type-aliases-package: com.weiwei.jixieche.bean
+  mapper-locations: classpath:mybatis/*.xml,classpath:mybatis/*/*.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#声明Feign的 hystrix支持,如果设置为true，则断路器备用方法将不起作用，默认为false
+feign:
+     hystrix:
+         enabled: true
+#hystrix的超时时间
+hystrix:
+    command:
+        default:
+            execution:
+              timeout:
+                enabled: true
+              isolation:
+                    thread:
+                        timeoutInMilliseconds: 9000
+#ribbon的超时时间
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+html:
+  #资讯详情url
+  infor:
+    appurl: http://test.api.app.vvjx.cn:8082/user/staticHtml/appInformation
+    detailurl: http://test.api.app.vvjx.cn:8082/user/staticHtml/information
+
+#日志记录设置
+logging:
+  file: /data/spingCloud/informationProvider/yytn.log
+  level:
+       com:
+           weiwei:
+                    jixieche: trace
+       root: warn

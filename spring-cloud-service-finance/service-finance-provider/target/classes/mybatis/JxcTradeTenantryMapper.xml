@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcTradeTenantryMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcTradeTenantry" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="payer_user_id" property="payerUserId" jdbcType="INTEGER" />
+    <result column="payee_user_id" property="payeeUserId" jdbcType="INTEGER" />
+    <result column="trade_type" property="tradeType" jdbcType="INTEGER" />
+    <result column="trade_amount" property="tradeAmount" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="tenantry_order_id" property="tenantryOrderId" jdbcType="BIGINT" />
+    <result column="payment_method" property="paymentMethod" jdbcType="INTEGER" />
+    <result column="third_trade_no" property="thirdTradeNo" jdbcType="VARCHAR" />
+    <result column="trade_status" property="tradeStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, payer_user_id, payee_user_id, trade_type, trade_amount, project_id, tenantry_order_id,
+    payment_method, third_trade_no, trade_status, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, payer_user_id AS payerUserId, payee_user_id AS payeeUserId, trade_type AS tradeType,
+    trade_amount AS tradeAmount, project_id AS projectId, tenantry_order_id AS tenantryOrderId,
+    payment_method AS paymentMethod, third_trade_no AS thirdTradeNo, trade_status AS tradeStatus,
+    create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_trade_tenantry
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcTradeTenantry" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_trade_tenantry
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="payerUserId != null" >
+        payer_user_id,
+      </if>
+      <if test="payeeUserId != null" >
+        payee_user_id,
+      </if>
+      <if test="tradeType != null" >
+        trade_type,
+      </if>
+      <if test="tradeAmount != null" >
+        trade_amount,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="tenantryOrderId != null" >
+        tenantry_order_id,
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method,
+      </if>
+      <if test="thirdTradeNo != null" >
+        third_trade_no,
+      </if>
+      <if test="tradeStatus != null" >
+        trade_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="payerUserId != null" >
+        #{payerUserId,jdbcType=INTEGER},
+      </if>
+      <if test="payeeUserId != null" >
+        #{payeeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="tradeType != null" >
+        #{tradeType,jdbcType=INTEGER},
+      </if>
+      <if test="tradeAmount != null" >
+        #{tradeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="tenantryOrderId != null" >
+        #{tenantryOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="paymentMethod != null" >
+        #{paymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="thirdTradeNo != null" >
+        #{thirdTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeStatus != null" >
+        #{tradeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcTradeTenantry" >
+    update jxc_trade_tenantry
+    <set >
+      <if test="payerUserId != null" >
+        payer_user_id = #{payerUserId,jdbcType=INTEGER},
+      </if>
+      <if test="payeeUserId != null" >
+        payee_user_id = #{payeeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="tradeType != null" >
+        trade_type = #{tradeType,jdbcType=INTEGER},
+      </if>
+      <if test="tradeAmount != null" >
+        trade_amount = #{tradeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="tenantryOrderId != null" >
+        tenantry_order_id = #{tenantryOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method = #{paymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="thirdTradeNo != null" >
+        third_trade_no = #{thirdTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeStatus != null" >
+        trade_status = #{tradeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcTradeTenantry" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_trade_tenantry
+    <where >
+      <if test="payerUserId != null" >
+        AND payer_user_id = #{payerUserId,jdbcType=INTEGER}
+      </if>
+      <if test="payeeUserId != null" >
+        AND payee_user_id = #{payeeUserId,jdbcType=INTEGER}
+      </if>
+      <if test="tradeType != null" >
+        AND trade_type = #{tradeType,jdbcType=INTEGER}
+      </if>
+      <if test="tradeAmount != null" >
+        AND trade_amount = #{tradeAmount,jdbcType=INTEGER}
+      </if>
+      <if test="projectId != null" >
+        AND project_id = #{projectId,jdbcType=INTEGER}
+      </if>
+      <if test="tenantryOrderId != null" >
+        AND tenantry_order_id = #{tenantryOrderId,jdbcType=BIGINT}
+      </if>
+      <if test="paymentMethod != null" >
+        AND payment_method = #{paymentMethod,jdbcType=INTEGER}
+      </if>
+      <if test="thirdTradeNo != null" >
+        AND third_trade_no = #{thirdTradeNo,jdbcType=VARCHAR}
+      </if>
+      <if test="tradeStatus != null" >
+        AND trade_status = #{tradeStatus,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!--***************************************-->
+  <!--查询承租方交易明细列表-->
+  <select id="queryTenTradeRecord" parameterType="com.weiwei.jixieche.vo.TenTradeRecordVo" resultType="com.weiwei.jixieche.vo.TenTradeRecordVo">
+    select jtt.id,format(ifnull(jtt.trade_amount/100,0.00),2) AS tradeAmount,jtt.tenantry_order_id AS tenantryOrderId,
+    jtt.payment_method AS paymentMethod,DATE_FORMAT(jtt.create_time,'%Y-%m-%d %H:%i:%s') AS createTime,jtt.trade_status AS tradeStatus,
+    jtt.trade_type AS tradeType,jtt.payee_user_id AS payeeUserId
+    from jxc_trade_tenantry jtt
+    <where >
+      <if test="dateTime != null" >
+        AND DATE_FORMAT(jtt.create_time, '%Y-%m') = #{dateTime}
+      </if>
+      <if test="paymentMethod != null" >
+        AND jtt.payment_method = #{paymentMethod}
+      </if>
+      AND jtt.trade_status = 1
+      AND jtt.payer_user_id = #{userId}
+    </where>
+  </select>
+
+  <!--查询用户总支出金额或月支出金额-->
+  <select id="queryTotalPayAmount" parameterType="com.weiwei.jixieche.vo.TenPayAmountVo" resultType="com.weiwei.jixieche.vo.TenPayAmountVo">
+    select format(ifnull(sum(jtt.trade_amount/100),0.00),2) AS totalPayAmount
+    from jxc_trade_tenantry jtt
+    <where >
+      <if test="dateTime != null" >
+        AND DATE_FORMAT(jtt.create_time, '%Y-%m') = #{dateTime}
+      </if>
+      AND jtt.trade_status = 1
+      AND jtt.payer_user_id = #{userId}
+    </where>
+  </select>
+
+  <select id="queryJxcMachineRoute" resultType="com.weiwei.jixieche.bean.JxcMachineRoute">
+    SELECT id,
+          tenantry_order_id AS tenantryOrderId,
+          owner_order_id AS ownerOrderId,
+          machine_id AS machineId,
+          driver_id AS driverId,
+          child_id AS childId,
+          start_time AS startTime,
+          end_time AS endTime,
+          site_id AS siteId,
+          abnormal_type AS abnormalType,
+          pay_state AS payState,
+          fact_mileage AS factMileage,
+          amount,
+          to_owner_amount AS toOwnerAmount,
+          card_type as cardType
+    FROM jxc_machine_route
+    WHERE id = #{id}
+  </select>
+
+  <select id="queryJxcWaitHandle" resultType="com.weiwei.jixieche.vo.JxcWaitHandleItemsVo">
+    SELECT id,pay_amount AS payAmount
+    FROM jxc_wait_handle_items
+    WHERE 1 = 1
+    <if test="vo.id != null">
+      AND id = #{vo.id}
+    </if>
+    <if test="vo.projectOrderId != null">
+      AND project_order_id = #{vo.projectOrderId}
+    </if>
+    <if test="vo.routeId != null">
+      AND route_id = #{vo.routeId}
+      AND item_type = 4
+    </if>
+    <if test="vo.billStartDate != null and vo.billStartDate != ''">
+      AND item_type = 3
+      AND bill_start_date &lt;= #{vo.billStartDate}
+      AND bill_end_date &gt;= #{vo.billStartDate}
+    </if>
+  </select>
+
+  <update id="updatePayAmount">
+    UPDATE jxc_wait_handle_items
+    SET pay_amount = #{amount}
+    WHERE id = #{id}
+  </update>
+
+  <update id="delJxcWaitHandle">
+    UPDATE jxc_wait_handle_items
+    SET is_deleted = 1
+    WHERE id = #{id}
+  </update>
+
+</mapper>

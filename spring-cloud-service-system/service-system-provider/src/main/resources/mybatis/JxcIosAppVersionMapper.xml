@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcIosAppVersionMapper" >
+  <sql id="BaseAliasColumn">
+    id, version, v1, v2, v3,
+    app_client AS appClient, is_test AS isTest, is_force AS isForce, description,
+    compatible_version AS compatibleVersion,
+    DATE_FORMAT(create_date, '%Y-%m-%d %H:%i:%s') AS createDate
+  </sql>
+
+  <select id="selectOne" resultType="com.weiwei.jixieche.bean.JxcIosAppVersion">
+    SELECT
+    <include refid="BaseAliasColumn"/>
+    FROM jxc_ios_app_version
+    WHERE version = #{version} AND app_client = #{appClient} AND is_test = #{isTest}
+    LIMIT 1
+  </select>
+
+  <select id="selectLatest" resultType="com.weiwei.jixieche.bean.JxcIosAppVersion">
+    SELECT
+    <include refid="BaseAliasColumn"/>
+    FROM jxc_ios_app_version
+    WHERE version = #{version} AND app_client = #{appClient} AND is_test = #{isTest}
+    ORDER BY v1 DESC, v2 DESC, v3 DESC LIMIT 1
+  </select>
+
+  <select id="countForceVersionBetween" resultType="java.lang.Integer">
+        SELECT count(1) from jxc_ios_app_version
+        WHERE is_test = #{params.isTest} AND app_client = #{params.appCLient}
+        AND v1 &gt;= #{params.frontV1} AND v1 &lt;= #{params.latestV1}
+        AND v2 &gt;= #{params.frontV2} AND v2 &lt;= #{params.latestV2}
+        AND v3 &gt;= #{params.frontV3} AND v1 &lt;= #{params.latestV3}
+        AND is_force = 1
+        AND version != #{params.frontVersion}
+    </select>
+
+</mapper>

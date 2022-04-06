@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>解绑流程</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.7.0/animate.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            padding: 0px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="font-size: 0.32rem;color: #999999;;margin-bottom: 0.28rem;margin-top: 0.15rem; ">
+            登录司机账号，找到绑车记录页面点解绑按钮
+        </div>
+        <div>
+            <img style="width: 100%;" src="/images/jiebang.png" alt="">
+        </div>
+        <div style="font-size: 0.32rem;color: #999999;;margin-bottom: 0.77rem;margin-top: 0.26rem; ">
+            解绑车辆需在已下班状态下，如果正在上班，请点击下班按钮后再解绑
+        </div>
+    </div>
+</body>
+<script >
+    (function(){
+        var currClientWidth,
+            fontValue,
+            originWidth;
+        originWidth = 750;//ui设计稿的宽度，一般750或640
+        __resize();
+
+        window.addEventListener('resize', __resize, false);
+        function __resize() {
+            currClientWidth = document.documentElement.clientWidth;
+            if (currClientWidth > 768){
+                currClientWidth = 768;
+            }
+            if (currClientWidth < 320){
+                currClientWidth = 320;
+            }
+            fontValue = ((625 * currClientWidth) / originWidth).toFixed(2);
+            document.documentElement.style.fontSize = fontValue + '%';
+            console.log(document.documentElement.style.fontSize);
+        }
+    })();
+</script>
+<script >
+
+</script>
+</html>

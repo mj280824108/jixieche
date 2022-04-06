@@ -1,0 +1,60 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: order-service-provider
+  main:
+    #当遇到同样名字的时候，是否允许覆盖注册
+    allow-bean-definition-overriding: true
+  #数据库连接，应用名称以及文件上传设置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.79.4.103:3306/jxc?characterEncoding=utf8&useSSL=false
+    username: root
+    password: xyx@123
+  redis:
+    database: 0
+    # Redis服务器地址
+    host: 172.18.10.6
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: jxc2018
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 10000ms
+
+  #rabbitMq的相关配置
+  rabbitmq:
+    host: 120.79.4.103
+    port: 5672
+    username: gongyou
+    password: 123456
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://120.79.4.103:8081/eureka/
+
+mybatis:
+  type-aliases-package: com.weiwei.jixieche.bean
+  mapper-locations: classpath:mybatis/*.xml,classpath:mybatis/*/*.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#日志记录设置
+logging:
+  file: /data/spingCloud/userProvider/yytn.log
+  level:
+       com:
+           weiwei:
+                    jixieche: trace
+       root: warn

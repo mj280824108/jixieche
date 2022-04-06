@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcPushTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcPushTemplate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="template" property="template" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, type_name, pid, template
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, type_name AS typeName, pid, template
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_push_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcPushTemplate" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_push_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="template != null" >
+        template,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="template != null" >
+        #{template,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcPushTemplate" >
+    update jxc_push_template
+    <set >
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="template != null" >
+        template = #{template,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcPushTemplate" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_push_template
+    <where >
+      <if test="typeName != null" >
+        AND type_name = #{typeName,jdbcType=VARCHAR}
+      </if>
+      <if test="pid != null" >
+        AND pid = #{pid,jdbcType=INTEGER}
+      </if>
+      <if test="template != null" >
+        AND template = #{template,jdbcType=LONGVARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <!--************************************-->
+  <!--查询所有的推送模板-->
+  <select id="selectPushTemplateList" resultType="com.weiwei.jixieche.vo.PushTemplateVo">
+    select id as typeId, pid, type_name as typeName, template from jxc_push_template where pid != 0
+  </select>
+
+
+
+
+</mapper>

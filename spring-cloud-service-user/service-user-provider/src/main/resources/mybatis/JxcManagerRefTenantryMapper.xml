@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcManagerRefTenantryMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcManagerRefTenantry" >
+    <id column="ten_manager_id" property="tenManagerId" jdbcType="INTEGER" />
+    <result column="ten_id" property="tenId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="ten_manager_name" property="tenManagerName" jdbcType="VARCHAR" />
+    <result column="disabled" property="disabled" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ten_manager_id, ten_id, project_id, project_name, ten_manager_name, disabled, create_time,
+    update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    ten_manager_id AS tenManagerId, ten_id AS tenId, project_id AS projectId, project_name AS projectName,
+    ten_manager_name AS tenManagerName, disabled, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_manager_ref_tenantry
+    where ten_manager_id = #{tenManagerId,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcManagerRefTenantry" useGeneratedKeys="true" keyProperty="tenManagerId" >
+    insert into jxc_manager_ref_tenantry
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tenManagerId != null" >
+          ten_manager_id,
+      </if>
+      <if test="tenId != null" >
+        ten_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="tenManagerName != null" >
+        ten_manager_name,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tenManagerId != null" >
+          #{tenManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="tenId != null" >
+        #{tenId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenManagerName != null" >
+        #{tenManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcManagerRefTenantry" >
+    update jxc_manager_ref_tenantry
+    <set >
+      <if test="tenId != null" >
+        ten_id = #{tenId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenManagerName != null" >
+        ten_manager_name = #{tenManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null" >
+        disabled = #{disabled,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ten_manager_id = #{tenManagerId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcManagerRefTenantry" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_manager_ref_tenantry
+    <where >
+      <if test="tenId != null" >
+        AND ten_id = #{tenId,jdbcType=INTEGER}
+      </if>
+      <if test="projectId != null" >
+        AND project_id = #{projectId,jdbcType=INTEGER}
+      </if>
+      <if test="projectName != null" >
+        AND project_name = #{projectName,jdbcType=VARCHAR}
+      </if>
+      <if test="tenManagerName != null" >
+        AND ten_manager_name = #{tenManagerName,jdbcType=VARCHAR}
+      </if>
+      <if test="disabled != null" >
+        AND disabled = #{disabled,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!--*******************************************-->
+  <!--查询承租方管理员信息-->
+  <select id="queryTenManagerInfo" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.TenManagerInfoVo">
+      select jmrt.ten_manager_id AS tenManagerId,jmrt.ten_id AS tenId,jmrt.project_id AS projectId,
+	  jmrt.project_name AS projectName,jmrt.ten_manager_name AS tenManagerName,
+      ju.phone,ju.third_id AS thirdId,ju.head_img AS headImg
+      from jxc_manager_ref_tenantry jmrt
+      LEFT JOIN jxc_user ju ON jmrt.ten_manager_id = ju.id
+      WHERE jmrt.ten_manager_id = #{userId}
+  </select>
+
+</mapper>

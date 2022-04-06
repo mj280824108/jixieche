@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcOwnerOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcOwnerOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_state" property="orderState" jdbcType="INTEGER" />
+    <result column="tenantry_order_id" property="tenantryOrderId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="machine_id" property="machineId" jdbcType="INTEGER" />
+    <result column="accept_type" property="acceptType" jdbcType="INTEGER" />
+    <result column="fact_start_time" property="factStartTime" jdbcType="DATE" />
+    <result column="fact_end_time" property="factEndTime" jdbcType="DATE" />
+    <result column="fire_reason" property="fireReason" jdbcType="LONGVARCHAR" />
+    <result column="leave_state" property="leaveState" jdbcType="INTEGER" />
+    <result column="leave_reason" property="leaveReason" jdbcType="LONGVARCHAR" />
+    <result column="leave_start" property="leaveStart" jdbcType="DATE" />
+    <result column="leave_end" property="leaveEnd" jdbcType="DATE" />
+    <result column="cancel_id" property="cancelId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+      <result column="driver_id" property="driverId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, order_state, tenantry_order_id, user_id, machine_id, accept_type, fact_start_time, 
+    fact_end_time, fire_reason, leave_state, leave_reason, leave_start, leave_end, cancel_id, 
+    create_time, update_time, driver_id
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, order_state AS orderState, tenantry_order_id AS tenantryOrderId, user_id AS userId, 
+    machine_id AS machineId, accept_type AS acceptType, fact_start_time AS factStartTime, 
+    fact_end_time AS factEndTime, fire_reason AS fireReason, leave_state AS leaveState, 
+    leave_reason AS leaveReason, leave_start AS leaveStart, leave_end AS leaveEnd, cancel_id AS cancelId, 
+    create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_owner_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcOwnerOrder" useGeneratedKeys="true">
+    insert into jxc_owner_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null">
+            id,
+        </if>
+      <if test="orderState != null" >
+        order_state,
+      </if>
+      <if test="tenantryOrderId != null" >
+        tenantry_order_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="machineId != null" >
+        machine_id,
+      </if>
+      <if test="acceptType != null" >
+        accept_type,
+      </if>
+      <if test="factStartTime != null" >
+        fact_start_time,
+      </if>
+      <if test="factEndTime != null" >
+        fact_end_time,
+      </if>
+      <if test="fireReason != null" >
+        fire_reason,
+      </if>
+      <if test="leaveState != null" >
+        leave_state,
+      </if>
+      <if test="leaveReason != null" >
+        leave_reason,
+      </if>
+      <if test="leaveStart != null" >
+        leave_start,
+      </if>
+      <if test="leaveEnd != null" >
+        leave_end,
+      </if>
+      <if test="cancelId != null" >
+        cancel_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+        <if test="driverId != null" >
+            driver_id,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null">
+            #{id,jdbcType=BIGINT},
+        </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="tenantryOrderId != null" >
+        #{tenantryOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="machineId != null" >
+        #{machineId,jdbcType=INTEGER},
+      </if>
+      <if test="acceptType != null" >
+        #{acceptType,jdbcType=INTEGER},
+      </if>
+      <if test="factStartTime != null" >
+        #{factStartTime,jdbcType=DATE},
+      </if>
+      <if test="factEndTime != null" >
+        #{factEndTime,jdbcType=DATE},
+      </if>
+      <if test="fireReason != null" >
+        #{fireReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="leaveState != null" >
+        #{leaveState,jdbcType=INTEGER},
+      </if>
+      <if test="leaveReason != null" >
+        #{leaveReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="leaveStart != null" >
+        #{leaveStart,jdbcType=DATE},
+      </if>
+      <if test="leaveEnd != null" >
+        #{leaveEnd,jdbcType=DATE},
+      </if>
+      <if test="cancelId != null" >
+        #{cancelId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+        <if test="driverId != null" >
+            #{driverId,jdbcType=INTEGER},
+        </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcOwnerOrder" >
+    update jxc_owner_order
+    <set >
+      <if test="orderState != null" >
+        order_state = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="tenantryOrderId != null" >
+        tenantry_order_id = #{tenantryOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="machineId != null" >
+        machine_id = #{machineId,jdbcType=INTEGER},
+      </if>
+      <if test="acceptType != null" >
+        accept_type = #{acceptType,jdbcType=INTEGER},
+      </if>
+      <if test="factStartTime != null" >
+        fact_start_time = #{factStartTime,jdbcType=DATE},
+      </if>
+      <if test="factEndTime != null" >
+        fact_end_time = #{factEndTime,jdbcType=DATE},
+      </if>
+      <if test="fireReason != null" >
+        fire_reason = #{fireReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="leaveState != null" >
+        leave_state = #{leaveState,jdbcType=INTEGER},
+      </if>
+      <if test="leaveReason != null" >
+        leave_reason = #{leaveReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="leaveStart != null" >
+        leave_start = #{leaveStart,jdbcType=DATE},
+      </if>
+      <if test="leaveEnd != null" >
+        leave_end = #{leaveEnd,jdbcType=DATE},
+      </if>
+      <if test="cancelId != null" >
+        cancel_id = #{cancelId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcOwnerOrder" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_owner_order
+    <where >
+      <if test="orderState != null" >
+        AND order_state = #{orderState,jdbcType=INTEGER}
+      </if>
+      <if test="tenantryOrderId != null" >
+        AND tenantry_order_id = #{tenantryOrderId,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="machineId != null" >
+        AND machine_id = #{machineId,jdbcType=INTEGER}
+      </if>
+      <if test="acceptType != null" >
+        AND accept_type = #{acceptType,jdbcType=INTEGER}
+      </if>
+      <if test="factStartTime != null" >
+        AND fact_start_time = #{factStartTime,jdbcType=DATE}
+      </if>
+      <if test="factEndTime != null" >
+        AND fact_end_time = #{factEndTime,jdbcType=DATE}
+      </if>
+      <if test="fireReason != null" >
+        AND fire_reason = #{fireReason,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="leaveState != null" >
+        AND leave_state = #{leaveState,jdbcType=INTEGER}
+      </if>
+      <if test="leaveReason != null" >
+        AND leave_reason = #{leaveReason,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="leaveStart != null" >
+        AND leave_start = #{leaveStart,jdbcType=DATE}
+      </if>
+      <if test="leaveEnd != null" >
+        AND leave_end = #{leaveEnd,jdbcType=DATE}
+      </if>
+      <if test="cancelId != null" >
+        AND cancel_id = #{cancelId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!-- 机主订单管理列表 -->
+  <select id="getOwnerOrderList" resultType="com.weiwei.jixieche.vo.JxcOwnerOrderVo">
+      <if test="orderType == 1">
+          SELECT
+              jm.machine_card_no AS machineCarNo,
+              ifnull(jo.fact_start_time,jpo.start_date) AS startDate,
+              ifnull(jo.fact_end_time,jpo.end_date) AS endDate,
+              jo.order_state AS ownerOrderState,
+              jpo.order_state as projectOrderState,
+              jp.project_name as projectName,
+              jp.leader_phone as projectPhone,
+              jo.id as ownerOrderId,
+              jp.project_address as projectAddress,
+              jpo.user_id as projectUserId,
+              jo.driver_id as driverId,
+              jsi.order_url as projectImgUrl
+          FROM
+              jxc_owner_order jo
+              LEFT JOIN jxc_machine jm ON jo.machine_id = jm.id
+              left join jxc_project_order jpo on jpo.id = jo.tenantry_order_id
+              left join jxc_project jp on jp.id = jpo.project_id
+              left join jxc_static_img jsi on jsi.img_id = jp.img_id
+              <where>
+                <if test="ownerUserId != null">
+                  jo.user_id = #{ownerUserId}
+                </if>
+                <if test="lastPageLastId != null and lastPageLastId != ''">
+                  and jo.id &lt; #{lastPageLastId}
+                </if>
+                  <if test="machineId != null and machineId != '' and machineId != 0">
+                      and jm.id = #{machineId}
+                  </if>
+                  AND jo.order_state = 0
+              </where>
+              ORDER BY jo.id DESC,jpo.start_date DESC limit 10
+      </if>
+      <if test="orderType == 2">
+          SELECT
+              jm.machine_card_no AS machineCarNo,
+              ifnull(jo.fact_start_time,jpo.start_date) AS startDate,
+              ifnull(jo.fact_end_time,jpo.end_date) AS endDate,
+              jo.order_state AS ownerOrderState,
+              jpo.order_state as projectOrderState,
+              jp.project_name as projectName,
+              jp.leader_phone as projectPhone,
+              jo.id as ownerOrderId,
+              jp.project_address as projectAddress,
+              jpo.user_id as projectUserId,
+              jo.driver_id as driverId,
+              jsi.order_url as projectImgUrl
+          FROM
+          jxc_owner_order jo
+          LEFT JOIN jxc_machine jm ON jo.machine_id = jm.id
+          left join jxc_project_order jpo on jpo.id = jo.tenantry_order_id
+          left join jxc_project jp on jp.id = jpo.project_id
+          left join jxc_static_img jsi on jsi.img_id = jp.img_id
+          <where>
+              <if test="ownerUserId != null">
+                  jo.user_id = #{ownerUserId}
+              </if>
+              <if test="lastPageLastId != null and lastPageLastId != ''">
+                  and jo.id &lt; #{lastPageLastId}
+              </if>
+              <if test="machineId != null and machineId != '' and machineId != 0">
+                  and jm.id = #{machineId}
+              </if>
+              <if test="orderType == 2">
+                  AND (jo.order_state = 2
+                  OR ((jo.order_state =  3 OR jo.order_state = 4)
+                  AND jo.id IN (
+                  SELECT jmr.owner_order_id
+                  FROM jxc_machine_route jmr
+                  LEFT JOIN jxc_owner_order joo ON joo.id = jmr.owner_order_id
+                  WHERE  1=1
+                  <if test="ownerUserId != null">
+                      AND joo.user_id = #{ownerUserId}
+                  </if>
+                  <if test="machineId != null and machineId != '' and machineId != 0">
+                      and jmr.id = #{machineId}
+                  </if>
+                  AND pay_state = 0
+                  GROUP BY jmr.owner_order_id
+                  )))
+                  GROUP BY jo.id
+              </if>
+          </where>
+          ORDER BY jo.id DESC,jpo.start_date DESC limit 10
+      </if>
+      <if test="orderType == 3">
+          SELECT
+          jm.machine_card_no AS machineCarNo,
+          ifnull(jo.fact_start_time,jpo.start_date) AS startDate,
+          ifnull(jo.fact_end_time,jpo.end_date) AS endDate,
+          jo.order_state AS ownerOrderState,
+          jpo.order_state as projectOrderState,
+          jp.project_name as projectName,
+          jp.leader_phone as projectPhone,
+          jo.id as ownerOrderId,
+          jp.project_address as projectAddress,
+          jpo.user_id as projectUserId,
+          jo.driver_id as driverId,
+          jsi.order_url as projectImgUrl
+          FROM
+          jxc_owner_order jo
+          LEFT JOIN jxc_machine jm ON jo.machine_id = jm.id
+          left join jxc_project_order jpo on jpo.id = jo.tenantry_order_id
+          left join jxc_project jp on jp.id = jpo.project_id
+          left join jxc_static_img jsi on jsi.img_id = jp.img_id
+          <where>
+              <if test="ownerUserId != null">
+                  jo.user_id = #{ownerUserId}
+              </if>
+              <if test="lastPageLastId != null and lastPageLastId != ''">
+                  and jo.id &lt; #{lastPageLastId}
+              </if>
+              <if test="machineId != null and machineId != '' and machineId != 0">
+                  and jm.id = #{machineId}
+              </if>
+              <if test="orderType == 1">
+                  AND jo.order_state = 0
+              </if>
+              <if test="orderType == 2">
+                  AND jo.order_state = 2
+              </if>
+              <if test="orderType == 3">
+                  AND (jo.order_state = 1
+                  OR ((jo.order_state =  3 OR jo.order_state = 4)
+                  AND jo.id not IN (
+                  SELECT jmr.owner_order_id
+                  FROM jxc_machine_route jmr
+                  LEFT JOIN jxc_owner_order joo ON joo.id = jmr.owner_order_id
+                  WHERE  1=1
+                  <if test="ownerUserId != null">
+                      AND joo.user_id = #{ownerUserId}
+                  </if>
+                  <if test="machineId != null and machineId != '' and machineId != 0">
+                      and jmr.id = #{machineId}
+                  </if>
+                  AND pay_state = 0
+                  GROUP BY jmr.owner_order_id
+                  )))
+                  GROUP BY jo.id
+              </if>
+          </where>
+          ORDER BY jo.id DESC,jpo.start_date DESC limit 10
+      </if>
+  </select>
+  <select id="hasNextPage" resultType="java.lang.Long">
+      SELECT
+        jo.id as ownerOrderId
+      FROM
+        jxc_owner_order jo
+        LEFT JOIN jxc_machine jm ON jo.machine_id = jm.id
+        left join jxc_project_order jpo on jpo.id = jo.tenantry_order_id
+        left join jxc_project jp on jp.id = jpo.project_id
+      <where>
+        <if test="ownerUserId != null">
+          jo.user_id = #{ownerUserId}
+        </if>
+          <if test="lastPageLastId != null and lastPageLastId != ''">
+              and jo.id &lt; #{lastPageLastId}
+          </if>
+          <if test="machineId != null and machineId != '' and machineId != 0">
+              and jm.id = #{machineId}
+          </if>
+          <if test="orderType == 1">
+              AND jo.order_state = 0
+          </if>
+          <if test="orderType == 2">
+              AND (jo.order_state = 2
+              OR ((jo.order_state =  3 OR jo.order_state = 4)
+              AND jo.id IN (
+              SELECT jmr.owner_order_id
+              FROM jxc_machine_route jmr
+              LEFT JOIN jxc_owner_order joo ON joo.id = jmr.owner_order_id
+              WHERE  1=1
+              <if test="ownerUserId != null">
+                  AND joo.user_id = #{ownerUserId}
+              </if>
+              <if test="machineId != null and machineId != '' and machineId != 0">
+                  and jmr.id = #{machineId}
+              </if>
+              AND pay_state = 0
+              GROUP BY jmr.owner_order_id
+              )))
+              GROUP BY jo.id
+          </if>
+          <if test="orderType == 3">
+              AND (jo.order_state = 1
+              OR (jo.order_state =  3 OR jo.order_state = 4)
+              OR ((jo.order_state =  3 OR jo.order_state = 4)
+              AND jo.id not IN (
+              SELECT jmr.owner_order_id
+              FROM jxc_machine_route jmr
+              LEFT JOIN jxc_owner_order joo ON joo.id = jmr.owner_order_id
+              WHERE  1=1
+              <if test="ownerUserId != null">
+                  AND joo.user_id = #{ownerUserId}
+              </if>
+              <if test="machineId != null and machineId != '' and machineId != 0">
+                  and jmr.id = #{machineId}
+              </if>
+              AND pay_state = 0
+              GROUP BY jmr.owner_order_id
+              )))
+              GROUP BY jo.id
+          </if>
+      </where>
+      ORDER BY jo.id DESC,jpo.start_date DESC limit 1
+  </select>
+    
+    <select id="selectJxcOwnerApplyQuitList" resultType="com.weiwei.jixieche.bean.JxcOwnerApplyQuit">
+        SELECT apply_state AS applyState
+        FROM jxc_owner_apply_quit
+        WHERE owner_order_id = #{ownerOrderId}
+    </select>
+
+  <!-- 查询是否有未垫付的异常行程，有的话加“待收款”标记 -->
+  <select id="countWaitPayRoute" resultType="java.lang.Integer">
+        SELECT
+            count( jmr.id ) AS routeId
+        FROM
+            jxc_machine_route jmr
+            left join jxc_owner_order joo on jmr.owner_order_id = joo.id
+        WHERE
+            jmr.owner_order_id = #{ownerOrderId}
+            and (joo.order_state = 3 or joo.order_state = 4)
+            AND jmr.pay_state = 0
+    </select>
+
+  <!-- 查询当前订单有没有行程记录 -->
+  <select id="checkRoute" resultType="java.lang.Long">
+        SELECT id FROM jxc_machine_route WHERE owner_order_id = #{ownerOrderId} limit 1
+  </select>
+
+  <!-- 机械有没有正在进行中的订单 -->
+  <select id="getOwnerOrderByMachineId" resultType="com.weiwei.jixieche.vo.JxcIndexVo">
+    SELECT
+        jp.project_address AS projectAddress,
+        jp.longitude as projectLng,
+        jp.latitude as projectLat,
+        js.site_address AS siteAddress,
+        js.longitude as siteLng,
+        js.latitude as siteLat,
+        js.into_flag as intoFlag,
+        joo.id as ownerOrderId
+    FROM
+        jxc_owner_order joo
+        LEFT JOIN jxc_project_order jpo ON joo.tenantry_order_id = jpo.id
+        LEFT JOIN jxc_project jp ON jp.id = jpo.project_id
+        LEFT JOIN jxc_order_ref_site jor ON jor.tenantry_order_id = jpo.id
+        LEFT JOIN jxc_site js ON js.id = jor.site_id
+    WHERE
+        joo.order_state = 2
+        AND jpo.order_state = 2
+        and joo.machine_id = #{machineId}
+        AND jor.state = 1
+    limit 1
+  </select>
+
+  <!-- 正在进行中的订单是否有人在上班中 -->
+  <select id="getWorkInByMachineId" resultType="com.weiwei.jixieche.vo.JxcIndexVo">
+    select driver_id as driverId, DATE_FORMAT(clock_in_time,'%Y-%m-%d %H:%i:%s') as workInTime
+	from jxc_clock_in_out_pair
+	where machine_id = #{machineId} and clock_out_id = '-1'
+  </select>
+
+    <!-- 正在进行中的订单是否正在跑趟中 -->
+    <select id="checkMachineRun" resultType="com.weiwei.jixieche.vo.JxcMachineWorkInVo">
+      SELECT
+            jmr.id as routeId,
+            ju.phone as ownerPhone
+        FROM
+            jxc_machine_route jmr
+            left join jxc_owner_order joo on jmr.owner_order_id = joo.id
+            left join jxc_user ju on ju.id = joo.user_id
+        where jmr.machine_id = #{machineId}
+          and jmr.end_time is null
+          and jmr.abnormal_type = 0
+          and pay_state = 0
+      limit 1
+    </select>
+
+  <!-- 接单列表 -->
+  <select id="getProjectOrderList" resultType="com.weiwei.jixieche.vo.JxcRobOrderVo">
+      SELECT
+          jp.project_address AS projectAddress,
+          jpo.start_date as startDate,
+          jpo.end_date as endDate,
+          timestampdiff( DAY, jpo.start_date, jpo.end_date ) + 1 AS workDay,
+          js.site_address AS siteAddress,
+          jor.fixed_price AS fixedPrice,
+          jor.estimate_price AS estimatePrice,
+          jor.pricing_mode AS pricingMode,
+          jpo.estimate_transport_times as routeCount,
+          jor.estimate_miles as estimateMiles,
+          js.site_name as siteName,
+          jpo.id as projectOrderId
+      FROM
+          jxc_project_order jpo
+          LEFT JOIN jxc_order_ref_site jor ON jpo.id = jor.tenantry_order_id
+          LEFT JOIN jxc_project jp ON jp.id = jpo.project_id
+          LEFT JOIN jxc_site js ON js.id = jor.site_id
+          where (jpo.order_state = 0 or jpo.order_state = 2)
+          AND jor.state = 1
+          and jp.city_code = #{areaId}
+      order by jpo.start_date desc
+  </select>
+
+  <!-- 机主订单详情 -->
+  <select id="getOwnerOrderDetail" resultType="com.weiwei.jixieche.vo.JxcOwnerOrderDetailVo">
+    SELECT
+        joo.id as ownerOrderId,
+        joo.tenantry_order_id AS projectOrderId,
+        joo.user_id as userId,
+        jp.project_name AS projectName,
+        jpo.start_date AS startDate,
+        jpo.end_date AS endDate,
+        jpo.work_start_clock as workStartTime,
+        jpo.work_end_clock as workEndTime,
+        jp.project_address as projectAddress,
+        js.site_address as siteAddress,
+        jor.estimate_miles as estimateMiles,
+        if(jor.pricing_mode = 0,jor.estimate_price,jor.fixed_price) as orderPrice,
+        jor.pricing_mode AS pricingMode,
+        jpo.account_method as accountMethod,
+        jpo.estimate_transport_times as estimateTransportTimes,
+        jpo.estimate_machine_count as estimateMachineCount,
+        jpo.earth_type as earthType,
+        jp.project_leader as projectLeader,
+        jp.leader_phone as projectPhone,
+        jm.machine_card_no as machineCarNo,
+        jpo.user_id as projectUserId,
+        joo.driver_id as driverId,
+        ju.score as projectScore,
+        jp.city_code AS cityCode,
+        joo.order_state as ownerOrderState,
+        jp.latitude as projectLat,
+        jp.longitude as projectLng,
+        js.latitude as siteLat,
+        js.longitude as siteLng
+    FROM
+        jxc_owner_order joo
+        LEFT JOIN jxc_project_order jpo ON joo.tenantry_order_id = jpo.id
+        LEFT JOIN jxc_project jp ON jp.id = jpo.project_id
+        left join jxc_order_ref_site jor on jor.tenantry_order_id = jpo.id and jor.state = 1
+        left join jxc_site js on js.id = jor.site_id
+        left join jxc_machine jm on jm.id = joo.machine_id
+        left join jxc_user ju on ju.id = jpo.user_id
+        where joo.id = #{ownerOrderId}
+        AND jor.state = 1
+  </select>
+
+  <!-- 取消原因列表 -->
+  <select id="getCancelReason" resultType="com.weiwei.jixieche.bean.JxcCancelReason">
+    select id, content from jxc_cancel_reason
+  </select>
+
+  <!--查询所有自身未完成的job-->
+  <select id="getProjectOrderIdList" resultType="com.weiwei.jixieche.bean.JxcProjectOrder">
+        SELECT
+          po.id,
+          po.start_date AS startDate,
+          po.end_date AS endDate
+        FROM jxc_owner_order oo
+          LEFT JOIN jxc_project_order po ON po.id = oo.tenantry_order_id
+        WHERE oo.user_id = #{userId}
+          AND (oo.order_state = 0 OR oo.order_state = 2)
+    </select>
+
+    <!-- 机主查看异常趟数列表 -->
+    <select id="ownerAbnormalList" resultType="com.weiwei.jixieche.vo.JxcOwnerAbnormalVo">
+        SELECT
+            mr.id AS routeId,
+            pp.project_name AS projectName,
+            ifnull( mm.machine_card_no, '无' ) AS machineCardNo,
+            mr.abnormal_type AS abnormalType,
+            ifnull( aoa.abnormal_status, - 1 ) AS abnormalStatus,
+            FORMAT( ifnull( mr.to_owner_amount, 0 ) / 100, 2 ) AS consultPrice,
+            aoa.consult_user_id AS consultUserId,
+            aoa.appeal_user_id AS appealUserId,
+            aoa.self_handle_flag AS selfHandleFlag,
+            mr.pay_state AS payState,
+            DATE_FORMAT( mr.start_time, '%Y-%m-%d %H:%i' ) AS startTime,
+            DATE_FORMAT( mr.end_time, '%Y-%m-%d %H:%i' ) AS endTime
+        FROM
+            jxc_machine_route mr
+            LEFT JOIN jxc_owner_order oo ON oo.id = mr.owner_order_id
+            LEFT JOIN jxc_machine mm ON mm.id = oo.machine_id
+            LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+            LEFT JOIN jxc_project pp ON pp.id = po.project_id
+            LEFT JOIN jxc_exception_appeal aoa ON aoa.route_id = mr.id
+        WHERE
+            oo.user_id = #{userId}
+            AND mr.abnormal_type != 0
+        <if test="flag == 0">
+            AND mr.pay_state = 0
+        </if>
+        <if test="flag == 1">
+            AND mr.pay_state != 0
+        </if>
+        <if test="lastPageLastId != null and lastPageLastId != ''">
+            AND mr.id &lt; #{lastPageLastId}
+        </if>
+        ORDER BY
+            mr.id DESC
+            LIMIT 10
+    </select>
+
+    <select id="hasNextPageAbnormalList" resultType="java.lang.Long">
+        SELECT
+            mr.id AS routeId
+            FROM
+            jxc_machine_route mr
+            LEFT JOIN jxc_owner_order oo ON oo.id = mr.owner_order_id
+            LEFT JOIN jxc_machine mm ON mm.id = oo.machine_id
+            LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+            LEFT JOIN jxc_project pp ON pp.id = po.project_id
+            LEFT JOIN jxc_exception_appeal aoa ON aoa.route_id = mr.id
+            WHERE
+            oo.user_id = #{userId}
+            AND mr.abnormal_type != 0
+            <if test="flag == 0">
+                AND mr.pay_state = 0
+            </if>
+            <if test="flag == 1">
+                AND mr.pay_state != 0
+            </if>
+            <if test="lastPageLastId != null and lastPageLastId != ''">
+                AND mr.id &lt; #{lastPageLastId}
+            </if>
+            ORDER BY
+            mr.id DESC limit 1
+    </select>
+
+    <select id="getJxcWaitHandleItems" resultType="com.weiwei.jixieche.bean.JxcWaitHandleItems">
+        SELECT oo.id AS ownerOrderId,
+                oo.tenantry_order_id AS projectOrderId,
+                oo.machine_id AS machineId,
+                pp.project_name AS projectName,
+                po.user_id AS userId
+        FROM jxc_owner_order oo
+        LEFT JOIN jxc_project_order po ON po.id = oo.tenantry_order_id
+        LEFT JOIN jxc_project pp ON pp.id = po.project_id
+        WHERE oo.id = #{ownerOrderId}
+    </select>
+
+    <!-- 机主查看异常总数 -->
+    <select id="ownerAbnormalAllList" resultType="java.lang.Integer">
+        SELECT
+            count(mr.id)
+        FROM
+        jxc_machine_route mr
+        LEFT JOIN jxc_owner_order oo ON oo.id = mr.owner_order_id
+        LEFT JOIN jxc_machine mm ON mm.id = oo.machine_id
+        LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+        LEFT JOIN jxc_project pp ON pp.id = po.project_id
+        LEFT JOIN jxc_exception_appeal aoa ON aoa.route_id = mr.id
+        WHERE
+        oo.user_id = #{userId}
+        AND mr.abnormal_type != 0
+        <if test="flag == 0">
+            AND mr.pay_state = 0
+        </if>
+        <if test="flag == 1">
+            AND mr.pay_state != 0
+        </if>
+        ORDER BY
+        mr.id DESC
+        LIMIT 10
+    </select>
+
+    <!-- 异常趟数详情 -->
+    <select id="ownerViewAbnormalProgress" resultType="com.weiwei.jixieche.vo.JxcOwnerAbnormalVo">
+        SELECT
+            pp.project_name AS projectName,
+            mm.machine_card_no AS machineCardNo,
+            mr.abnormal_type AS abnormalType,
+            ifnull( aoa.abnormal_status,- 1 ) AS abnormalStatus,
+            FORMAT( ifnull( mr.to_owner_amount, 0 ) / 100, 2 ) AS consultPrice,
+            aoa.consult_user_id AS consultUserId,
+            aoa.appeal_user_id AS appealUserId,
+            mr.pay_state AS payState,
+            DATE_FORMAT( aoa.create_time, '%Y-%m-%d %H:%i' ) AS time1,
+            DATE_FORMAT( aoa.update_time, '%Y-%m-%d %H:%i' ) AS time2,
+            DATE_FORMAT( mr.start_time, '%Y-%m-%d %H:%i' ) AS startTime,
+            DATE_FORMAT( mr.end_time, '%Y-%m-%d %H:%i' ) AS endTime,
+            pp.city_code AS projectArea,
+            ls.site_address AS siteAddress,
+            pp.project_address as projectAddress,
+            mr.driver_id as driverId,
+            mr.owner_order_id AS ownerOrderId
+        FROM
+            jxc_machine_route mr
+            LEFT JOIN jxc_owner_order oo ON oo.id = mr.owner_order_id
+            LEFT JOIN jxc_machine mm ON mm.id = oo.machine_id
+            LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+            LEFT JOIN jxc_project pp ON pp.id = po.project_id
+            LEFT JOIN jxc_exception_appeal aoa ON aoa.route_id = mr.id
+            LEFT JOIN jxc_site ls ON ls.id = mr.site_id
+            LEFT JOIN ( SELECT route_id, create_time FROM jxc_trade_owner WHERE trade_status = 1 ) t ON t.route_id = mr.id
+        WHERE
+            mr.id = #{routeId}
+    </select>
+
+    <!-- 查询机械已接单和进行中的订单 -->
+    <select id="getOwnerListByMachineId" resultType="java.util.Map">
+        SELECT
+            po.start_date as startDate,
+            po.end_date as endDate
+        FROM
+            jxc_owner_order oo
+            LEFT JOIN jxc_project_order po ON po.id = oo.tenantry_order_id
+        WHERE
+            oo.machine_id = #{machineId}
+            AND (oo.order_state = 0 OR oo.order_state = 2 )
+            AND ( po.order_state = 0 OR po.order_state = 2 )
+    </select>
+
+    <select id="queryProjectOrderIdList" resultType="java.lang.Long">
+        SELECT DISTINCT oo.tenantry_order_id
+        FROM jxc_owner_order oo
+		LEFT JOIN jxc_project_order po ON po.id = oo.tenantry_order_id
+        WHERE oo.machine_id = #{machineId}
+        AND (oo.order_state = 3 OR oo.order_state = 4)
+		AND (po.order_state = 0 OR po.order_state = 2);
+    </select>
+
+    <!-- 获取电子消纳券 -->
+    <select id="getSiteCouponByMachineId" resultType="com.weiwei.jixieche.vo.JxcSiteCouponVo">
+        SELECT
+            jsc.id AS id,
+            js.site_name AS siteName,
+            st.capacity,
+            st.coupon_type AS couponType
+        FROM
+            jxc_site_coupon jsc
+            LEFT JOIN jxc_site js ON jsc.site_id = js.id
+            LEFT JOIN jxc_site_coupon_type st ON st.id = jsc.coupon_type_id
+        WHERE
+            jsc.machine_id = #{machineId} and jsc.coupon_flag = 1
+    </select>
+
+    <!-- 订单详情 -->
+    <select id="getById" resultType="com.weiwei.jixieche.bean.JxcOwnerOrder">
+        select
+        <include refid="BaseAliasColumn" />
+        from jxc_owner_order
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 查询机械已接单和进行中的订单 -->
+    <select id="checkOwnerListByDriverId" resultType="java.lang.Integer">
+        SELECT
+            count(oo.id)
+        FROM
+            jxc_owner_order oo
+        WHERE
+            oo.driver_id = #{driverId}
+            AND (oo.order_state = 0 OR oo.order_state = 2)
+    </select>
+
+</mapper>

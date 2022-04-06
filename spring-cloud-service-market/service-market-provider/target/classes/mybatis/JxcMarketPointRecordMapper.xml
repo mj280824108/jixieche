@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcMarketPointRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcMarketPointRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="point_type" property="pointType" jdbcType="INTEGER" />
+    <result column="point_status" property="pointStatus" jdbcType="INTEGER" />
+    <result column="market_release_id" property="marketReleaseId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="infor_id" property="inforId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_id, point_type, point_status, market_release_id, shop_id, infor_id, create_time, 
+    update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, user_id AS userId, point_type AS pointType, point_status AS pointStatus, market_release_id AS marketReleaseId, 
+    shop_id AS shopId, infor_id AS inforId, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_market_point_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcMarketPointRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_market_point_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="pointType != null" >
+        point_type,
+      </if>
+      <if test="pointStatus != null" >
+        point_status,
+      </if>
+      <if test="marketReleaseId != null" >
+        market_release_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="inforId != null" >
+        infor_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="pointType != null" >
+        #{pointType,jdbcType=INTEGER},
+      </if>
+      <if test="pointStatus != null" >
+        #{pointStatus,jdbcType=INTEGER},
+      </if>
+      <if test="marketReleaseId != null" >
+        #{marketReleaseId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="inforId != null" >
+        #{inforId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcMarketPointRecord" >
+    update jxc_market_point_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="pointType != null" >
+        point_type = #{pointType,jdbcType=INTEGER},
+      </if>
+      <if test="pointStatus != null" >
+        point_status = #{pointStatus,jdbcType=INTEGER},
+      </if>
+      <if test="marketReleaseId != null" >
+        market_release_id = #{marketReleaseId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="inforId != null" >
+        infor_id = #{inforId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcMarketPointRecord" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_market_point_record
+    <where >
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="pointType != null" >
+        AND point_type = #{pointType,jdbcType=INTEGER}
+      </if>
+      <if test="pointStatus != null" >
+        AND point_status = #{pointStatus,jdbcType=INTEGER}
+      </if>
+      <if test="marketReleaseId != null" >
+        AND market_release_id = #{marketReleaseId,jdbcType=INTEGER}
+      </if>
+      <if test="shopId != null" >
+        AND shop_id = #{shopId,jdbcType=INTEGER}
+      </if>
+      <if test="inforId != null" >
+        AND infor_id = #{inforId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+</mapper>

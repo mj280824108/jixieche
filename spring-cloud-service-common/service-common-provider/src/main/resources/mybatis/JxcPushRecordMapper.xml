@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcPushRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcPushRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="template_pid" property="templatePid" jdbcType="INTEGER" />
+    <result column="template_id" property="templateId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="successed" property="successed" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="readed" property="readed" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_id, phone, template_pid, template_id, content, successed, deleted, readed,
+    create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, user_id AS userId, phone, template_pid AS templatePid, template_id AS templateId,
+    content, successed, deleted, readed, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_push_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcPushRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_push_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="templatePid != null" >
+        template_pid,
+      </if>
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="successed != null" >
+        successed,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="readed != null" >
+        readed,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="templatePid != null" >
+        #{templatePid,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="successed != null" >
+        #{successed,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="readed != null" >
+        #{readed,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcPushRecord" >
+    update jxc_push_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="templatePid != null" >
+        template_pid = #{templatePid,jdbcType=INTEGER},
+      </if>
+      <if test="templateId != null" >
+        template_id = #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="successed != null" >
+        successed = #{successed,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="readed != null" >
+        readed = #{readed,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcPushRecord" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_push_record
+    <where >
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="phone != null" >
+        AND phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="templatePid != null" >
+        AND template_pid = #{templatePid,jdbcType=INTEGER}
+      </if>
+      <if test="templateId != null" >
+        AND template_id = #{templateId,jdbcType=INTEGER}
+      </if>
+      <if test="content != null" >
+        AND content = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="successed != null" >
+        AND successed = #{successed,jdbcType=INTEGER}
+      </if>
+      <if test="deleted != null" >
+        AND deleted = #{deleted,jdbcType=INTEGER}
+      </if>
+      <if test="readed != null" >
+        AND readed = #{readed,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!--***********************************************-->
+  <!--查询用户未读消息类型列表-->
+  <select id="queryUnReadPushRecordType" parameterType="com.weiwei.jixieche.vo.PushRecordTypeUnReadVo" resultType="com.weiwei.jixieche.vo.PushRecordTypeUnReadVo">
+    SELECT jpr.template_pid AS typeId,jpt.type_name AS typeName,DATE_FORMAT(jpr.create_time,'%Y-%m-%d %H:%i:%s') AS createTime,jpr.id AS pushRecordId,jpr.user_id AS userId from
+    jxc_push_record jpr
+    LEFT JOIN jxc_push_template jpt ON jpr.template_pid =  jpt.id
+    WHERE jpr.readed = 0  AND jpr.user_id =#{userId} AND jpr.id IN(SELECT  max(id) AS pushRecordId from jxc_push_record GROUP BY template_pid)
+  </select>
+
+  <!--批量更新读取状态-->
+  <update id = "updateBatchPushRecordStatus" parameterType = "java.util.List">
+    update jxc_push_record set readed = 1 where id
+    <foreach collection="list" item="id" open="in (" close=")"
+             separator=",">
+      #{id}
+    </foreach>
+  </update>
+
+</mapper>

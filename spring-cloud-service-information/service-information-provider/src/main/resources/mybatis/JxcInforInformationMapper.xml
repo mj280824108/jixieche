@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcInforInformationMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcInforInformation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="infor_type" property="inforType" jdbcType="INTEGER" />
+    <result column="article_type" property="articleType" jdbcType="INTEGER" />
+    <result column="infor_big_img" property="inforBigImg" jdbcType="VARCHAR" />
+    <result column="infor_small_img" property="inforSmallImg" jdbcType="VARCHAR" />
+    <result column="infor_sources" property="inforSources" jdbcType="VARCHAR" />
+    <result column="recommend" property="recommend" jdbcType="INTEGER" />
+    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+    <result column="point_count" property="pointCount" jdbcType="INTEGER" />
+    <result column="collection_count" property="collectionCount" jdbcType="INTEGER" />
+    <result column="share_count" property="shareCount" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="infor_flag" property="inforFlag" jdbcType="INTEGER" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="roof_flag" property="roofFlag" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, title, infor_type, article_type, infor_big_img, infor_small_img,
+    infor_sources, recommend, view_count, point_count, collection_count, share_count,
+    create_time, update_time, infor_flag, update_id, start_date, end_date, roof_flag
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, title, infor_type AS inforType, article_type AS articleType, infor_big_img AS inforBigImg,
+    infor_small_img AS inforSmallImg, infor_sources AS inforSources,
+    recommend, view_count AS viewCount, point_count AS pointCount, collection_count AS collectionCount,
+    share_count AS shareCount, create_time AS createTime, update_time AS updateTime,
+    infor_flag AS inforFlag, update_id AS updateId, start_date AS startDate, end_date AS endDate,
+    roof_flag AS roofFlag
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_infor_information
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcInforInformation" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_infor_information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="inforType != null" >
+        infor_type,
+      </if>
+      <if test="articleType != null" >
+        article_type,
+      </if>
+      <if test="inforBigImg != null" >
+        infor_big_img,
+      </if>
+      <if test="inforSmallImg != null" >
+        infor_small_img,
+      </if>
+      <if test="inforSources != null" >
+        infor_sources,
+      </if>
+      <if test="recommend != null" >
+        recommend,
+      </if>
+      <if test="viewCount != null" >
+        view_count,
+      </if>
+      <if test="pointCount != null" >
+        point_count,
+      </if>
+      <if test="collectionCount != null" >
+        collection_count,
+      </if>
+      <if test="shareCount != null" >
+        share_count,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="inforFlag != null" >
+        infor_flag,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="roofFlag != null" >
+        roof_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="inforType != null" >
+        #{inforType,jdbcType=INTEGER},
+      </if>
+      <if test="articleType != null" >
+        #{articleType,jdbcType=INTEGER},
+      </if>
+      <if test="inforBigImg != null" >
+        #{inforBigImg,jdbcType=VARCHAR},
+      </if>
+      <if test="inforSmallImg != null" >
+        #{inforSmallImg,jdbcType=VARCHAR},
+      </if>
+      <if test="inforSources != null" >
+        #{inforSources,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="pointCount != null" >
+        #{pointCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectionCount != null" >
+        #{collectionCount,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null" >
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inforFlag != null" >
+        #{inforFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roofFlag != null" >
+        #{roofFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcInforInformation" >
+    update jxc_infor_information
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="inforType != null" >
+        infor_type = #{inforType,jdbcType=INTEGER},
+      </if>
+      <if test="articleType != null" >
+        article_type = #{articleType,jdbcType=INTEGER},
+      </if>
+      <if test="inforBigImg != null" >
+        infor_big_img = #{inforBigImg,jdbcType=VARCHAR},
+      </if>
+      <if test="inforSmallImg != null" >
+        infor_small_img = #{inforSmallImg,jdbcType=VARCHAR},
+      </if>
+      <if test="inforSources != null" >
+        infor_sources = #{inforSources,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        recommend = #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="viewCount != null" >
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="pointCount != null" >
+        point_count = #{pointCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectionCount != null" >
+        collection_count = #{collectionCount,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null" >
+        share_count = #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inforFlag != null" >
+        infor_flag = #{inforFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roofFlag != null" >
+        roof_flag = #{roofFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcInforInformation" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_infor_information
+    <where >
+      <if test="title != null" >
+        AND title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="inforType != null" >
+        AND infor_type = #{inforType,jdbcType=INTEGER}
+      </if>
+      <if test="articleType != null" >
+        AND article_type = #{articleType,jdbcType=INTEGER}
+      </if>
+      <if test="inforBigImg != null" >
+        AND infor_big_img = #{inforBigImg,jdbcType=VARCHAR}
+      </if>
+      <if test="inforSmallImg != null" >
+        AND infor_small_img = #{inforSmallImg,jdbcType=VARCHAR}
+      </if>
+      <if test="inforSources != null" >
+        AND infor_sources = #{inforSources,jdbcType=VARCHAR}
+      </if>
+      <if test="recommend != null" >
+        AND recommend = #{recommend,jdbcType=INTEGER}
+      </if>
+      <if test="viewCount != null" >
+        AND view_count = #{viewCount,jdbcType=INTEGER}
+      </if>
+      <if test="pointCount != null" >
+        AND point_count = #{pointCount,jdbcType=INTEGER}
+      </if>
+      <if test="collectionCount != null" >
+        AND collection_count = #{collectionCount,jdbcType=INTEGER}
+      </if>
+      <if test="shareCount != null" >
+        AND share_count = #{shareCount,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="inforFlag != null" >
+        AND infor_flag = #{inforFlag,jdbcType=INTEGER}
+      </if>
+      <if test="updateId != null" >
+        AND update_id = #{updateId,jdbcType=INTEGER}
+      </if>
+      <if test="startDate != null" >
+        AND start_date = #{startDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endDate != null" >
+        AND end_date = #{endDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="roofFlag != null" >
+        AND roof_flag = #{roofFlag,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <!--*********************************************-->
+  <select id="queryTopInfor" parameterType="com.weiwei.jixieche.bean.JxcInforInformation" resultType="com.weiwei.jixieche.bean.JxcInforInformation">
+    select <include refid="Base_Column_List"/> from jxc_infor_information
+    <where >
+      <if test="inforType != null" >
+        AND infor_type = #{inforType,jdbcType=INTEGER}
+      </if>
+      AND roof_flag =1 order by create_time desc limit 1
+    </where>
+  </select>
+
+  <!--查询用户是否收藏-->
+  <select id="queryCollection" parameterType="map" resultType="java.lang.Integer">
+      SELECT ifnull(jmcr.id,0) AS id FROM jxc_market_collection_record jmcr
+      WHERE jmcr.user_id =#{map.userId} AND jmcr.information_id = #{map.inforId} AND jmcr.collection_disabled =1 limit 1
+  </select>
+
+  <!--查询用户是否点赞-->
+  <select id="queryPointId" parameterType="map" resultType="java.lang.Integer">
+    SELECT ifnull(jmpr.id,0) AS id FROM jxc_market_point_record jmpr
+    WHERE jmpr.user_id =#{map.userId} AND jmpr.infor_id = #{map.inforId} AND jmpr.point_status = 1 limit 1
+  </select>
+
+  <!--查询资讯收藏量-->
+  <select id="queryInfoCollectionNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+       SELECT COUNT(jmcr.id) AS num FROM jxc_market_collection_record jmcr WHERE jmcr.information_id = #{id} AND jmcr.collection_disabled =1
+  </select>
+
+  <!--查询资讯点赞量-->
+  <select id="queryInfoPointNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT COUNT(jmpr.id) AS num FROM jxc_market_point_record jmpr
+    WHERE jmpr.infor_id = #{id} AND jmpr.point_status = 1
+  </select>
+
+  <!--查询机主首页轮播资讯-->
+  <select id="queryInforFireList"  resultType="com.weiwei.jixieche.vo.InforFireListVo">
+      select jii.id AS id ,jii.title AS title
+      from jxc_infor_information jii WHERE jii.infor_flag = 1 order by create_time desc limit 3
+  </select>
+
+  <!--根据用户userId查询用户角色id-->
+  <select id="queryRoleIdByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select jr.id AS roleId
+        from jxc_user ju
+        LEFT JOIN jxc_user_role jur ON ju.id = jur.user_id
+        LEFT JOIN jxc_role jr ON jur.role_id = jr.id
+        WHERE ju.id = #{userId}
+  </select>
+
+</mapper>

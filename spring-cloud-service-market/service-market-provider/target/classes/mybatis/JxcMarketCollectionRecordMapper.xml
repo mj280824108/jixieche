@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcMarketCollectionRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcMarketCollectionRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="collection_type" property="collectionType" jdbcType="INTEGER" />
+    <result column="realse_type" property="realseType" jdbcType="INTEGER" />
+    <result column="marke_realse_id" property="markeRealseId" jdbcType="INTEGER" />
+    <result column="information_id" property="informationId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="collection_disabled" property="collectionDisabled" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_id, collection_type, realse_type, marke_realse_id, information_id, shop_id,
+    collection_disabled, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, user_id AS userId, collection_type AS collectionType, realse_type AS realseType,
+    marke_realse_id AS markeRealseId, information_id AS informationId, shop_id AS shopId,
+    collection_disabled AS collectionDisabled, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_market_collection_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcMarketCollectionRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_market_collection_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="collectionType != null" >
+        collection_type,
+      </if>
+      <if test="realseType != null" >
+        realse_type,
+      </if>
+      <if test="markeRealseId != null" >
+        marke_realse_id,
+      </if>
+      <if test="informationId != null" >
+        information_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="collectionDisabled != null" >
+        collection_disabled,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="collectionType != null" >
+        #{collectionType,jdbcType=INTEGER},
+      </if>
+      <if test="realseType != null" >
+        #{realseType,jdbcType=INTEGER},
+      </if>
+      <if test="markeRealseId != null" >
+        #{markeRealseId,jdbcType=INTEGER},
+      </if>
+      <if test="informationId != null" >
+        #{informationId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="collectionDisabled != null" >
+        #{collectionDisabled,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcMarketCollectionRecord" >
+    update jxc_market_collection_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="collectionType != null" >
+        collection_type = #{collectionType,jdbcType=INTEGER},
+      </if>
+      <if test="realseType != null" >
+        realse_type = #{realseType,jdbcType=INTEGER},
+      </if>
+      <if test="markeRealseId != null" >
+        marke_realse_id = #{markeRealseId,jdbcType=INTEGER},
+      </if>
+      <if test="informationId != null" >
+        information_id = #{informationId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="collectionDisabled != null" >
+        collection_disabled = #{collectionDisabled,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcMarketCollectionRecord" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_market_collection_record
+    <where >
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="collectionType != null" >
+        AND collection_type = #{collectionType,jdbcType=INTEGER}
+      </if>
+      <if test="realseType != null" >
+        AND realse_type = #{realseType,jdbcType=INTEGER}
+      </if>
+      <if test="markeRealseId != null" >
+        AND marke_realse_id = #{markeRealseId,jdbcType=INTEGER}
+      </if>
+      <if test="informationId != null" >
+        AND information_id = #{informationId,jdbcType=INTEGER}
+      </if>
+      <if test="shopId != null" >
+        AND shop_id = #{shopId,jdbcType=INTEGER}
+      </if>
+      <if test="collectionDisabled != null" >
+        AND collection_disabled = #{collectionDisabled,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!--*********************************-->
+  <!--根据id查询资讯的信息-->
+  <select id="selectInforById" parameterType="com.weiwei.jixieche.bean.JxcInforInformation" resultType="com.weiwei.jixieche.bean.JxcInforInformation">
+    SELECT  id, title, infor_type AS inforType, article_type AS articleType, infor_big_img AS inforBigImg,
+    infor_small_img AS inforSmallImg, infor_contant AS inforContant, infor_sources AS inforSources,
+    recommend, view_count AS viewCount, point_count AS pointCount, collection_count AS collectionCount,
+    share_count AS shareCount, create_time AS createTime, update_time AS updateTime,
+    infor_flag AS inforFlag, update_id AS updateId, start_date AS startDate, end_date AS endDate,
+    roof_flag AS roofFlag FROM jxc_infor_information WHERE id = #{id}
+  </select>
+
+  <!--查询用户收藏记录列表-->
+  <select id="queryUserCollectionRecordList" parameterType="com.weiwei.jixieche.vo.UserCollectionInfoVo" resultType="com.weiwei.jixieche.vo.UserCollectionInfoVo" >
+    select user_id AS userId, collection_type AS collectionType, realse_type AS realseType,
+    marke_realse_id AS markeRealseId, information_id AS informationId, shop_id AS shopId
+    from jxc_market_collection_record
+    <where >
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="collectionType != null" >
+        AND collection_type = #{collectionType,jdbcType=INTEGER}
+      </if>
+      <if test="realseType != null" >
+        AND realse_type = #{realseType,jdbcType=INTEGER}
+      </if>
+      AND collection_disabled = 1
+    </where>
+  </select>
+
+  <!--查询店铺用户收藏人数-->
+  <select id="queryShopCollectionCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      select count(id) AS number
+      from jxc_market_collection_record jmcr WHERE jmcr.shop_id =#{shopId} AND jmcr.collection_disabled = 1
+  </select>
+
+
+</mapper>

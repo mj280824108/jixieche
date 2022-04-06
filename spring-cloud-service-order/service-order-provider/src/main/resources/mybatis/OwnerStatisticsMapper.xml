@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.OwnerStatisticsMapper">
+
+    <!--根据日期查询机主完结趟数(昨天，前天，本周，本月)-->
+    <select id="queryFinishCountByDate" parameterType="map" resultType="java.lang.Integer">
+        SELECT
+            count( id ) AS finishCount
+        FROM
+            (
+                SELECT
+                    oo.user_id,
+                    jmr.id,
+                    jmr.start_time,
+                    jmr.end_time,
+                    ifnull( jmr.start_time, jmr.end_time ) AS dateTime
+                FROM
+                    jxc_owner_order oo
+                    LEFT JOIN jxc_machine_route jmr ON oo.id = jmr.owner_order_id
+                WHERE
+                    oo.user_id = #{params.userId}
+                    AND jmr.pay_state != 0
+                GROUP BY
+                    jmr.id
+            ) c
+        WHERE c.dateTime <![CDATA[ <= ]]> #{params.endTime}
+          AND c.dateTime <![CDATA[ >= ]]> #{params.startTime}
+    </select>
+
+    <!--根据日期查询已结算的金额总和(昨天，前天，本周，本月)-->
+    <select id="queryFinishAmountByDate" parameterType="map" resultType="java.math.BigDecimal">
+        SELECT
+            sum( to_owner_amount ) AS totalAmount
+        FROM
+            (
+                SELECT
+                    oo.user_id,
+                    jmr.id,
+                    jmr.to_owner_amount,
+                    ifnull( jmr.start_time, jmr.end_time ) AS dateTime
+                FROM
+                    jxc_owner_order oo
+                    LEFT JOIN jxc_machine_route jmr ON oo.id = jmr.owner_order_id
+                WHERE
+                    oo.user_id = #{params.userId}
+                    AND ( jmr.pay_state = 1 OR jmr.pay_state = 2 )
+            ) c
+        WHERE c.dateTime <![CDATA[ <= ]]> #{params.endTime}
+          AND c.dateTime <![CDATA[ >= ]]> #{params.startTime}
+    </select>
+
+    <!--根据日期查询机主异常趟数(昨天，前天，本周，本月)-->
+    <select id="queryAbnormalCountByDate" parameterType="map" resultType="java.lang.Integer">
+        SELECT
+            count(id) AS abnormalCount
+        FROM
+            (
+                SELECT
+                    oo.user_id,
+                    jmr.id,
+                    jmr.to_owner_amount,
+                    ifnull( jmr.start_time, jmr.end_time ) AS dateTime
+                FROM
+                    jxc_owner_order oo
+                    LEFT JOIN jxc_machine_route jmr ON oo.id = jmr.owner_order_id
+                WHERE
+                    oo.user_id = #{params.userId}
+                    AND jmr.abnormal_type != 0 AND jmr.pay_state = 0
+        ) c
+        WHERE c.dateTime <![CDATA[ <= ]]> #{params.endTime}
+        AND c.dateTime <![CDATA[ >= ]]> #{params.startTime}
+    </select>
+
+    <!--根据月份开始时间和月份结束时间查询跑单的机械数量-->
+    <select id="queryMonthMachineCount" parameterType="map" resultType="java.lang.Integer">
+        SELECT
+            count(machineId) AS machineCount
+        FROM
+            (
+                SELECT
+                    oo.user_id,
+                    jmr.id,
+                    jm.id as machineId,
+                    ifnull( jmr.start_time, jmr.end_time ) AS dateTime
+                FROM
+                    jxc_owner_order oo
+                    LEFT JOIN jxc_machine_route jmr ON oo.id = jmr.owner_order_id
+                    LEFT JOIN jxc_machine jm ON oo.machine_id = jm.id
+                WHERE
+                    oo.user_id = #{params.userId}
+            ) c
+        WHERE c.dateTime <![CDATA[ <= ]]> #{params.endTime}
+        AND c.dateTime <![CDATA[ >= ]]> #{params.startTime}
+    </select>
+
+    <!--根据月份开始时间和月份结束时间查询跑单的趟数-->
+    <select id="queryMonthRouteCount" parameterType="map" resultType="java.lang.Integer">
+        SELECT
+            count( id ) AS machineCount
+        FROM
+            (
+                SELECT
+                    jmr.id,
+                    jmr.start_time,
+                    jmr.end_time,
+                    ifnull( jmr.start_time, jmr.end_time ) AS dateTime
+                FROM
+                    jxc_owner_order oo
+                    LEFT JOIN jxc_machine_route jmr ON oo.id = jmr.owner_order_id
+                WHERE
+                    oo.user_id = #{params.userId}
+                    AND jmr.id IS NOT NULL
+            ) c
+        WHERE c.dateTime <![CDATA[ >= ]]> #{params.startTime}
+        AND c.dateTime <![CDATA[ <= ]]> #{params.endTime}
+    </select>
+
+    <!--查询机械日期(天)统计数据-->
+    <select id="queryMachineDayData" parameterType="map" resultType="com.weiwei.jixieche.vo.MachineDataListVo">
+        SELECT
+            m.machine_card_no AS machineCardNo,
+            t1.completRouteCount AS finishRouteCount,
+            t2.totalAmount AS totalAmount,
+            t3.totalAbnormalCount AS abnormalCount
+        FROM
+            (
+                SELECT
+                    count( mr.route_id ) AS completRouteCount,
+                    mm.id
+                FROM
+                    jxc_machine mm
+                    LEFT JOIN (
+                    SELECT id AS route_id, pay_state, machine_id FROM jxc_machine_route
+                        <if test="params.startDate != null and params.startDate !='' ">
+                            WHERE
+                            (
+                            (
+                            start_time &gt;= DATE_FORMAT(#{params.startDate},'%Y-%m-%d 00:00:00')
+                            AND start_time &lt;= DATE_FORMAT(#{params.endDate},'%Y-%m-%d 23:59:59')
+                            )
+                            )
+                            OR (
+                            (
+                            end_time &gt;= DATE_FORMAT(#{params.startDate},'%Y-%m-%d 00:00:00')
+                            AND end_time &lt;= DATE_FORMAT(#{params.endDate},'%Y-%m-%d 23:59:59')
+                            )
+                            )
+                        </if>
+                    ) mr ON mm.id = mr.machine_id
+                WHERE
+                    mm.user_id = #{params.userId}
+                    AND ( mr.pay_state = 1 OR ISNULL( mr.pay_state ) )
+                GROUP BY
+                    mm.id
+            ) t1
+          LEFT JOIN (
+                SELECT
+                    IFNULL( sum( mr.to_owner_amount ), 0 ) / 100 AS totalAmount,
+                    mm.id
+                FROM
+                    jxc_machine mm
+                    LEFT JOIN ( SELECT id AS route_id, pay_state, machine_id, to_owner_amount FROM jxc_machine_route
+                        <if test="params.startDate != null and params.startDate !='' ">
+                            WHERE
+                            (
+                            (
+                            start_time &gt;= DATE_FORMAT(#{params.startDate},'%Y-%m-%d 00:00:00')
+                            AND start_time &lt;= DATE_FORMAT(#{params.endDate},'%Y-%m-%d 23:59:59')
+                            )
+                            )
+                            OR (
+                            (
+                            end_time &gt;= DATE_FORMAT(#{params.startDate},'%Y-%m-%d 00:00:00')
+                            AND end_time &lt;= DATE_FORMAT(#{params.endDate},'%Y-%m-%d 23:59:59')
+                            )
+                            )
+                        </if>
+                      ) mr ON mm.id = mr.machine_id
+                WHERE
+                    mm.user_id = #{params.userId}
+                    AND ( mr.pay_state = 1 OR mr.pay_state = 2 OR ISNULL( mr.pay_state ) )
+                GROUP BY
+                    mm.id
+            ) t2 ON t1.id = t2.id
+          LEFT JOIN (
+                SELECT
+                    count( mr.route_id ) AS totalAbnormalCount,
+                    mm.id
+                FROM
+                    jxc_machine mm
+                    LEFT JOIN ( SELECT id AS route_id, pay_state, machine_id, abnormal_type FROM jxc_machine_route
+                        <if test="params.startDate != null and params.startDate !='' ">
+                            WHERE
+                            (
+                            (
+                            start_time &gt;= DATE_FORMAT(#{params.startDate},'%Y-%m-%d 00:00:00')
+                            AND start_time &lt;= DATE_FORMAT(#{params.endDate},'%Y-%m-%d 23:59:59')
+                            )
+                            )
+                            OR (
+                            (
+                            end_time &gt;= DATE_FORMAT(#{params.startDate},'%Y-%m-%d 00:00:00')
+                            AND end_time &lt;= DATE_FORMAT(#{params.endDate},'%Y-%m-%d 23:59:59')
+                            )
+                            )
+                        </if>
+                      ) mr ON mm.id = mr.machine_id
+                WHERE
+                    mm.user_id = #{params.userId}
+                    AND (
+                    ( mr.pay_state = 0 AND mr.abnormal_type != 0 )
+                    OR ( ISNULL( mr.pay_state ) AND ISNULL( mr.abnormal_type ) )
+                    )
+                GROUP BY
+                    mm.id
+            ) t3 ON t3.id = t1.id
+            LEFT JOIN jxc_machine m ON m.id = t1.id
+    </select>
+
+    <!--根据日期或日期范围查询机主已完结的总趟数-->
+    <select id="queryDayFinishTotalCount" parameterType="map" resultType="com.weiwei.jixieche.vo.MachineDataVo">
+        SELECT
+            count( route_id ) AS totalRouteCount,
+            sum( to_owner_amount ) / 100 AS totalAmount,
+            date_time AS dateTime
+        FROM
+        (
+            SELECT
+                machine_id,
+                machine_card_no,
+                route_id,
+                ifnull( start_time, end_time ) AS date_time,
+                to_owner_amount,
+                abnormal_type,
+                pay_state
+            FROM
+            (
+                SELECT
+                jm.id AS machine_id,
+                jm.machine_card_no,
+                jmr.id AS route_id,
+                DATE_FORMAT ( jmr.start_time, '%Y-%m-%d' ) AS start_time,
+                DATE_FORMAT( jmr.end_time, '%Y-%m-%d' ) AS end_time,
+                jmr.to_owner_amount,
+                jmr.abnormal_type,
+                jmr.pay_state
+                FROM
+                jxc_owner_order oo
+                LEFT JOIN jxc_machine_route jmr ON oo.id = jmr.owner_order_id
+                LEFT JOIN jxc_machine jm ON oo.machine_id = jm.id
+                WHERE
+                oo.user_id = #{params.userId}
+                AND jmr.pay_state != 0
+                AND jmr.id IS NOT NULL
+            ) a
+        ) b
+        WHERE
+         1 = 1
+        <if test="params.startDate != null and params.startDate !='' ">
+            AND date_time &gt;= DATE_FORMAT(#{params.startDate},'%Y-%m-%d 00:00:00')
+        </if>
+        <if test="params.endDate != null and params.endDate !='' ">
+            AND date_time &lt;= DATE_FORMAT(#{params.endDate},'%Y-%m-%d 23:59:59')
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jixieche-springcloud</artifactId>
+        <groupId>com.weiwei.jixieche</groupId>
+        <version>2.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <description>喂喂机械资讯微服务</description>
+    <modules>
+        <module>service-information-bean</module>
+        <module>service-information-feign</module>
+        <module>service-information-provider</module>
+    </modules>
+    <artifactId>spring-cloud-service-information</artifactId>
+
+
+</project>

@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcWaitHandleItemsMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcWaitHandleItems" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="item_type" property="itemType" jdbcType="INTEGER" />
+    <result column="project_order_id" property="projectOrderId" jdbcType="BIGINT" />
+    <result column="owner_order_id" property="ownerOrderId" jdbcType="BIGINT" />
+    <result column="machine_id" property="machineId" jdbcType="INTEGER" />
+    <result column="driver_id" property="driverId" jdbcType="INTEGER" />
+    <result column="route_id" property="routeId" jdbcType="BIGINT" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="pay_amount" property="payAmount" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="bill_start_date" property="billStartDate" jdbcType="DATE" />
+    <result column="bill_end_date" property="billEndDate" jdbcType="DATE" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, item_type, project_order_id, owner_order_id, machine_id, driver_id, route_id, project_name,
+    pay_amount, user_id, bill_start_date, bill_end_date, is_deleted, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, item_type AS itemType, project_order_id AS projectOrderId, owner_order_id AS ownerOrderId, 
+    machine_id AS machineId, driver_id AS driverId, route_id AS routeId, project_name AS projectName, pay_amount AS payAmount,
+    user_id AS userId, bill_start_date AS billStartDate, bill_end_date AS billEndDate, is_deleted AS isDeleted, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_wait_handle_items
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcWaitHandleItems" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_wait_handle_items
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemType != null" >
+        item_type,
+      </if>
+      <if test="projectOrderId != null" >
+        project_order_id,
+      </if>
+      <if test="ownerOrderId != null" >
+        owner_order_id,
+      </if>
+      <if test="machineId != null" >
+        machine_id,
+      </if>
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="routeId != null" >
+        route_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="payAmount != null" >
+        pay_amount,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="billStartDate != null" >
+        bill_start_date,
+      </if>
+      <if test="billEndDate != null" >
+        bill_end_date,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemType != null" >
+        #{itemType,jdbcType=INTEGER},
+      </if>
+      <if test="projectOrderId != null" >
+        #{projectOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerOrderId != null" >
+        #{ownerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="machineId != null" >
+        #{machineId,jdbcType=INTEGER},
+      </if>
+      <if test="driverId != null" >
+        #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="routeId != null" >
+        #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="billStartDate != null" >
+        #{billStartDate,jdbcType=DATE},
+      </if>
+      <if test="billEndDate != null" >
+        #{billEndDate,jdbcType=DATE},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcWaitHandleItems" >
+    update jxc_wait_handle_items
+    <set >
+      <if test="itemType != null" >
+        item_type = #{itemType,jdbcType=INTEGER},
+      </if>
+      <if test="projectOrderId != null" >
+        project_order_id = #{projectOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerOrderId != null" >
+        owner_order_id = #{ownerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="machineId != null" >
+        machine_id = #{machineId,jdbcType=INTEGER},
+      </if>
+      <if test="driverId != null" >
+        driver_id = #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="routeId != null" >
+        route_id = #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null" >
+        pay_amount = #{payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcWaitHandleItems" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_wait_handle_items
+    <where >
+      <if test="itemType != null" >
+        AND item_type = #{itemType,jdbcType=INTEGER}
+      </if>
+      <if test="projectOrderId != null" >
+        AND project_order_id = #{projectOrderId,jdbcType=BIGINT}
+      </if>
+      <if test="ownerOrderId != null" >
+        AND owner_order_id = #{ownerOrderId,jdbcType=BIGINT}
+      </if>
+      <if test="machineId != null" >
+        AND machine_id = #{machineId,jdbcType=INTEGER}
+      </if>
+      <if test="driverId != null" >
+        AND driver_id = #{driverId,jdbcType=INTEGER}
+      </if>
+      <if test="routeId != null" >
+        AND route_id = #{routeId,jdbcType=BIGINT}
+      </if>
+      <if test="projectName != null" >
+        AND project_name = #{projectName,jdbcType=VARCHAR}
+      </if>
+      <if test="payAmount != null" >
+        AND pay_amount = #{payAmount,jdbcType=INTEGER}
+      </if>
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="isDeleted != null" >
+        AND is_deleted = #{isDeleted,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    order by item_type
+  </select>
+
+  <!-- 兼职司机工资未支付 -->
+  <select id="getDriverNoPayList" resultType="com.weiwei.jixieche.vo.JxcShortDriverPayVo">
+    SELECT
+        jcp.driver_id AS driverId,
+        jcp.create_time AS createTime,
+        jcp.clock_id AS clockId,
+        jcp.pay_state AS payState,
+        ju.phone AS driverPhone,
+        ju.real_name as driverName,
+        jcp.fact_amount as payMoney,
+        jcp.short_job_id as shortJobId
+    FROM
+        jxc_clock_pair jcp
+        INNER JOIN jxc_short_job_ref_driver jsj ON jcp.driver_id = jsj.driver_id
+        inner join jxc_user ju on ju.id = jcp.driver_id
+    WHERE
+        jsj.owner_id = #{ownerUserId}
+        AND jcp.pay_state = 0
+  </select>
+
+  <!-- 获取正在跑趟中的机械车 -->
+  <select id="getMachineRunList" resultType="com.weiwei.jixieche.bean.JxcWaitHandleItems">
+    SELECT
+        jmr.machine_id as machine_id,
+        jmr.driver_id as driverId,
+        jmr.owner_order_id as ownerOrderId,
+        joo.user_id as userId
+    FROM
+        jxc_machine_route jmr
+        left join jxc_machine jm on jmr.machine_id = jm.id
+        left join jxc_owner_order joo on joo.id = jmr.owner_order_id
+    WHERE
+        DATE_FORMAT( jmr.start_time, '%Y-%m-%d' ) = DATE_FORMAT( now( ), '%Y-%m-%d' )
+        AND jmr.end_time IS NULL
+        AND jmr.abnormal_type = 0
+  </select>
+
+  <!-- 查询所有正在进行中的订单 -->
+  <select id="getOrderRunList" resultType="com.weiwei.jixieche.bean.JxcWaitHandleItems">
+      SELECT
+        joo.id AS ownerOrderId,
+        joo.machine_id AS machineId,
+        joo.user_id AS userId
+    FROM
+        jxc_owner_order joo
+    WHERE
+        joo.order_state = 2
+        <if test="machineId != null">
+          and joo.machine_id = #{machineId}
+        </if>
+  </select>
+
+  <!-- 待办事项(上班司机设置和未添加司机) -->
+  <select id="getHandelItemsList" resultType="com.weiwei.jixieche.bean.JxcWaitHandleItems">
+    SELECT
+        jwh.owner_order_id AS ownerOrderId,
+        jwh.machine_id AS machineId,
+        jwh.item_type AS itemType,
+        jm.machine_card_no as machineCarNo,
+        jwh.create_time as createTime
+    FROM
+        jxc_wait_handle_items jwh
+        LEFT JOIN jxc_machine jm ON jwh.machine_id = jm.id
+        where jwh.user_id = #{ownerUserId} and jwh.is_deleted = 0
+        order by jwh.create_time desc
+  </select>
+
+  <update id="clearAbnormalRoute">
+    UPDATE jxc_wait_handle_items
+    SET is_deleted = 1
+    WHERE route_id = #{routeId}
+    AND item_type = 2
+  </update>
+
+  <update id="clearOwnerQuitApply">
+    UPDATE jxc_wait_handle_items
+    SET is_deleted = 1
+    WHERE owner_order_id = #{ownerOrderId}
+    AND item_type = 1
+  </update>
+
+    <select id="selectTenantryWaitHandle" resultType="com.weiwei.jixieche.vo.JxcWaitHandleItemsVo">
+        SELECT wh.id,
+                wh.item_type AS itemType,
+                wh.project_order_id AS projectOrderId,
+                wh.owner_order_id AS ownerOrderId,
+                wh.machine_id AS machineId,
+                mm.machine_card_no AS machineCardNo,
+                wh.driver_id AS driverId,
+                wh.route_id AS routeId,
+                wh.project_name AS projectName,
+                wh.pay_amount AS payAmount,
+                wh.user_id AS userId,
+                DATE_FORMAT(wh.bill_start_date,'%Y-%m-%d') AS billStartDate,
+                DATE_FORMAT(wh.bill_end_date,'%Y-%m-%d') AS billEndDate,
+                DATE_FORMAT(wh.create_time,'%Y-%m-%d %H:%i:%s') AS createTime,
+                mr.abnormal_type AS abnormalType,
+                po.account_method AS accountMethod,
+                DATE_FORMAT(po.start_date,'%Y-%m-%d') AS startDate,
+                DATE_FORMAT(po.end_date,'%Y-%m-%d') AS endDate
+        FROM jxc_wait_handle_items wh
+        LEFT JOIN jxc_machine mm ON mm.id = wh.machine_id
+        LEFT JOIN jxc_machine_route mr ON mr.id = wh.route_id
+        LEFT JOIN jxc_project_order po ON po.id = wh.project_order_id
+        WHERE wh.user_id = #{userId}
+        AND wh.is_deleted = 0
+    </select>
+
+  <!-- 查询是否已经存在正在跑趟的司机没有打上班卡的记录 -->
+  <select id="checkWaitHandleItemById" resultType="java.lang.Integer">
+    SELECT
+    count(id)
+    FROM
+    jxc_wait_handle_items
+    <where>
+      is_deleted = 0
+      <if test="ownerOrderId != null">
+        and owner_order_id = #{ownerOrderId}
+      </if>
+      <if test="driverId != null">
+        AND driver_id = #{driverId}
+      </if>
+      <if test="machineId != null">
+        AND machine_id = #{machineId}
+      </if>
+      <if test="itemType != null">
+        and item_type = #{itemType}
+      </if>
+    </where>
+  </select>
+
+</mapper>

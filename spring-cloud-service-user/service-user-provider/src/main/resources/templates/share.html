@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.5.15/vue.js"></script>
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-size: inherit !important;
+        }
+
+        .container {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 1);
+            font-family: PingFangSC-Regular;
+            width: 100%;
+            height: 100%;
+            background: url('/images/beijing.png') no-repeat left top;
+            background-size: cover;
+            box-sizing: border-box;
+            padding-right: 1rem;
+        }
+
+        .content {
+            background: url(/images/share2.png) no-repeat right 3.625rem;
+            background-size: 5.75rem 5.75rem;
+            padding-top: 6.75rem;
+        }
+
+        p {
+            padding: .75rem 1rem;
+        }
+
+        p .num {
+            display: inline-block;
+            width: 1.875rem;
+            height: 1.875rem;
+            line-height: 1.875rem;
+            border-radius: 50%;
+            text-align: center;
+            background: #f42c58;
+        }
+
+        p button {
+            padding: 0 .625rem;
+            height: 1.875rem;
+            line-height: 1.875rem;
+            background: #21243d;
+            color: #fff;
+            border: 1px solid #000;
+            font-size: 1.25rem;
+            border-radius: .1875rem;
+        }
+
+        p img {
+            width: 1.25rem;
+            height: 1.25rem;
+            position: relative;
+            top: .1875rem;
+        }
+
+        p img.more {
+            width: 1.625rem;
+            height: 1.625rem;
+            top: .375rem;
+            padding: 0 .5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div :class="{ 'container': show }" id="container">
+        <div class="content" v-if="show">
+            <p>
+                <span class="num">1</span>
+                点击右上角的
+                <img class="more" style="color:#fff;" src="/images/more2.png" alt="">
+                按钮
+            </p>
+            <p>
+                <span class="num">2</span>
+                选择
+                <button class="share">
+                    <img src="/images/browser.png" alt="">
+                    在浏览器中打开
+                </button>
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        //适配
+        (function(doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if (clientWidth >= 640) {
+                        docEl.style.fontSize = '16px';
+                    } else {
+                        docEl.style.fontSize = 16 * (clientWidth / 640) + 'px';
+                    }
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+
+        var container = new Vue({
+            el: '#container',
+            data: function() {
+                return {
+                    userType: 0,
+                    show:true
+                }
+            },
+            methods:{
+                 getUrlParam(name) {
+                    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                    var r = window.location.search.substr(1).match(reg);
+                    if(r!=null)return  unescape(r[2]); return null;
+                }
+            },
+            created() {
+
+                this.userType=this.getUrlParam('userType')
+                if (this.userType == 0) {
+                    document.title = '承租方APP下载';
+                } else {
+                    document.title = '机主版APP下载';
+                }
+                console.log(this);
+                var ua = window.navigator.userAgent.toLowerCase();
+                    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                        this.show=false
+                        var ua = navigator.userAgent.toLowerCase();
+                        var isAndroid = ua.indexOf('android') != -1;
+                        var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+                        if(this.userType==0){
+                            if(isIos){
+                                window.location.href='https://itunes.apple.com/cn/app/id1454609172?mt=8'
+                            }
+                            if(isAndroid){
+                                window.location.href='https://www.pgyer.com/iN3l'
+                            }
+                        }else if(this.userType==1){
+                            if(isIos){
+                                window.location.href='https://itunes.apple.com/cn/app/id1454609157?mt=8'
+                            }
+                            if(isAndroid){
+                                window.location.href='https://www.pgyer.com/A8Cb'
+                            }
+                        }
+                    }else{
+                        this.show=false
+                        var ua = navigator.userAgent.toLowerCase();
+                        var isAndroid = ua.indexOf('android') != -1;
+                        var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+                        if(this.userType==0){
+                            if(isIos){
+                                window.location.href='https://itunes.apple.com/cn/app/id1454609172?mt=8'
+                            }
+                            if(isAndroid){
+                                window.location.href='https://www.pgyer.com/iN3l'
+                            }
+                        }else if(this.userType==1){
+                            if(isIos){
+                                window.location.href='https://itunes.apple.com/cn/app/id1454609157?mt=8'
+                            }
+                            if(isAndroid){
+                                window.location.href='https://www.pgyer.com/A8Cb'
+                            }
+                        }
+                    }
+                /* var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+                if(isAndroid){
+                    window.location.href = "";
+                }else {
+                    window.location.href = "";
+                } */
+
+
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

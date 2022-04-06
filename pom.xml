@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>spring-cloud-microserver</module>
+        <module>spring-cloud-common</module>
+        <module>spring-cloud-quartz</module>
+        <module>spring-cloud-service-common</module>
+        <module>spring-cloud-service-user</module>
+        <module>spring-cloud-service-order</module>
+        <module>spring-cloud-service-system</module>
+        <module>spring-cloud-service-finance</module>
+        <module>spring-cloud-service-information</module>
+        <module>spring-cloud-service-market</module>
+    </modules>
+
+    <!--springCloud父类支持springBoot2.0版本以上-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.weiwei.jixieche</groupId>
+    <artifactId>jixieche-springcloud</artifactId>
+    <version>2.0</version>
+    <packaging>pom</packaging>
+    <description>机械微服务</description>
+
+    <!--版本总体信息-->
+    <properties>
+        <!--项目统一字符集编码-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <!--springCloud启动jdk版本号-->
+        <java.version>1.8</java.version>
+
+
+
+        <!--springCloud版本号-->
+        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+        <!--lombok的版本号-->
+        <lombok.version>1.16.18</lombok.version>
+        <!--swagger的版本号-->
+        <swagger.version>2.7.0</swagger.version>
+        <!--java分页-->
+        <pagehelper.version>1.2.3</pagehelper.version>
+        <!--mybatis版本号-->
+        <mybatis.boot.version>2.0.1</mybatis.boot.version>
+        <!--mysql的版本号-->
+        <mysql.connector.version>5.1.47</mysql.connector.version>
+        <!--alibaba数据库链接版本号-->
+        <alibaba.druid.version>1.1.16</alibaba.druid.version>
+        <!--alibaba的json版本号-->
+        <fastjson.version>1.2.47</fastjson.version>
+        <!--google的json的版本号-->
+        <google.gson.version>2.8.5</google.gson.version>
+        <!--jwt的版本号-->
+        <token.jwt.version>0.9.0</token.jwt.version>
+        <token.tomcat.version>9.0.17</token.tomcat.version>
+        <!--springCloud分布式事务的版本号-->
+        <codingapi.txlcn.version>5.0.2.RELEASE</codingapi.txlcn.version>
+        <maven.compile.source>1.8</maven.compile.source>
+        <maven.compile.target>1.8</maven.compile.target>
+        <!--redis读取配置的jar版本号-->
+        <redis.common-pool>2.4.2</redis.common-pool>
+
+        <apache.lang3.version>3.6</apache.lang3.version>
+        <apache.collections.version>3.2.1</apache.collections.version>
+       <!-- java请求第三方接口工具包-->
+        <apache.httpclient.version>4.5.2</apache.httpclient.version>
+        <!--springMVC的拦截做一个token解析获取验证用户-->
+        <spring.webmvc.version>5.1.3.RELEASE</spring.webmvc.version>
+
+        <!--base-->
+        <config.server.version>2.0</config.server.version>
+        <eureka.server.version>2.0</eureka.server.version>
+        <gateway.server.version>2.0</gateway.server.version>
+        <hystrix.server.version>2.0</hystrix.server.version>
+        <turbine.server.version>2.0</turbine.server.version>
+        <zipkin.server.version>2.0</zipkin.server.version>
+
+    </properties>
+
+    <!--依赖jar包进行版本管理的管理器-->
+    <dependencyManagement>
+        <dependencies>
+            <!--springCloud版本-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--构建的基本资源信息和依赖插件-->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <!-- 是否替换资源中的属性 -->
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

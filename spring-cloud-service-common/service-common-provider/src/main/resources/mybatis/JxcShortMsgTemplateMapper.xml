@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcShortMsgTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcShortMsgTemplate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="msg_type" property="msgType" jdbcType="VARCHAR" />
+    <result column="template_body" property="templateBody" jdbcType="VARCHAR" />
+    <result column="operation_type" property="operationType" jdbcType="INTEGER" />
+    <result column="template_code" property="templateCode" jdbcType="VARCHAR" />
+    <result column="ali_sms" property="aliSms" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, msg_type, template_body, operation_type, template_code, ali_sms
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, msg_type AS msgType, template_body AS templateBody, operation_type AS operationType,
+    template_code AS templateCode, ali_sms AS aliSms
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_short_msg_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcShortMsgTemplate" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_short_msg_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msgType != null" >
+        msg_type,
+      </if>
+      <if test="templateBody != null" >
+        template_body,
+      </if>
+      <if test="operationType != null" >
+        operation_type,
+      </if>
+      <if test="templateCode != null" >
+        template_code,
+      </if>
+      <if test="aliSms != null" >
+        ali_sms,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msgType != null" >
+        #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="templateBody != null" >
+        #{templateBody,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null" >
+        #{operationType,jdbcType=INTEGER},
+      </if>
+      <if test="templateCode != null" >
+        #{templateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="aliSms != null" >
+        #{aliSms,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcShortMsgTemplate" >
+    update jxc_short_msg_template
+    <set >
+      <if test="msgType != null" >
+        msg_type = #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="templateBody != null" >
+        template_body = #{templateBody,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null" >
+        operation_type = #{operationType,jdbcType=INTEGER},
+      </if>
+      <if test="templateCode != null" >
+        template_code = #{templateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="aliSms != null" >
+        ali_sms = #{aliSms,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcShortMsgTemplate" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_short_msg_template
+    <where >
+      <if test="msgType != null" >
+        AND msg_type = #{msgType,jdbcType=VARCHAR}
+      </if>
+      <if test="templateBody != null" >
+        AND template_body = #{templateBody,jdbcType=VARCHAR}
+      </if>
+      <if test="operationType != null" >
+        AND operation_type = #{operationType,jdbcType=INTEGER}
+      </if>
+      <if test="templateCode != null" >
+        AND template_code = #{templateCode,jdbcType=VARCHAR}
+      </if>
+      <if test="aliSms != null" >
+        AND ali_sms = #{aliSms,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <!--**********************************************-->
+  <!--查询短信模板集合-->
+  <select id="selectShortMsgTemplateList" resultType="com.weiwei.jixieche.vo.ShortMsgTemplate">
+    select id as templateId, msg_type as msgType,template_body as templateBody , operation_type as  operationType from  jxc_short_msg_template
+  </select>
+
+  <!--根据templateCode查询模板信息-->
+  <select id="queryByTemplateCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>  from  jxc_short_msg_template WHERE template_code =#{templateCode} limit 1
+  </select>
+
+
+</mapper>

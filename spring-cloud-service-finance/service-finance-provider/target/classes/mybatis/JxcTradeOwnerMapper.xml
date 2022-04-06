@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcTradeOwnerMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcTradeOwner" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="trade_type" property="tradeType" jdbcType="INTEGER" />
+    <result column="payer_user_id" property="payerUserId" jdbcType="INTEGER" />
+    <result column="payee_user_id" property="payeeUserId" jdbcType="INTEGER" />
+    <result column="tenantry_order_id" property="tenantryOrderId" jdbcType="BIGINT" />
+    <result column="route_id" property="routeId" jdbcType="BIGINT" />
+    <result column="trade_amount" property="tradeAmount" jdbcType="INTEGER" />
+    <result column="actual_amount" property="actualAmount" jdbcType="INTEGER" />
+    <result column="trade_status" property="tradeStatus" jdbcType="INTEGER" />
+    <result column="clock_id" property="clockId" jdbcType="BIGINT" />
+    <result column="payment_method" property="paymentMethod" jdbcType="INTEGER" />
+    <result column="third_trade_no" property="thirdTradeNo" jdbcType="VARCHAR" />
+    <result column="lock_status" property="lockStatus" jdbcType="INTEGER" />
+    <result column="bank_card_id" property="bankCardId" jdbcType="INTEGER" />
+    <result column="cash_status" property="cashStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, trade_type, payer_user_id, payee_user_id, tenantry_order_id, route_id, trade_amount,
+    actual_amount, trade_status, clock_id, payment_method, third_trade_no, lock_status,
+    bank_card_id, cash_status, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, trade_type AS tradeType, payer_user_id AS payerUserId, payee_user_id AS payeeUserId,
+    tenantry_order_id AS tenantryOrderId, route_id AS routeId, trade_amount AS tradeAmount,
+    actual_amount AS actualAmount, trade_status AS tradeStatus, clock_id AS clockId,
+    payment_method AS paymentMethod, third_trade_no AS thirdTradeNo, lock_status AS lockStatus,
+    bank_card_id AS bankCardId, cash_status AS cashStatus, create_time AS createTime,
+    update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_trade_owner
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcTradeOwner" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_trade_owner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tradeType != null" >
+        trade_type,
+      </if>
+      <if test="payerUserId != null" >
+        payer_user_id,
+      </if>
+      <if test="payeeUserId != null" >
+        payee_user_id,
+      </if>
+      <if test="tenantryOrderId != null" >
+        tenantry_order_id,
+      </if>
+      <if test="routeId != null" >
+        route_id,
+      </if>
+      <if test="tradeAmount != null" >
+        trade_amount,
+      </if>
+      <if test="actualAmount != null" >
+        actual_amount,
+      </if>
+      <if test="tradeStatus != null" >
+        trade_status,
+      </if>
+      <if test="clockId != null" >
+        clock_id,
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method,
+      </if>
+      <if test="thirdTradeNo != null" >
+        third_trade_no,
+      </if>
+      <if test="lockStatus != null" >
+        lock_status,
+      </if>
+      <if test="bankCardId != null" >
+        bank_card_id,
+      </if>
+      <if test="cashStatus != null" >
+        cash_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tradeType != null" >
+        #{tradeType,jdbcType=INTEGER},
+      </if>
+      <if test="payerUserId != null" >
+        #{payerUserId,jdbcType=INTEGER},
+      </if>
+      <if test="payeeUserId != null" >
+        #{payeeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="tenantryOrderId != null" >
+        #{tenantryOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="routeId != null" >
+        #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeAmount != null" >
+        #{tradeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="actualAmount != null" >
+        #{actualAmount,jdbcType=INTEGER},
+      </if>
+      <if test="tradeStatus != null" >
+        #{tradeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="clockId != null" >
+        #{clockId,jdbcType=BIGINT},
+      </if>
+      <if test="paymentMethod != null" >
+        #{paymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="thirdTradeNo != null" >
+        #{thirdTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lockStatus != null" >
+        #{lockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="bankCardId != null" >
+        #{bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="cashStatus != null" >
+        #{cashStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcTradeOwner" >
+    update jxc_trade_owner
+    <set >
+      <if test="tradeType != null" >
+        trade_type = #{tradeType,jdbcType=INTEGER},
+      </if>
+      <if test="payerUserId != null" >
+        payer_user_id = #{payerUserId,jdbcType=INTEGER},
+      </if>
+      <if test="payeeUserId != null" >
+        payee_user_id = #{payeeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="tenantryOrderId != null" >
+        tenantry_order_id = #{tenantryOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="routeId != null" >
+        route_id = #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeAmount != null" >
+        trade_amount = #{tradeAmount,jdbcType=INTEGER},
+      </if>
+      <if test="actualAmount != null" >
+        actual_amount = #{actualAmount,jdbcType=INTEGER},
+      </if>
+      <if test="tradeStatus != null" >
+        trade_status = #{tradeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="clockId != null" >
+        clock_id = #{clockId,jdbcType=BIGINT},
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method = #{paymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="thirdTradeNo != null" >
+        third_trade_no = #{thirdTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lockStatus != null" >
+        lock_status = #{lockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="bankCardId != null" >
+        bank_card_id = #{bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="cashStatus != null" >
+        cash_status = #{cashStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcTradeOwner" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_trade_owner
+    <where >
+      <if test="tradeType != null" >
+        AND trade_type = #{tradeType,jdbcType=INTEGER}
+      </if>
+      <if test="payerUserId != null" >
+        AND payer_user_id = #{payerUserId,jdbcType=INTEGER}
+      </if>
+      <if test="payeeUserId != null" >
+        AND payee_user_id = #{payeeUserId,jdbcType=INTEGER}
+      </if>
+      <if test="tenantryOrderId != null" >
+        AND tenantry_order_id = #{tenantryOrderId,jdbcType=BIGINT}
+      </if>
+      <if test="routeId != null" >
+        AND route_id = #{routeId,jdbcType=BIGINT}
+      </if>
+      <if test="tradeAmount != null" >
+        AND trade_amount = #{tradeAmount,jdbcType=INTEGER}
+      </if>
+      <if test="actualAmount != null" >
+        AND actual_amount = #{actualAmount,jdbcType=INTEGER}
+      </if>
+      <if test="tradeStatus != null" >
+        AND trade_status = #{tradeStatus,jdbcType=INTEGER}
+      </if>
+      <if test="clockId != null" >
+        AND clock_id = #{clockId,jdbcType=BIGINT}
+      </if>
+      <if test="paymentMethod != null" >
+        AND payment_method = #{paymentMethod,jdbcType=INTEGER}
+      </if>
+      <if test="thirdTradeNo != null" >
+        AND third_trade_no = #{thirdTradeNo,jdbcType=VARCHAR}
+      </if>
+      <if test="lockStatus != null" >
+        AND lock_status = #{lockStatus,jdbcType=INTEGER}
+      </if>
+      <if test="bankCardId != null" >
+        AND bank_card_id = #{bankCardId,jdbcType=INTEGER}
+      </if>
+      <if test="cashStatus != null" >
+        AND cash_status = #{cashStatus,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+    <!--**************************************************-->
+    <!--查询机主冻结金额-->
+    <select id="queryOwnerLockAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+      select format(ifnull(sum(jto.trade_amount)/100,0.00),2) AS lockAmount from jxc_trade_owner jto
+      WHERE jto.trade_type = 1 AND jto.payment_method = 0
+	  AND jto.trade_status = 1 AND jto.lock_status = 0
+	  AND jto.payee_user_id = #{userId}
+    </select>
+
+    <!--查询机主解冻(可用)金额-->
+    <select id="queryOwnerUnLockAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+        select format(ifnull(sum(jto.trade_amount)/100,0),2) AS lockAmount from jxc_trade_owner jto
+        WHERE jto.trade_type = 1 AND jto.payment_method = 0
+        AND jto.trade_status = 1 AND jto.lock_status = 1
+        AND jto.payee_user_id = #{userId}
+    </select>
+
+    <!--用户收入金额-->
+    <select id="queryUserTradeAmount" parameterType="com.weiwei.jixieche.vo.UserTradeAmountVo" resultType="com.weiwei.jixieche.vo.UserTradeAmountVo">
+      select ifnull(sum(jto.trade_amount),0) totalAmount
+      from jxc_trade_owner jto
+      <where >
+        <if test="tradeType != null" >
+          AND jto.trade_type = #{tradeType,jdbcType=INTEGER}
+        </if>
+        <if test="payerUserId != null" >
+          AND jto.payer_user_id = #{payerUserId}
+        </if>
+        <if test="payeeUserId != null" >
+          AND jto.payee_user_id = #{payeeUserId}
+        </if>
+        <if test="lockStatus != null" >
+          AND jto.lock_status = #{lockStatus,jdbcType=INTEGER}
+        </if>
+        <if test="cashStatus != null" >
+          AND jto.cash_status = #{cashStatus,jdbcType=INTEGER}
+        </if>
+        AND jto.trade_status = 1
+      </where>
+    </select>
+
+    <!--查询用户提现未处理金额-->
+    <select id="queryUnDoneAmountByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select ifnull(sum(jto.trade_amount),0) AS tradeAmount
+        from jxc_trade_owner jto
+        WHERE jto.payer_user_id = 0 AND jto.payee_user_id = #{userId} AND jto.cash_status =0
+    </select>
+
+    <!--根据台班打卡id修改台班支付状态-->
+    <update id="updatePayStatusByClockId" parameterType="java.lang.Long">
+        UPDATE jxc_clock_pair SET  pay_state = 1 WHERE clock_id = #{clockId}
+    </update>
+
+    <!--机主交易明细记录-->
+    <select id="queryOwnerTradeRecord" parameterType="com.weiwei.jixieche.vo.OwnerTradeRecordVo" resultType="com.weiwei.jixieche.vo.OwnerTradeRecordVo">
+      select d.* from
+      (
+      SELECT
+      jto.id AS id,jto.trade_type AS tradeType,jto.tenantry_order_id AS tenantryOrderId,jto.trade_status AS tradeStatus,
+      jto.payee_user_id AS payeeUserId,jto.payer_user_id AS payerUserId,format(ifnull(jto.trade_amount/100,0),2) AS tradeAmount,
+      format(ifnull(jto.actual_amount/100,0),2) AS actualAmount,
+      jto.bank_card_id AS bankCardId,jto.payment_method AS paymentMethod,
+      DATE_FORMAT(jto.create_time,'%Y-%m-%d %H:%i:%s') AS createTime,
+      DATE_FORMAT(jto.create_time,'%Y-%m') AS monthTime
+      FROM jxc_trade_owner jto
+      WHERE
+      jto.payer_user_id = #{userId} OR jto.payee_user_id = #{userId}
+      )d
+      <where >
+        <if test="dateTime != null">
+          AND d.monthTime = #{dateTime}
+        </if>
+        <if test="searchType == 2">
+          AND d.paymentMethod != 0
+        </if>
+        <if test="searchType == 3">
+          AND d.tradeType == 3
+        </if>
+      </where>
+    </select>
+
+    <!--查询机主月份收入支出总金额-->
+    <select id="queryOwnerTotalPay" parameterType="com.weiwei.jixieche.vo.OwnerTradePayVo" resultType="com.weiwei.jixieche.vo.OwnerTradePayVo">
+      SELECT format(ifnull(sum(jto.trade_amount/100),0),2) AS totalAmount
+      FROM jxc_trade_owner jto
+      <where >
+        <if test="tradeMonth != null">
+          AND DATE_FORMAT(jto.create_time, '%Y-%m') = #{tradeMonth}
+        </if>
+        <if test="payerUserId != null" >
+          AND payer_user_id = #{payerUserId,jdbcType=INTEGER}
+        </if>
+        <if test="payeeUserId != null" >
+          AND payee_user_id = #{payeeUserId,jdbcType=INTEGER}
+        </if>
+        AND jto.trade_status = 1
+      </where>
+    </select>
+
+    <!--根据承租方订单查询承租方项目信息-->
+    <select id="queryTenProjectInfo" parameterType="com.weiwei.jixieche.vo.TenProjectInfoVo" resultType="com.weiwei.jixieche.vo.TenProjectInfoVo">
+        select jp.id AS projectId,jp.project_name AS projectName,jpo.id AS tenOrderId
+        from jxc_project_order jpo
+        LEFT JOIN jxc_project jp ON jpo.project_id = jp.id
+        WHERE jpo.id = #{tenOrderId}
+    </select>
+
+    <!--查询机主付款收款人的用户信息-->
+    <select id="queryPayeeInfo" parameterType="com.weiwei.jixieche.vo.UserPayeeInfoVo" resultType="com.weiwei.jixieche.vo.UserPayeeInfoVo">
+      select ju.id AS userId,ju.real_name AS userName,ju.head_img AS headImg
+      from jxc_user ju where ju.id = #{userId}
+    </select>
+
+    <!--查询用户银行卡信息-->
+    <select id="queryBankCard" parameterType="com.weiwei.jixieche.vo.UserBankCardInfoVo" resultType="com.weiwei.jixieche.vo.UserBankCardInfoVo">
+        select jbc.id,jbc.card_number AS cardNumber,jbc.bank_name AS bankName,jbc.name AS name from jxc_bank_card jbc WHERE jbc.id = #{id}
+    </select>
+
+    <!--根据userId查询提现人的基本信息-->
+    <select id="queryCashApplyUserInfo" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.CashApplyUserInfoVo">
+          select ju.id AS userId,ju.state AS state,ju.pay_pwd AS payPwd,jr.id AS roleId,ju.real_name AS realName
+          from jxc_user ju
+          LEFT JOIN jxc_user_role jur ON ju.id = jur.user_id
+          LEFT JOIN jxc_role jr ON jur.role_id = jr.id
+          WHERE ju.id = #{userId}
+    </select>
+
+    <!--查询机主支付台班信息-->
+    <select id="queryOwnerPayTeamAmount" parameterType="com.weiwei.jixieche.vo.OwnerPayClockVo" resultType="com.weiwei.jixieche.vo.OwnerPayClockVo">
+        select jcp.id AS id,jcp.clock_id AS clockId,jcp.driver_id AS driverId,
+        ifnull(fact_amount,0) AS factAmount
+        from jxc_clock_pair jcp
+        WHERE jcp.clock_id = #{clockId}
+    </select>
+
+
+</mapper>

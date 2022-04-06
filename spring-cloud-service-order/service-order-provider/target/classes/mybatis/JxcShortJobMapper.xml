@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weiwei.jixieche.mapper.JxcShortJobMapper">
+    <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcShortJob">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="machine_type" jdbcType="TINYINT" property="machineType"/>
+        <result column="drive_year" jdbcType="VARCHAR" property="driveYear"/>
+        <result column="need_num" jdbcType="INTEGER" property="needNum"/>
+        <result column="age_limit" jdbcType="VARCHAR" property="ageLimit"/>
+        <result column="work_time_start" jdbcType="DATE" property="workTimeStart"/>
+        <result column="work_time_end" jdbcType="DATE" property="workTimeEnd"/>
+        <result column="time_frame_start" jdbcType="TIMESTAMP" property="timeFrameStart"/>
+        <result column="time_frame_end" jdbcType="TIMESTAMP" property="timeFrameEnd"/>
+        <result column="effective_date" jdbcType="TIMESTAMP" property="effectiveDate"/>
+        <result column="effective_date_end" jdbcType="TIMESTAMP" property="effectiveDateEnd"/>
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName"/>
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="owner_id" jdbcType="INTEGER" property="ownerId"/>
+        <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+        <result column="work_area" jdbcType="VARCHAR" property="workArea"/>
+        <result column="job_is_delete" jdbcType="INTEGER" property="jobIsDelete"/>
+        <result column="show" jdbcType="INTEGER" property="show"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+        <result column="car_address" jdbcType="VARCHAR" property="carAddress"/>
+        <result column="short_lng" jdbcType="VARCHAR" property="shortLng"/>
+        <result column="short_lat" jdbcType="VARCHAR" property="shortLat"/>
+        <result column="time_frame" jdbcType="VARCHAR" property="timeFrame"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.weiwei.jixieche.bean.JxcShortJob">
+        <result column="account_ruler" jdbcType="LONGVARCHAR" property="accountRuler"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, machine_type, drive_year, need_num, age_limit, work_time_start, work_time_end, 
+    time_frame_start, time_frame_end, effective_date, effective_date_end, contact_name, 
+    contact_phone, `status`, create_time, update_time, owner_id, area_id, work_area, 
+    job_is_delete, `show`, score, car_address, short_lng, short_lat, time_frame
+  </sql>
+    <sql id="Blob_Column_List">
+    account_ruler
+  </sql>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.weiwei.jixieche.bean.JxcShortJob"
+            useGeneratedKeys="true">
+        insert into jxc_short_job
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="machineType != null">
+                machine_type,
+            </if>
+            <if test="driveYear != null">
+                drive_year,
+            </if>
+            <if test="needNum != null">
+                need_num,
+            </if>
+            <if test="ageLimit != null">
+                age_limit,
+            </if>
+            <if test="workTimeStart != null">
+                work_time_start,
+            </if>
+            <if test="workTimeEnd != null">
+                work_time_end,
+            </if>
+            <if test="timeFrameStart != null">
+                time_frame_start,
+            </if>
+            <if test="timeFrameEnd != null">
+                time_frame_end,
+            </if>
+            <if test="effectiveDate != null">
+                effective_date,
+            </if>
+            <if test="effectiveDateEnd != null">
+                effective_date_end,
+            </if>
+            <if test="contactName != null">
+                contact_name,
+            </if>
+            <if test="contactPhone != null">
+                contact_phone,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="areaId != null">
+                area_id,
+            </if>
+            <if test="workArea != null">
+                work_area,
+            </if>
+            <if test="jobIsDelete != null">
+                job_is_delete,
+            </if>
+            <if test="show != null">
+                `show`,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="carAddress != null">
+                car_address,
+            </if>
+            <if test="shortLng != null">
+                short_lng,
+            </if>
+            <if test="shortLat != null">
+                short_lat,
+            </if>
+            <if test="accountRuler != null">
+                account_ruler,
+            </if>
+            <if test="timeFrame != null">
+                time_frame,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="machineType != null">
+                #{machineType,jdbcType=TINYINT},
+            </if>
+            <if test="driveYear != null">
+                #{driveYear,jdbcType=VARCHAR},
+            </if>
+            <if test="needNum != null">
+                #{needNum,jdbcType=INTEGER},
+            </if>
+            <if test="ageLimit != null">
+                #{ageLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="workTimeStart != null">
+                #{workTimeStart,jdbcType=VARCHAR},
+            </if>
+            <if test="workTimeEnd != null">
+                #{workTimeEnd,jdbcType=VARCHAR},
+            </if>
+            <if test="timeFrameStart != null">
+                #{timeFrameStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="timeFrameEnd != null">
+                #{timeFrameEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effectiveDate != null">
+                DATE_FORMAT(#{effectiveDate,jdbcType=TIMESTAMP},'%Y-%m-%d 00:00:00'),
+            </if>
+            <if test="effectiveDateEnd != null">
+                DATE_FORMAT(#{effectiveDateEnd,jdbcType=TIMESTAMP},'%Y-%m-%d 23:59:59'),
+            </if>
+            <if test="contactName != null">
+                #{contactName,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPhone != null">
+                #{contactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="areaId != null">
+                #{areaId,jdbcType=INTEGER},
+            </if>
+            <if test="workArea != null">
+                #{workArea,jdbcType=VARCHAR},
+            </if>
+            <if test="jobIsDelete != null">
+                #{jobIsDelete,jdbcType=INTEGER},
+            </if>
+            <if test="show != null">
+                #{show,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="carAddress != null">
+                #{carAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="shortLng != null">
+                #{shortLng,jdbcType=VARCHAR},
+            </if>
+            <if test="shortLat != null">
+                #{shortLat,jdbcType=VARCHAR},
+            </if>
+            <if test="accountRuler != null">
+                #{accountRuler,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="timeFrame != null">
+                #{timeFrame,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcShortJob">
+        update jxc_short_job
+        <set>
+            <if test="machineType != null">
+                machine_type = #{machineType,jdbcType=TINYINT},
+            </if>
+            <if test="driveYear != null">
+                drive_year = #{driveYear,jdbcType=VARCHAR},
+            </if>
+            <if test="needNum != null">
+                need_num = #{needNum,jdbcType=INTEGER},
+            </if>
+            <if test="ageLimit != null">
+                age_limit = #{ageLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="workTimeStart != null">
+                work_time_start = #{workTimeStart,jdbcType=DATE},
+            </if>
+            <if test="workTimeEnd != null">
+                work_time_end = #{workTimeEnd,jdbcType=DATE},
+            </if>
+            <if test="timeFrameStart != null">
+                time_frame_start = #{timeFrameStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="timeFrameEnd != null">
+                time_frame_end = #{timeFrameEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effectiveDate != null">
+                effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="effectiveDateEnd != null">
+                effective_date_end = #{effectiveDateEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="contactName != null">
+                contact_name = #{contactName,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPhone != null">
+                contact_phone = #{contactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ownerId != null">
+                owner_id = #{ownerId,jdbcType=INTEGER},
+            </if>
+            <if test="areaId != null">
+                area_id = #{areaId,jdbcType=INTEGER},
+            </if>
+            <if test="workArea != null">
+                work_area = #{workArea,jdbcType=VARCHAR},
+            </if>
+            <if test="jobIsDelete != null">
+                job_is_delete = #{jobIsDelete,jdbcType=INTEGER},
+            </if>
+            <if test="show != null">
+                `show` = #{show,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="carAddress != null">
+                car_address = #{carAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="shortLng != null">
+                short_lng = #{shortLng,jdbcType=VARCHAR},
+            </if>
+            <if test="shortLat != null">
+                short_lat = #{shortLat,jdbcType=VARCHAR},
+            </if>
+            <if test="accountRuler != null">
+                account_ruler = #{accountRuler,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="timeFrame != null">
+                time_frame = #{timeFrame,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from jxc_short_job
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!-- 短期职位招聘列表 -->
+    <select id="getShortJobList" resultType="com.weiwei.jixieche.bean.JxcShortJob"
+            parameterType="com.weiwei.jixieche.vo.DriverJobVo">
+        select
+        js.id,
+        js.machine_type as machineType,
+        js.drive_year as driveYear,
+        js.need_num as needNum,
+        js.age_limit as ageLimt,
+        js.work_time_start as workTimeStart,
+        js.work_time_end as workTimeEnd,
+        js.time_frame AS timeFrame,
+        js.time_frame_start as timeFrameStart,
+        js.time_frame_end as timeFrameEnd,
+        js.effective_date as effectiveDate,
+        js.effective_date_end as effectiveDateEnd,
+        if(DATE_FORMAT(js.effective_date_end,'%Y-%m-%d 23:59:59') &lt; NOW() , 0,1) as flag,
+        js.contact_name as contactName,
+        js.contact_phone as contactPhone,
+        js.`status`, js.create_time as createTime,
+        js.update_time as updateTime,
+        js.owner_id as ownerId,
+        js.area_id as areaId,
+        js.work_area as workArea,
+        js.job_is_delete as jobIsDelete,
+        js.score, js.car_address as carAddress,
+        js.short_lng as shortLng,
+        js.short_lat as shortLat,
+        js.account_ruler as accountRuler,
+        ju.score as ownerScore
+        from jxc_short_job js
+        LEFT JOIN jxc_user ju ON ju.id = js.owner_id
+        <where>
+            js.job_is_delete = 0
+            <if test="ownerUserId != null">
+                AND js.owner_id = #{ownerUserId}
+            </if>
+            <if test="startDate != null">
+                AND js.work_time_start > #{startDate}
+            </if>
+            <if test="endDate != null">
+                <![CDATA[ AND js.work_time_end <= #{endDate} ]]>
+            </if>
+            <if test="driverId != null">
+                and js.owner_id not in (
+                    SELECT
+                      jsjr.owner_id
+                    FROM
+                      jxc_short_job_ref_driver jsjr
+                    WHERE
+                      (jsjr.state = 0 or jsjr.state = 1)
+                      AND jsjr.driver_id = #{driverId}
+                    group by jsjr.owner_id
+                )
+            </if>
+        </where>
+        order by flag DESC ,js.create_time DESC
+        <if test="socreSortType == 1">
+            , ju.score
+        </if>
+        <if test="socreSortType == 2">
+            , ju.score DESC
+        </if>
+    </select>
+
+    <select id="hasNextPage" resultType="java.lang.Integer">
+        select
+        js.id
+        from jxc_short_job js
+        LEFT JOIN jxc_user ju ON ju.id = js.owner_id
+        <where>
+            <if test="ownerUserId != null">
+                AND js.owner_id = #{ownerUserId}
+            </if>
+            <if test="startDate != null">
+                AND js.work_time_start > #{startDate}
+            </if>
+            <if test="endDate != null">
+                <![CDATA[ AND js.work_time_end <= #{endDate} ]]>
+            </if>
+            <if test="lastPageLastId != null and lastPageLastId != ''">
+                <![CDATA[ and js.id < #{lastPageLastId}  ]]>
+            </if>
+            <if test="driverId != null">
+                and js.owner_id not in (
+                SELECT
+                jsjr.owner_id
+                FROM
+                jxc_short_job_ref_driver jsjr
+                WHERE
+                (jsjr.state = 0 or jsjr.state = 1)
+                AND jsjr.driver_id = #{driverId}
+                )
+            </if>
+        </where>
+        order by js.create_time DESC
+        <if test="socreSortType == 1">
+            , ju.score
+        </if>
+        <if test="socreSortType == 2">
+            , ju.score DESC
+        </if>
+        limit 1
+    </select>
+
+    <!--查询司机台班费用-->
+    <select id="queryDriverTeamCost" parameterType="java.lang.Integer"
+            resultType="com.weiwei.jixieche.vo.JxcDriverTeamCostVo">
+      select jtc.id AS id,jtc.city_id AS cityId,jtc.driver_team_price/100 AS driverTeamPrice,jtc.driver_out_price/100 AS driverOutPrice
+      FROM jxc_trans_costs jtc WHERE jtc.city_id = #{cityId,jdbcType=INTEGER}
+  </select>
+
+    <!-- 查询职位已招聘人数 -->
+    <select id="getShortJobCount" resultType="java.lang.Integer">
+    <![CDATA[
+
+         select count(id) from jxc_short_job_ref_driver where short_job_id = #{shortJobId}
+
+        ]]>
+  </select>
+
+    <select id="getClockRecordType" resultType="java.lang.Integer">
+        SELECT record_type
+        FROM jxc_clock_in_out_record
+        WHERE short_job_id = #{shortJobId}
+        AND driver_id = #{driverUserId}
+        ORDER BY record_id DESC
+        LIMIT 1
+    </select>
+
+    <!-- 接单职位司机列表 -->
+    <select id="getShortDriverList" resultType="com.weiwei.jixieche.vo.JxcShortJobDriverVo">
+        SELECT
+            jsjr.driver_id AS driverId,
+            ju.real_name AS driverName,
+            ju.phone AS driverPhone,
+            js.work_time_start AS workTimeStart,
+            js.work_time_end AS workTimeEnd,
+            js.id AS shortJobId,
+            js.drive_year AS driveYear,
+            jdr.head_img AS driverImg,
+            jsjr.state AS state
+        FROM
+            jxc_short_job_ref_driver jsjr
+            LEFT JOIN jxc_driver_resume jdr ON jdr.driver_id = jsjr.driver_id
+            LEFT JOIN jxc_short_job js ON js.id = jsjr.short_job_id
+            LEFT JOIN jxc_user ju ON ju.id = jsjr.driver_id
+        WHERE
+            jsjr.short_job_id = #{shortJobId}
+        ORDER BY
+            js.work_time_start,
+            jsjr.create_time DESC
+    </select>
+
+    <!-- 接单职位-司机详情 -->
+    <select id="getShortDriverDetail" resultType="com.weiwei.jixieche.vo.JxcShortJobDriverDetailVo">
+      SELECT
+          jsjr.driver_id AS driverId,
+          ju.real_name AS driverName,
+          ju.phone AS driverPhone,
+          jdr.machine_type as machineType,
+          jdr.sex as sex,
+          jdr.birthday as birthday,
+          juc.card_code as cardCode,
+          IFNULL(juc.driver_confirm_status,0) as driverConfirmStatus,
+          jdr.driver_year AS driverYear,
+          js.time_frame as timeFrame,
+          js.work_area as workArea,
+          js.car_address as carAddress,
+          js.work_time_start AS workTimeStart,
+          js.work_time_end AS workTimeEnd,
+          js.id AS shortJobId,
+          jsjr.state AS state,
+          IF(juc.certification_img_front is null, 0, 1) as certification,
+		  IF(juc.drive_license_front is null, 0, 1) AS driveLicense
+      FROM
+          jxc_short_job_ref_driver jsjr
+          LEFT JOIN jxc_driver_resume jdr ON jdr.driver_id = jsjr.driver_id
+          LEFT JOIN jxc_short_job js ON js.id = jsjr.short_job_id
+          LEFT JOIN jxc_user ju ON ju.id = jsjr.driver_id
+        left join jxc_user_confirm juc on juc.user_id = jsjr.driver_id
+      WHERE
+          jsjr.driver_id = #{driverId} and jsjr.short_job_id = #{shortJobId}
+  </select>
+
+    <!-- 查询司机所接的职位 -->
+    <select id="getShortJobListByDriverId" resultType="java.util.Map">
+        SELECT
+            jsj.work_time_start as startDate,
+            jsj.work_time_end as endDate
+        FROM
+            jxc_short_job_ref_driver jsjr
+            LEFT JOIN jxc_short_job jsj ON jsjr.short_job_id = jsj.id
+        WHERE
+            jsjr.driver_id = #{driverId}
+           <![CDATA[  and jsjr.state <> 3 ]]>
+    </select>
+
+    <!-- 接单职位的司机是否有未支付的 -->
+    <select id="getShortJobDriverNoPayById" resultType="java.lang.Integer">
+        SELECT
+            count(jsj.id)
+        FROM
+            jxc_short_job_ref_driver jsj
+            INNER JOIN jxc_clock_pair jcp ON jsj.driver_id = jsj.driver_id
+            AND jcp.short_job_id = jsj.short_job_id
+        WHERE
+            jsj.short_job_id = #{shortJobId}
+            AND jcp.pay_state = 0
+    </select>
+
+</mapper>

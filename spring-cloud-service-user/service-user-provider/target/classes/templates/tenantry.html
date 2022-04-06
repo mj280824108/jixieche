@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>喂喂机械雇主邀请页</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/md5.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.7.0/animate.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+<body style="background: url('/images/beijing.png') 0px 0px no-repeat;background-size: 100%">
+  <main  style="width: 98%;">
+      <div id="main" style="width: 1.1rem;height: 1.1rem;margin: 0 auto;margin-top: 1.02rem;position: relative;background: #8B8FA9;border-radius: 50%">
+          <img id="headImg" style="width: 100%;height: 100%;border-radius: 50%" src="/images/head.jpg" alt="">
+      </div>
+      <div class=" animated hidden" id="msg" style="position: fixed;color: #f56c6c;font-size: 0.28rem;background-color: #fef0f0;border: 1px solid #fde2e2;width: 5rem;text-align: center;padding: 0.1rem 0"></div>
+      <div class=" animated hidden" id="sumsg" style="position: fixed;color: #67c23a;font-size: 0.28rem;background-color: #f0f9eb;border: 1px solid #e1f3d8;width: 5rem;text-align: center;padding: 0.1rem 0"></div>
+       <div style="font-size: 0.3rem;font-family:PingFang-SC-Medium;color: #FFFFFF;text-align: center;margin-top: 0.22rem;"><span id="names"></span>邀请您注册喂喂机械</div>
+      <section class="resign" style="width: 6rem;margin: 0 auto;background-color:#FFFFFF;margin-top: 0.61rem;">
+          <div class="title" style="width: 3.04rem;margin: 0 auto;"><img style="width:100%;height: 0.56rem;" src="/images/logo.jpg" alt=""></div>
+          <div style="width: 5.1rem;margin: 0 auto">
+              <div style="margin: 0 auto;display: flex;margin-top: 0.29rem;flex-direction: column">
+                  <input onblur="PhoneCk()" maxlength="11" oninput="PhoneCk()" id="phone" type="text" style="font-size: 0.3rem;border: 1px solid #E6E6E6;border-radius: 0.88rem;width: 4.25rem;height: 0.88rem;padding-left: 0.85rem;background:url('/images/phone.png') 0.26rem 0.26rem no-repeat;background-size:0.28rem 0.4rem " placeholder="请输入手机号">
+                  <span class="hidden" style="color: red;font-size: 0.26rem;margin-top: 0.2rem;margin-left: 0.5rem;" >请输入正确的手机号</span>
+              </div>
+              <div style="margin: 0 auto;position: relative;display: flex;margin-top: 0.29rem">
+                  <input maxlength="6" type="text" id="code" style="font-size: 0.3rem;border: 1px solid #E6E6E6;border-radius: 0.88rem;width: 4.25rem;height: 0.88rem;padding-left: 0.85rem;background:url('/images/code.png') 0.26rem 0.26rem no-repeat;background-size:0.28rem 0.4rem " placeholder="请输入验证码">
+                  <button id="getCode"  style="background: #ffffff;position: absolute;right: 20px;font-size: 0.26rem;color: #FE8041;border: none;margin-top: 0.24rem">获取验证码</button>
+                  <div id="timea"  class="hidden" style="background: #ffffff;position: absolute;right: 20px;font-size: 0.26rem;color: #FE8041;border: none;margin-top: 0.24rem"><span id="times"></span>秒</div>
+              </div>
+              <div id="codemsg" style="color: red;font-size: 0.26rem;margin-top: 0.2rem;margin-left: 0.5rem;"></div>
+              <div style="margin: 0 auto;display: flex;margin-top: 0.29rem;flex-direction: column">
+                  <input onblur="PassCk()" oninput="PassCk()" id="password" type="password" style="font-size: 0.3rem;border: 1px solid #E6E6E6;border-radius: 0.88rem;width: 4.25rem;height: 0.88rem;padding-left: 0.85rem;background:url('/images/lock.png') 0.26rem 0.26rem no-repeat;background-size:0.28rem 0.4rem " placeholder="密码6-20位字母或数字">
+                  <span class="hidden" style="color: red;font-size: 0.26rem;margin-top: 0.2rem;margin-left: 0.5rem;" >密码格式错误</span>
+              </div>
+              <div style="text-align: center;font-size: 0.26rem;color: #8B8FA9;margin-top: 0.31rem;">加入即同意《喂喂机械平台服务条款》</div>
+              <div ><button id="join" style="border: none;font-size: 0.36rem;font-weight: bold;color: #ffffff;width: 100%;height: 1.05rem;background: url('/images/join.png') -11px -10px no-repeat;background-size: 5.57rem 1.45rem;margin-bottom: 0.48rem;" >立即加入</button></div>
+          </div>
+      </section>
+      <section id="superiority" style="position: relative;margin-bottom: 0.3rem">
+
+          <div style="width: 6rem;margin: 0 auto;background-color:#FFFFFF;margin-top: 0.61rem;padding-bottom: 0.5rem;">
+              <div id="supor" style="width: 3.21rem;;height: 0.7rem;font-size:0.36rem;color: #ffffff;font-weight: bold;text-align: center;line-height: 0.7rem;background-color: #FE8041;position: absolute;top:-0.35rem">雇主三大优势</div>
+              <div style="width: 5.1rem;margin: 0 auto;">
+                   <div style="padding-top: 1.2rem;overflow: hidden">
+                       <img style="width: 1.85rem;height: 1.77rem;float: left" src="/images/item.png" alt="">
+                       <div style="float: left;font-size:0.3rem;color:#3C4161; margin-left:0.87rem; margin-top: 0.1rem ;">
+                           <p>1</p>
+                           <p>智能匹配</p>
+                           <p>实时匹配车队</p>
+                       </div>
+                   </div>
+                  <div style="overflow: hidden">
+                      <div style="float: left;font-size:0.3rem;color:#3C4161;  margin-top: 0.1rem ;">
+                          <p>2</p>
+                          <p>司机在线打卡</p>
+                          <p>运行轨迹全纪录</p>
+                      </div>
+                      <img style="width: 1.85rem;height: 1.77rem;float: left;margin-left:0.87rem;" src="/images/item.png" alt="">
+                  </div>
+                  <div style="overflow: hidden;">
+                      <img style="width: 1.85rem;height: 1.77rem;float: left" src="/images/item.png" alt="">
+                      <div style="float: left;font-size:0.3rem;color:#3C4161; margin-left:0.87rem; margin-top: 0.1rem ;">
+                          <p>3</p>
+                          <p>平台先行垫付</p>
+                          <p>省时省心省力</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </main>
+    <footer>
+        <div style="width: 100%;height: 1rem;background-color: #3C4161;line-height: 1rem;">
+            <div style="font-size: 0.26rem;color: #ffffff;padding-left: 0.6rem">你还在等什么，赶紧加入吧！！！ <button id="DApp" style="border: none;width: 1.4rem;height: 0.6rem;background: #ffffff;font-size: 0.26rem;color: #3C4161;margin-left: 1rem">立即下载</button></div>
+        </div>
+    </footer>
+</body>
+<script>
+    (function(){
+        var currClientWidth,
+            fontValue,
+            originWidth;
+        originWidth = 750;//ui设计稿的宽度，一般750或640
+        __resize();
+
+        window.addEventListener('resize', __resize, false);
+        var supor=document.getElementById('supor')
+       var Swidth= document.getElementById('supor').offsetWidth
+       var Fwidth= document.getElementById('superiority').offsetWidth
+
+
+        supor.style.left=(Fwidth-Swidth)/2 +"px"
+        function __resize() {
+            currClientWidth = document.documentElement.clientWidth;
+            if (currClientWidth > 768){
+                currClientWidth = 768;
+            }
+            if (currClientWidth < 320){
+                currClientWidth = 320;
+            }
+            fontValue = ((625 * currClientWidth) / originWidth).toFixed(2);
+            document.documentElement.style.fontSize = fontValue + '%';
+            console.log(document.documentElement.style.fontSize);
+        }
+    })();
+</script>
+<script>
+    var phoneCk=""
+    var PassCK=""
+    function PhoneCk(){
+    $("#codemsg").text("")
+        if(!(/^1[34578]\d{9}$/.test( $('#phone').val()))){
+        $('#phone').siblings().removeClass('hidden')
+            phoneCk=false
+        }else {
+            $('#phone').siblings().addClass('hidden')
+            phoneCk=true
+        }
+    }
+    function PassCk(){
+        if(!(/^[a-z0-9]{6,20}$/.test( $('#password').val()))){
+           $('#password').siblings().removeClass('hidden')
+            PassCK=false
+        }else {
+            $('#password').siblings().addClass('hidden')
+            PassCK=true
+        }
+    }
+    $(document).ready(function () {
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+        var thirdId=getUrlParam("thirdId")
+        var getInfo=function (){
+         console.log(1);
+         $.ajax({
+             type: "POST",
+             url: "https://api.app.vvjx.cn/user/jxcUser/invitationRegister",
+             data: {thirdId:thirdId},
+             dataType: "json",
+             success: function (data) {
+                 $("#names").text(data.data.realName)
+                 if(data.data.headImg!=""&data.data.headImg!=null&data.data.headImg!=undefined){
+                     $("#headImg")[0].src=data.data.headImg
+                 }else {
+
+                 }
+             }
+         });
+        }
+        getInfo()
+       $('#getCode').click(function () {
+           PhoneCk()
+        if(phoneCk){
+            var time= 60
+            var timer=setInterval(function () {
+                $("#getCode").addClass("hidden")
+                $("#timea").removeClass("hidden")
+                time--
+                if( time>=0){
+                    $('#times').text(time)
+                }else {
+                    $("#getCode").removeClass("hidden")
+                    $("#timea").addClass("hidden")
+                    clearInterval(timer)
+                }
+            },1000)
+            $.ajax({
+                type: "POST",
+                url: "https://api.app.vvjx.cn/common/jxcShortMsgTemplate/aliSendShortMsg",
+                data: {phone:$('#phone').val(),clientType:2,codeType:1 },
+                dataType: "json",
+                success: function (data) {
+                         if(data.code!=1){
+                            $("#codemsg").text(data.msg)
+                            $("#getCode").removeClass("hidden")
+                            $("#timea").addClass("hidden")
+                            clearInterval(timer)
+                        }else {
+
+                        }
+                }
+            });
+        }
+       })
+
+        $('#join').click(function () {
+            PhoneCk()
+            PassCk()
+        if(phoneCk&&PassCK){
+            var phone=hex_md5($('#password').val())+hex_md5($('#phone').val())
+            var Mdpsd=hex_md5(phone)
+            var code= $(" #code ").val()
+            $.ajax({
+                type: "POST",
+                url: "https://api.app.vvjx.cn/user/jxcUser/register",
+                data: {phone:$(" #phone ").val(),password:Mdpsd,verifyCode:code,clientType:2,registerType:1},
+                dataType: "json",
+                success: function (data) {
+                    console.log(data.code==0);
+                    if(data.code!=1){
+                        $("#msg").removeClass("fadeOutDown")
+                        $("#msg").removeClass("hidden")
+                        $("#msg").addClass("fadeInDown")
+                        $("#msg").text(data.msg)
+                        var msg=document.getElementById('msg')
+                        var Mwidth= document.getElementById('msg').offsetWidth
+                        var mainwidth= document.getElementById("superiority").offsetWidth
+                        msg.style.left=(mainwidth-Mwidth)/2 +"px"
+                        console.log(msg.style.left);
+                        setTimeout(function(){
+                            $("#msg").removeClass("fadeInDown")
+                            $("#msg").addClass("fadeOutDown")
+                        }, 3000);
+                    }else {
+                          $("#sumsg").removeClass("fadeOutDown")
+                          $("#sumsg").removeClass("hidden")
+                          $("#sumsg").addClass("fadeInDown")
+                          $("#sumsg").text("注册成功")
+                          var sumsg=document.getElementById('sumsg')
+                          var Mwidth= document.getElementById('sumsg').offsetWidth
+                          var mainwidth= document.getElementById("superiority").offsetWidth
+                          sumsg.style.left=(mainwidth-Mwidth)/2 +"px"
+                          console.log(sumsg.style.left);
+                          setTimeout(function(){
+                              $("#sumsg").removeClass("fadeInDown")
+                              $("#sumsg").addClass("fadeOutDown")
+                              window.location.href='https://api.app.vvjx.cn/user/staticHtml/inviteTenantryV2'
+                          }, 3000);
+                      }
+                }
+            });
+        }
+        })
+
+        function isWeiXin(){
+            var ua = window.navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+
+
+        $('#DApp').click(function () {
+            var ua = navigator.userAgent.toLowerCase();
+            console.log(ua);
+            var isAndroid = ua.indexOf('android') != -1;
+            var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+            if(isIos){
+                window.location.href='https://itunes.apple.com/cn/app/id1454609172?mt=8'
+            }
+            if(isAndroid){
+                window.location.href='https://www.pgyer.com/iN3l'
+            }
+        })
+    })
+</script>
+</html>

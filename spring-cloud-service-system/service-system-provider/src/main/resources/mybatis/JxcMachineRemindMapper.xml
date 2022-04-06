@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcMachineRemindMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcMachineRemind" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="remind_name" property="remindName" jdbcType="VARCHAR" />
+    <result column="remind_type" property="remindType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, remind_name, remind_type, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, remind_name AS remindName, remind_type AS remindType, create_time AS createTime, 
+    update_time AS updateTime
+  </sql>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_machine_remind
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcMachineRemind" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_machine_remind
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="remindName != null" >
+        remind_name,
+      </if>
+      <if test="remindType != null" >
+        remind_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="remindName != null" >
+        #{remindName,jdbcType=VARCHAR},
+      </if>
+      <if test="remindType != null" >
+        #{remindType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcMachineRemind" >
+    update jxc_machine_remind
+    <set >
+      <if test="remindName != null" >
+        remind_name = #{remindName,jdbcType=VARCHAR},
+      </if>
+      <if test="remindType != null" >
+        remind_type = #{remindType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcMachineRemind" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_machine_remind
+    <where >
+      <if test="remindName != null" >
+        AND remind_name = #{remindName,jdbcType=VARCHAR}
+      </if>
+      <if test="remindType != null" >
+        AND remind_type = #{remindType,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!--查询提醒车辆必填提醒类型-->
+  <select id="queryMustRemindList" parameterType="com.weiwei.jixieche.vo.MachineMustRemindListVo" resultType="com.weiwei.jixieche.vo.MachineMustRemindListVo">
+    select jmr.id AS id ,jmr.remind_name AS remindName
+    from jxc_machine_remind jmr WHERE
+    <if test="remindType != null">
+      jmr.remind_type = #{remindType}
+    </if>
+  </select>
+
+  <!--查询机械已经存在非必须填写的提醒-->
+  <select id="queryExistNotMustRemindList"  parameterType="com.weiwei.jixieche.vo.MachineMustRemindListVo" resultType="com.weiwei.jixieche.vo.MachineMustRemindListVo">
+        select jmrr.machine_remind_id AS id,jmr.remind_name AS remindName,
+        jmrr.machine_remind_time AS machineRemindTime,jmrr.id AS remindRecordId,
+        jmrr.machine_id AS machineId, jmrr.machine_remind_id as machineRemindId
+        from jxc_machine_remind jmr
+        LEFT JOIN jxc_machine_remind_record jmrr ON  jmr.id = jmrr.machine_remind_id
+        WHERE jmrr.machine_id =  #{machineId} AND jmr.remind_type = 1 AND jmrr.deleted = 0
+  </select>
+
+</mapper>

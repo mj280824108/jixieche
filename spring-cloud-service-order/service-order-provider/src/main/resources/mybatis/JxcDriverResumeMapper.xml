@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcDriverResumeMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcDriverResume" >
+    <id column="resume_id" property="resumeId" jdbcType="INTEGER" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="log" property="log" jdbcType="VARCHAR" />
+    <result column="job_location" property="jobLocation" jdbcType="VARCHAR" />
+    <result column="work_area" property="workArea" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="machine_type" property="machineType" jdbcType="INTEGER" />
+    <result column="driver_year" property="driverYear" jdbcType="VARCHAR" />
+    <result column="payment" property="payment" jdbcType="INTEGER" />
+    <result column="pay_money" property="payMoney" jdbcType="INTEGER" />
+    <result column="welfare" property="welfare" jdbcType="VARCHAR" />
+    <result column="other_welfare" property="otherWelfare" jdbcType="VARCHAR" />
+    <result column="person_introduce" property="personIntroduce" jdbcType="LONGVARCHAR" />
+    <result column="for_job_type" property="forJobType" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="driver_id" property="driverId" jdbcType="INTEGER" />
+    <result column="update_status" property="updateStatus" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    resume_id, head_img, name, sex, birthday, phone, log, job_location, work_area, area_id, 
+    machine_type, driver_year, payment, pay_money, welfare, other_welfare, person_introduce, 
+    for_job_type, status, create_time, update_time, driver_id, update_status
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    resume_id AS resumeId, head_img AS headImg, name, sex, birthday, phone, log, job_location AS jobLocation, 
+    work_area AS workArea, area_id AS areaId, machine_type AS machineType, driver_year AS driverYear, 
+    payment, pay_money AS payMoney, welfare, other_welfare AS otherWelfare, person_introduce AS personIntroduce, 
+    for_job_type AS forJobType, status, create_time AS createTime, update_time AS updateTime, 
+    driver_id AS driverId, update_status AS updateStatus
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_driver_resume
+    where resume_id = #{resumeId,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcDriverResume" >
+    insert into jxc_driver_resume
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resumeId != null" >
+        resume_id,
+      </if>
+      <if test="headImg != null" >
+        head_img,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="log != null" >
+        log,
+      </if>
+      <if test="jobLocation != null" >
+        job_location,
+      </if>
+      <if test="workArea != null" >
+        work_area,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="machineType != null" >
+        machine_type,
+      </if>
+      <if test="driverYear != null" >
+        driver_year,
+      </if>
+      <if test="payment != null" >
+        payment,
+      </if>
+      <if test="payMoney != null" >
+        pay_money,
+      </if>
+      <if test="welfare != null" >
+        welfare,
+      </if>
+      <if test="otherWelfare != null" >
+        other_welfare,
+      </if>
+      <if test="personIntroduce != null" >
+        person_introduce,
+      </if>
+      <if test="forJobType != null" >
+        for_job_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="updateStatus != null" >
+        update_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resumeId != null" >
+        #{resumeId,jdbcType=INTEGER},
+      </if>
+      <if test="headImg != null" >
+        #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="log != null" >
+        #{log,jdbcType=VARCHAR},
+      </if>
+      <if test="jobLocation != null" >
+        #{jobLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="workArea != null" >
+        #{workArea,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="machineType != null" >
+        #{machineType,jdbcType=INTEGER},
+      </if>
+      <if test="driverYear != null" >
+        #{driverYear,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null" >
+        #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="welfare != null" >
+        #{welfare,jdbcType=VARCHAR},
+      </if>
+      <if test="otherWelfare != null" >
+        #{otherWelfare,jdbcType=VARCHAR},
+      </if>
+      <if test="personIntroduce != null" >
+        #{personIntroduce,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="forJobType != null" >
+        #{forJobType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="driverId != null" >
+        #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="updateStatus != null" >
+        #{updateStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcDriverResume" >
+    update jxc_driver_resume
+    <set >
+      <if test="headImg != null" >
+        head_img = #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="log != null" >
+        log = #{log,jdbcType=VARCHAR},
+      </if>
+      <if test="jobLocation != null" >
+        job_location = #{jobLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="workArea != null" >
+        work_area = #{workArea,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="machineType != null" >
+        machine_type = #{machineType,jdbcType=INTEGER},
+      </if>
+      <if test="driverYear != null" >
+        driver_year = #{driverYear,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null" >
+        pay_money = #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="welfare != null" >
+        welfare = #{welfare,jdbcType=VARCHAR},
+      </if>
+      <if test="otherWelfare != null" >
+        other_welfare = #{otherWelfare,jdbcType=VARCHAR},
+      </if>
+      <if test="personIntroduce != null" >
+        person_introduce = #{personIntroduce,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="forJobType != null" >
+        for_job_type = #{forJobType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="driverId != null" >
+        driver_id = #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="updateStatus != null" >
+        update_status = #{updateStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where resume_id = #{resumeId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcDriverResume" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_driver_resume
+    <where >
+      <if test="headImg != null" >
+        AND head_img = #{headImg,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+        AND name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="sex != null" >
+        AND sex = #{sex,jdbcType=INTEGER}
+      </if>
+      <if test="birthday != null" >
+        AND birthday = #{birthday,jdbcType=DATE}
+      </if>
+      <if test="phone != null" >
+        AND phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="log != null" >
+        AND log = #{log,jdbcType=VARCHAR}
+      </if>
+      <if test="jobLocation != null" >
+        AND job_location = #{jobLocation,jdbcType=VARCHAR}
+      </if>
+      <if test="workArea != null" >
+        AND work_area = #{workArea,jdbcType=VARCHAR}
+      </if>
+      <if test="areaId != null" >
+        AND area_id = #{areaId,jdbcType=INTEGER}
+      </if>
+      <if test="machineType != null" >
+        AND machine_type = #{machineType,jdbcType=INTEGER}
+      </if>
+      <if test="driverYear != null" >
+        AND driver_year = #{driverYear,jdbcType=VARCHAR}
+      </if>
+      <if test="payment != null" >
+        AND payment = #{payment,jdbcType=INTEGER}
+      </if>
+      <if test="payMoney != null" >
+        AND pay_money = #{payMoney,jdbcType=INTEGER}
+      </if>
+      <if test="welfare != null" >
+        AND welfare = #{welfare,jdbcType=VARCHAR}
+      </if>
+      <if test="otherWelfare != null" >
+        AND other_welfare = #{otherWelfare,jdbcType=VARCHAR}
+      </if>
+      <if test="personIntroduce != null" >
+        AND person_introduce = #{personIntroduce,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="forJobType != null" >
+        AND for_job_type = #{forJobType,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null" >
+        AND status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="driverId != null" >
+        AND driver_id = #{driverId,jdbcType=INTEGER}
+      </if>
+      <if test="updateStatus != null" >
+        AND update_status = #{updateStatus,jdbcType=INTEGER}
+      </if>
+      <if test="startMoney != null">
+        AND pay_money >= #{startMoney}
+      </if>
+      <if test="endMoney != null and endMoney != 15000">
+        <![CDATA[ and pay_money <= #{endMoney} ]]>
+      </if>
+    </where>
+  </select>
+
+</mapper>

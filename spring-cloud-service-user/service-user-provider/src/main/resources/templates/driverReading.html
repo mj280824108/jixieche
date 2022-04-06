@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>司机须知</title>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<style>
+    .el-collapse-item>div:first-child{
+        border-bottom:1px solid #EBEEF5;
+    }
+    .el-collapse-item__header{
+        font-size:0.3rem;
+        height: 1.1rem;
+        font-weight: bold;
+        color: #333333;
+        padding-left: 1em;
+    }
+    .el-collapse-item__content{
+        padding-top: 0.31rem;
+        padding-bottom: 0.31rem;
+    }
+    .el-collapse-item__content div{
+        font-size: 0.28rem;
+        margin-left: 2em;
+        color: #666666;
+    }
+</style>
+<body>
+<div id="app">
+    <el-collapse v-model="activeNames" @change="handleChange" v-show="showInfo">
+        <el-collapse-item title="1.司机是干什么的？" name="1">
+            <div>司机是由车主聘用的，帮助其泥头车跑趟的人。</div>
+        </el-collapse-item>
+        <el-collapse-item title="2.司机要做什么？" name="2">
+            <div>司机被绑定到某辆车上后，司机可以为该车辆接(兼职司机除外)，并去执行订单。</div>
+        </el-collapse-item>
+        <el-collapse-item title="3.司机有哪些类型？" name="3">
+            <div>在平台司机有三种类型：</div>
+            <div>一、车主本人（我自己）；</div>
+            <div>二、通过平台发布兼职职位招聘到的兼职司机（兼职司机）；</div>
+            <div>三、车主通过平台招聘的全职司机或通过自有渠道招聘的司机(我的司机）。</div>
+        </el-collapse-item>
+        <el-collapse-item title="4.司机需要怎么添加？" name="4">
+            <div>第一类：车主本人（我自己）是注册后自动生成，不可删除的；</div>
+            <div>第二类：（兼职司机）是通过平台发布兼职职位招聘到的司机，达到职位输入的工作时间后，可选择兼职司机绑定到某辆车上，该司机则可去执行订单；</div>
+            <div>第三类：（我的司机）是车主通过平台招聘的全职司机或通过自有渠道招聘的司机，招聘到该司机后需要通过添加司机页面添加司机才可绑定司机给自己的某辆泥头车接单、执行订单。</div>
+        </el-collapse-item>
+    </el-collapse>
+</div>
+</body>
+
+<script>
+    (function(){
+        var currClientWidth,
+            fontValue,
+            originWidth;
+        originWidth = 750;//ui设计稿的宽度，一般750或640
+        __resize();
+
+        window.addEventListener('resize', __resize, false);
+        function __resize() {
+            currClientWidth = document.documentElement.clientWidth;
+            if (currClientWidth > 768){
+                currClientWidth = 768;
+            }
+            if (currClientWidth < 320){
+                currClientWidth = 320;
+            }
+            fontValue = ((625 * currClientWidth) / originWidth).toFixed(2);
+            document.documentElement.style.fontSize = fontValue + '%';
+            console.log(document.documentElement.style.fontSize);
+        }
+    })();
+    new Vue({
+        el: '#app',
+        data: function() {
+            return {activeNames: ['1'] ,showInfo:false}
+        },
+        methods:{
+            handleChange(val) {
+                console.log(val);
+            }
+        },
+        mounted(){
+            this.showInfo=true
+        }
+    })
+</script>
+</html>

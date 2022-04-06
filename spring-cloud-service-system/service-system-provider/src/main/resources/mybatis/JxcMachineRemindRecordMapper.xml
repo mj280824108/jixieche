@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcMachineRemindRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcMachineRemindRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="machine_id" property="machineId" jdbcType="BIGINT" />
+    <result column="machine_card_no" property="machineCardNo" jdbcType="VARCHAR" />
+    <result column="owner_id" property="ownerId" jdbcType="BIGINT" />
+    <result column="owne_phone" property="ownePhone" jdbcType="VARCHAR" />
+    <result column="machine_remind_id" property="machineRemindId" jdbcType="INTEGER" />
+    <result column="machine_remind_time" property="machineRemindTime" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, machine_id, machine_card_no, owner_id, owne_phone, machine_remind_id, machine_remind_time, 
+    deleted, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, machine_id AS machineId, machine_card_no AS machineCardNo, owner_id AS ownerId, 
+    owne_phone AS ownePhone, machine_remind_id AS machineRemindId, machine_remind_time AS machineRemindTime, 
+    deleted, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_machine_remind_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcMachineRemindRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_machine_remind_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="machineId != null" >
+        machine_id,
+      </if>
+      <if test="machineCardNo != null" >
+        machine_card_no,
+      </if>
+      <if test="ownerId != null" >
+        owner_id,
+      </if>
+      <if test="ownePhone != null" >
+        owne_phone,
+      </if>
+      <if test="machineRemindId != null" >
+        machine_remind_id,
+      </if>
+      <if test="machineRemindTime != null" >
+        machine_remind_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="machineId != null" >
+        #{machineId,jdbcType=BIGINT},
+      </if>
+      <if test="machineCardNo != null" >
+        #{machineCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="ownePhone != null" >
+        #{ownePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="machineRemindId != null" >
+        #{machineRemindId,jdbcType=INTEGER},
+      </if>
+      <if test="machineRemindTime != null" >
+        #{machineRemindTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcMachineRemindRecord" >
+    update jxc_machine_remind_record
+    <set >
+      <if test="machineId != null" >
+        machine_id = #{machineId,jdbcType=BIGINT},
+      </if>
+      <if test="machineCardNo != null" >
+        machine_card_no = #{machineCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null" >
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="ownePhone != null" >
+        owne_phone = #{ownePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="machineRemindId != null" >
+        machine_remind_id = #{machineRemindId,jdbcType=INTEGER},
+      </if>
+      <if test="machineRemindTime != null" >
+        machine_remind_time = #{machineRemindTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcMachineRemindRecord" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_machine_remind_record
+    <where >
+      <if test="machineId != null" >
+        AND machine_id = #{machineId,jdbcType=BIGINT}
+      </if>
+      <if test="machineCardNo != null" >
+        AND machine_card_no = #{machineCardNo,jdbcType=VARCHAR}
+      </if>
+      <if test="ownerId != null" >
+        AND owner_id = #{ownerId,jdbcType=BIGINT}
+      </if>
+      <if test="ownePhone != null" >
+        AND owne_phone = #{ownePhone,jdbcType=VARCHAR}
+      </if>
+      <if test="machineRemindId != null" >
+        AND machine_remind_id = #{machineRemindId,jdbcType=INTEGER}
+      </if>
+      <if test="machineRemindTime != null" >
+        AND machine_remind_time = #{machineRemindTime,jdbcType=VARCHAR}
+      </if>
+      <if test="deleted != null" >
+        AND deleted = #{deleted,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!--查询机主所有的车辆信息表-->
+  <select id="findMachineRemindStatusList" parameterType="com.weiwei.jixieche.vo.JxcMachineRemindListVo" resultType="com.weiwei.jixieche.vo.JxcMachineRemindListVo">
+      select jm.id AS machineId,jm.machine_card_no AS machineCardNo,jm.user_id AS ownerId from jxc_machine jm where jm.user_id  =#{ownerId} and delete_status = 0
+  </select>
+
+  <!--根据车牌号和机主账号查询车辆提醒记录id-->
+  <select id="findMachineRemindStatus" parameterType="com.weiwei.jixieche.vo.JxcMachineRemindVo" resultType="com.weiwei.jixieche.vo.JxcMachineRemindVo">
+    select jmrr.id AS id,jmrr.machine_remind_id AS machineRemindId,jmr.remind_name AS remindName,jmrr.machine_remind_time AS machineRemindTime,
+    jmrr.owner_id AS ownerId,jmrr.machine_id AS machineId
+    from jxc_machine_remind_record jmrr
+    LEFT JOIN jxc_machine_remind jmr ON jmrr.machine_remind_id = jmr.id
+    <where>
+      <if test="machineId != null" >
+        AND jmrr.machine_id = #{machineId}
+      </if>
+      <if test="ownerId != null" >
+        AND jmrr.owner_id = #{ownerId}
+      </if>
+      <if test="machineRemindId != null" >
+        AND jmrr.machine_remind_id = #{machineRemindId}
+      </if>
+      AND jmrr.deleted = 0
+    </where>
+  </select>
+
+  <!--机主批量删除机械提醒记录-->
+  <update id="deleteBatch" parameterType="com.weiwei.jixieche.vo.MachinRemindDeleteBatchVo">
+      UPDATE jxc_machine_remind_record SET deleted = 1 WHERE owner_id = #{ownerId} AND machine_id =#{machineId}
+  </update>
+
+  <!--机主批量添加机械提醒记录-->
+  <insert id="insertBatch" parameterType="hashmap">
+    insert into jxc_machine_remind_record(machine_id,owner_id,machine_remind_id,machine_remind_time)
+    values
+    <foreach collection="itemList" index="index" item="item"  separator="," >
+      (#{machineId},#{ownerId},#{item.machineRemindId},#{item.machineRemindTime})
+    </foreach>
+  </insert>
+
+  <!--根据机主账号和车辆Id查询该车辆已经存在的提醒类型id-->
+  <select id="findNotExistRemindList" parameterType="com.weiwei.jixieche.vo.MachineNotExisitRemindVo" resultType="com.weiwei.jixieche.vo.MachineNotExisitRemindVo">
+      select r.id AS machineRemindId,r.remind_name AS remindName from jxc_machine_remind r where r.remind_type = 1 AND r.id not in
+      (
+        select jmrr.machine_remind_id
+        from jxc_machine_remind jmr
+        LEFT JOIN jxc_machine_remind_record jmrr ON jmr.id = jmrr.machine_remind_id
+        WHERE jmrr.machine_id = #{machineId}  AND jmrr.deleted = 0
+        )
+  </select>
+
+</mapper>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>新闻资讯</title>
+    <link rel="stylesheet" href="/css/iconfont.css">
+    <script src="https://cdn.bootcss.com/vue/2.4.0/vue.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <script>
+        // // 适配
+        // (function(doc, win) {
+        //     var docEl = doc.documentElement,
+        //         resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        //         recalc = function() {
+        //             var clientWidth = docEl.clientWidth;
+        //             if (!clientWidth) return;
+        //             if (clientWidth >= 640) {
+        //                 docEl.style.fontSize = '100px';
+        //             } else {
+        //                 docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+        //             }
+        //         };
+        //
+        //     if (!doc.addEventListener) return;
+        //     win.addEventListener(resizeEvt, recalc, false);
+        //     doc.addEventListener('DOMContentLoaded', recalc, false);
+        // })(document, window);
+    </script>
+    <style>
+        .hidden{
+            position:fixed;
+            overflow-y:hidden;
+        }
+        body{
+            margin: 0;
+        }
+        .clearfix:after { /*伪元素是行内元素 正常浏览器清除浮动方法*/
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        .titles{
+            font-size:18px;
+            font-family:PingFangSC;
+            font-weight:600;
+            color:rgba(51,51,51,1);
+        }
+        .container{
+            padding: 0 8px;
+        }
+        .authorInfo{
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .authorInfo span{
+            float: left;
+        }
+        .authorInfo .author{
+            margin-right: 15px;
+        }
+        .authorInfo .hasee{
+            float: right;
+            margin-right: 10px;
+        }
+        .content{
+            font-size: 14px;
+            color: #999;
+            margin-top: 20px;
+        }
+        .mainTitle{
+            margin: 10px 0;
+        }
+        .content .topIcon,.content .boIcon{
+            font-size: 12px;
+            opacity:0.24;
+        }
+        .footer{
+            color: #999;
+            font-size: 12px;
+            margin: 40px 0;
+            line-height: 19px;
+        }
+        .mainInfo img{
+            width: 100%;
+        }
+        .downApp{
+            width: 100%;
+            position: fixed;
+            bottom: 0px;
+            z-index: 9999 ;
+        }
+        button{
+            width:100%;
+            height:50px;
+            border: none;
+            background:rgba(60,65,97,1);
+            border-radius:50px;
+            color: #fff;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body >
+<div id="app" >
+    <div class="container">
+        <img  style="width: 100px;height: 18px;margin-top: 10px;" src="/images/logo.jpg" alt="">
+        <i style="display: inline-block;height: 1px;width: 100%;background: #f0f0f0;margin-bottom: 10px"></i>
+        <div class="titles">{{form.title}}</div>
+        <div class="authorInfo clearfix"><span class="author">来源：{{form.inforSources}}</span> <span class="times">{{form.createTime}}</span> </div>
+        <div class="content" v-if="false">
+            <div class="topIcon"><i style="vertical-align: middle;font-size: 12px" class="icon iconfont">&#xe636;</i><span style="display: inline-block;width: 80px;height: 1px;background: #999;vertical-align: middle"></span></div>
+            <div class="mainTitle">
+                最近它又更新了一键海淘的功能，支持国外主流购物网站，就算你没有双币信用卡，没有国外账
+            </div>
+            <div class="boIcon" style="text-align: right">
+                <span style="display: inline-block;width: 80px;height: 1px;background: #999;vertical-align: middle"></span> <i style="vertical-align: middle;font-size: 12px" class="icon iconfont">&#xe636;</i>
+            </div>
+        </div>
+        <div v-html="form.inforContant" class="mainInfo">{{form.inforContant}}</div>
+        <div class="footer" v-if="false">
+            <div class="originalTitle">原标题：<span>人民币抹平昨晚跌幅转涨 在岸双双收复</span></div>
+            <div class="originalTitle">文章转载自：<span>华尔街见闻</span></div>
+            <div class="originalTitle">版权声明：<span>本内容由＊＊＊（注：源名称）授权支付宝发布，如果有任何疑问请与＊＊＊联系。</span></div>
+        </div>
+    </div>
+    <!--<div :class="isShow?'downAppBO':'downApp'" >-->
+        <!--<div v-if="isDown" style="background:rgba(255, 255, 255, 0.5);font-weight: bold;color: #000;text-align: center"><i  @click="getAll" style="vertical-align: middle;font-size: 20px" class="icon iconfont">&#xe612;</i></div>-->
+        <!--<div style="padding-bottom: 10px;background: #fff;">-->
+            <!--<button @click="haveDownApp">下载APP查看全文</button>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data:function() {
+            return{
+                form:{},
+                isDown:true,
+                areaCode:"420100",
+                userType:"1",
+                isShow:false,
+                id:22,
+            }
+        },
+        methods: {
+            getAll:function(){
+                document.getElementsByTagName('body')[0].classList.remove("hidden");
+                this.isShow=true
+                this.isDown=false
+            },
+            getData(){
+                let This=this
+                axios.get( 'https://api.admin.vvjx.cn:7000/jxcInforInformation/findById', {
+                    params: {
+                        id:This.id,
+                    }
+                }).then(function(res){
+                    This.form=res.data.data
+                    console.log(This.form.inforContant);
+                }).catch(function(err){
+                })
+            },
+            haveDownApp(){
+                var ua = window.navigator.userAgent.toLowerCase();
+                if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                    this.show = false
+                    var isAndroid = ua.indexOf('android') != -1;
+                    var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+                    console.log(isAndroid);
+                    console.log(isIos);
+                    if (this.userType == 0) {
+                        if (isIos) {
+                            window.location.href = 'https://itunes.apple.com/cn/app/id1454609172?mt=8'
+                        }
+                        if (isAndroid) {
+                            window.location.href = 'https://www.pgyer.com/iN3l'
+                        }
+                    } else if (this.userType == 1) {
+                        if (isIos) {
+                            window.location.href = 'https://itunes.apple.com/cn/app/id1454609157?mt=8'
+                        }
+                        if (isAndroid) {
+                            window.location.href = 'https://www.pgyer.com/A8Cb'
+                        }
+                    }
+                }else {
+                    this.show = false
+                    var isAndroid = ua.indexOf('android') != -1;
+                    var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+                    console.log(isAndroid);
+                    console.log(isIos);
+                    if (this.userType == 0) {
+                        if (isIos) {
+                            window.location.href = 'https://itunes.apple.com/cn/app/id1454609172?mt=8'
+                        }
+                        if (isAndroid) {
+                            window.location.href = 'https://www.pgyer.com/iN3l'
+                        }
+                    } else if (this.userType == 1) {
+                        if (isIos) {
+                            window.location.href = 'https://itunes.apple.com/cn/app/id1454609157?mt=8'
+                        }
+                        if (isAndroid) {
+                            window.location.href = 'https://www.pgyer.com/A8Cb'
+                        }
+                    }
+                }
+            },
+            getPar: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg); //匹配目标参数
+                if (r != null) return unescape(r[2]); return null; //返回参数值
+            }
+        },
+
+        created:function(){
+            // $('html ,body').animate({scrollTop: 0}, 100,'linear',function () {
+            //     // document.querySelector('body').style.height= window.screen.height*window.devicePixelRatio+'px'
+            //     var mobileHeight=window.innerHeight+"px";
+            //     document.getElementsByTagName('html')[0].style.minHeight=mobileHeight;
+            //     document.getElementsByTagName('body')[0].classList.add("hidden");
+            // });
+            this.id= this.getPar("id")
+            this.userType= this.getPar("userType")
+            this. getData()
+        }
+    })
+</script>
+</body>
+
+</html>

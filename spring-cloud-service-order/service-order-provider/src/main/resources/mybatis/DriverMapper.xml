@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.DriverMapper" >
+
+  <!-- 司机管理 -->
+    <select id="getAllDriverById" resultType="com.weiwei.jixieche.vo.DriverVo">
+        <if test="flag == 1">
+        SELECT
+            jcr.id as id,
+            jcr.phone AS driverPhone,
+            jcr.remark_name AS driverName,
+            jcr.driver_type AS driverType,
+            jcr.owner_id as ownerId,
+            jcr.driver_id as driverId,
+            jcr.short_job_id as shortJobId
+        FROM
+            jxc_driver_ref_owner jcr
+        where jcr.owner_id = #{ownerUserId}
+            and (jcr.del_state = 1 or jcr.del_state = 2)
+        </if>
+        <if test="flag == 2">
+            SELECT
+                jcr.id as id,
+                jcr.phone AS driverPhone,
+                jcr.remark_name AS driverName,
+                jcr.driver_type AS driverType,
+                jcr.owner_id as ownerId,
+                jcr.driver_id as driverId,
+                jcr.short_job_id as shortJobId
+            FROM
+                jxc_driver_ref_owner jcr
+                where jcr.owner_id = #{ownerUserId}
+                and jcr.del_state = 1
+            union
+            SELECT
+                '' AS id,
+                ju.phone AS driverPhone,
+                ju.real_name AS driverName,
+                3 AS driverType,
+                jsj.owner_id AS ownerId,
+                jsj.driver_id AS driverId,
+                jsj.short_job_id AS shortJobId
+            FROM
+                jxc_short_job_ref_driver jsj
+                LEFT JOIN jxc_user ju ON jsj.driver_id = ju.id
+            WHERE
+                jsj.owner_id = #{ownerUserId}
+                and jsj.state = 0
+        </if>
+  </select>
+
+    <!-- 检查司机是否已经注册过 -->
+    <select id="checkDriver" resultType="com.weiwei.jixieche.vo.DriverVo">
+        SELECT
+            id AS driverId,
+            phone AS driverPhone,
+            real_name AS driverName
+        FROM
+            jxc_user
+        WHERE
+            phone = #{driverPhone}
+    </select>
+
+    <!-- 兼职司机展示工作结束时间 -->
+    <select id="getDriverEndDateById" resultType="com.weiwei.jixieche.vo.DriverVo">
+        select jsj.work_time_start as startDate, jsj.work_time_end as endDate from jxc_short_job_ref_driver jsjr, jxc_short_job jsj
+            where jsjr.short_job_id = jsj.id
+            and jsjr.driver_id = #{driverId}
+            and jsjr.owner_id = #{ownerUserId}
+            and jsjr.state = 1
+        order by jsjr.id desc
+        limit 1
+    </select>
+
+    <!-- 获取车辆所绑定司机列表信息 -->
+    <select id="getDriverListByMachineId" resultType="com.weiwei.jixieche.vo.DriverVo">
+      SELECT
+            jmr.user_id AS driverId,
+            ju.phone AS driverPhone,
+            ifNull(jcr.remark_name, ju.real_name) AS driverName,
+            jcr.driver_type AS driverType
+        FROM
+            jxc_machine_ref_driver jmr
+            INNER JOIN jxc_driver_ref_owner jcr ON jmr.user_id = jcr.driver_id
+            left join jxc_user ju on ju.id = jmr.user_id
+    WHERE
+        jmr.machine_id = #{machineId} and jmr.bind_state = 1 and jcr.del_state = 1
+        order by jmr.bind_time
+    </select>
+
+    <!-- 司机是否上班状态  -->
+    <select id="getDriverWorkStateById" resultType="java.lang.Integer">
+        select count(clock_in_id) from jxc_clock_in_out_pair
+            where driver_id = #{driverId}
+            and clock_out_time is null and clock_out_id = -1
+    </select>
+
+    <!-- 司机-考勤记录 -->
+    <select id="getDriverClockPair" resultType="com.weiwei.jixieche.vo.AttendanceRecordVo">
+      SELECT
+            date_format(jcp.clock_in_time, '%Y-%m-%d') as clockDate,
+            date_format(jcp.clock_in_time, '%H:%i') AS clockInTime,
+            date_format(jcp.clock_out_time, '%H:%i') AS clockOutTime,
+            jm.machine_card_no as machineCarNo,
+            TRUNCATE(TIMESTAMPDIFF(MINUTE,jcp.clock_in_time, jcp.clock_out_time)/60, 1) as workHours
+        FROM
+            jxc_clock_in_out_pair jcp
+            LEFT JOIN jxc_machine jm ON jcp.machine_id = jm.id
+        WHERE
+            jcp.driver_id = #{driverId}
+            and jcp.clock_in_time is not null and jcp.clock_out_time is not null
+            <if test="flag != null and flag == 1">
+              and date_format(jcp.clock_in_time, '%Y-%m') = #{clockMonth}
+            </if>
+            <if test="flag != null and flag == 2">
+                <if test="startDate != null">
+                    and jcp.clock_in_time > DATE_FORMAT(#{startDate},'%Y-%m-%d 00:00:00')
+                </if>
+                <if test="endDate != null">
+                    <![CDATA[  and jcp.clock_in_time <= DATE_FORMAT(#{endDate},'%Y-%m-%d 23:59:59') ]]>
+                </if>
+            </if>
+        order by jcp.clock_in_time desc
+    </select>
+
+    <!-- 考勤统计总工时和出勤天数 -->
+    <select id="statisDriverWorkHours" resultType="java.util.Map">
+        select count( a.clockInId ) AS workDay,
+          sum( a.totalWorkHours ) AS totalWorkHours
+        from (
+            select t.clock_in_id as clockInId, sum(t.workHours) as totalWorkHours from
+            (
+                SELECT
+                    date_format(jcp.clock_in_time, '%Y-%m-%d') as clockDate,
+                    date_format(jcp.clock_in_time, '%H:%i') AS clockInTime,
+                    date_format(jcp.clock_out_time, '%H:%i') AS clockOutTime,
+                    jm.machine_card_no as machineCardNo,
+                    TRUNCATE(TIMESTAMPDIFF(MINUTE,jcp.clock_in_time, jcp.clock_out_time)/60, 1) as workHours,
+                    jcp.clock_in_id as clock_in_id
+                FROM
+                jxc_clock_in_out_pair jcp
+                LEFT JOIN jxc_machine jm ON jcp.machine_id = jm.id
+                WHERE
+                jcp.driver_id = #{driverId}
+                and jcp.clock_in_time is not null and jcp.clock_out_time is not null
+                <if test="flag == 1">
+                    and date_format(jcp.clock_in_time, '%Y-%m') = #{clockMonth}
+                </if>
+                <if test="flag == 2">
+                    <if test="startDate != null">
+                        and jcp.clock_in_time > DATE_FORMAT(#{startDate},'%Y-%m-%d 00:00:00')
+                    </if>
+                    <if test="endDate != null">
+                        <![CDATA[  and jcp.clock_in_time <= DATE_FORMAT(#{endDate},'%Y-%m-%d 23:59:59') ]]>
+                    </if>
+                </if>
+                order by jcp.clock_in_time desc
+            ) t
+        ) a
+    </select>
+
+    <!-- 司机详情 -->
+    <select id="getDriverById" resultType="com.weiwei.jixieche.vo.DriverVo">
+        SELECT
+            jcr.id as id,
+            jcr.phone AS driverPhone,
+            jcr.remark_name AS driverName,
+            jcr.driver_type AS driverType,
+            jdr.birthday AS birthday,
+            jdr.driver_year AS driveryear,
+            jdr.sex as driverSex,
+            ju.head_img AS driverHeadImg,
+            jcr.driver_id AS driverId,
+            IF(juc.certification_img_front is null, 0, 1) as certification,
+            IF(juc.drive_license_front is null, 0, 1) AS driveLicense,
+            jcr.short_job_id as shortJobId,
+            ju.third_id AS thirdId
+        FROM
+            jxc_driver_ref_owner jcr
+            LEFT JOIN jxc_driver_resume jdr ON jcr.driver_id = jdr.driver_id
+            left join jxc_user_confirm juc on juc.user_id = jcr.driver_id
+            left join jxc_user ju on ju.id = jcr.driver_id
+        WHERE
+            jcr.id = #{id}
+    </select>
+
+    <!-- 历史司机列表 -->
+    <select id="getHistoryDriverList" resultType="com.weiwei.jixieche.vo.DriverVo">
+        SELECT
+            jcr.id as id,
+            jcr.phone AS driverPhone,
+            jcr.remark_name AS driverName,
+            jcr.driver_type AS driverType,
+            jcr.driver_id AS driverId,
+            DATE_FORMAT( jcr.create_time, '%Y-%m-%d' ) AS startDate,
+            DATE_FORMAT( jcr.update_time, '%Y-%m-%d' ) AS endDate
+        FROM
+            jxc_driver_ref_owner jcr
+        WHERE
+            jcr.owner_id = #{ownerUserId}
+            AND jcr.del_state = 0
+        ORDER BY
+            jcr.create_time DESC
+    </select>
+
+    <!--根据id查询城市和上级信息-->
+    <select id="queryCityById" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.JxcAreaVo">
+      select t2.id as provinceId,t2.name as provinceName,t2.pid AS provincePid,t1.id AS cityId,t1.name AS cityName,t1.pid AS cityPid
+      from jxc_area t1 left join jxc_area t2 on t1.pid = t2.id
+      where t1.id = #{id}
+  </select>
+
+    <!-- 查询用户认证信息 -->
+    <select id="getUserInfoByPhone" resultType="com.weiwei.jixieche.vo.UserInfoVo">
+        SELECT
+            ju.score AS score,
+            ju.head_img as headImg,
+            ifnull( juc.owner_confirm_status, 0 ) as ownerConfirmStatus
+        FROM
+            jxc_user ju
+            LEFT JOIN jxc_user_confirm juc ON ju.id = juc.user_id
+        WHERE
+            ju.phone = #{phone}
+    </select>
+
+
+</mapper>

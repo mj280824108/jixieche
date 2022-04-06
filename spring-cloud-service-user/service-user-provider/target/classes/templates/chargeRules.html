@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>计费规则</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.0/vue.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <script>
+        // 适配
+        (function(doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if (clientWidth >= 640) {
+                        docEl.style.fontSize = '100px';
+                    } else {
+                        docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+                    }
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+    <style>
+        /**{*/
+            /*margin: 0;*/
+            /*padding: 0;*/
+        /*}*/
+        .container {
+            font-size: 0.3rem;
+            padding: 0 0.1rem;
+            color: #333;
+            font-family: PingFangSC-Regular;
+        }
+        section header{
+            font-size: 15px;
+            margin-bottom: 10px;
+            margin-top: 18px;
+        }
+        section p{
+            margin-left: auto;
+            font-size: 14px;
+            text-indent:2em;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <main>
+            <img  style="width: 100px;height: 18px;margin-top: 10px;" src="/images/logo.jpg" alt="">
+            <i style="display: inline-block;height: 1px;width: 100%;background: #f0f0f0;margin-bottom: 10px"></i>
+            <div v-if="userType==0||userType==1">
+                <header style="text-align: center;font-size: 18px;font-weight: bold;margin-bottom: 25px;">
+                    <span v-if="userType==1">车主方计费规则</span>
+                    <span v-if="userType==0">雇主计费规则</span>
+                </header>
+                <section>
+                    <header style="font-weight: bold">起步价：</header>
+                    <p>干土起步价：<span>{{form.dryStartPrice}}</span>元 <span>(起步里程：{{form.dryOutMileage}}公里 )</span></p>
+                    <p>湿土起步价：<span>{{form.wetStartPrice}}</span>元 <span>(起步里程：{{form.wetOutMileage}}公里 )</span></p>
+                    <p>黏土起步价：<span>{{form.clayStartPrice}}</span>元 <span>(起步里程：{{form.clayOutMileage}}公里 )</span></p>
+                    <p>超出部分，按照超出里程计价规则收取。</p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">超出里程费 ：</header>
+                    <p> 干土：<span>{{form.dryFollowPrice}}</span>元/公里 <span>({{form.dryOutMileage}}公里内，含{{form.dryOutMileage}}公里)</span></p>
+                    <p> 湿土：<span>{{form.wetFollowPrice}}</span>元/公里 <span>({{form.wetOutMileage}}公里内，含{{form.wetOutMileage}}公里)</span></p>
+                    <p> 黏土：<span>{{form.clayFollowPrice}}</span>元/公里<span>({{form.clayOutMileage}}公里内，含{{form.clayOutMileage}}公里)</span></p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">远程费：</header>
+                    <p>取消起步价，直接计算总里程价</p>
+                    <p> 干土：<span>{{form.dryUnifiedPrice}}</span>元/公里 <span>(超出{{form.dryOutMileage}}公里后 )</span></p>
+                    <p> 湿土：<span>{{form.wetUnifiedPrice}}</span>元/公里 <span>(超出{{form.wetOutMileage}}公里后 )</span></p>
+                    <p> 黏土：<span>{{form.clayUnifiedPrice}}</span>元/公里<span>(超出{{form.clayOutMileage}}公里后 )</span></p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">湿黏土清理费用：</header>
+                    <p>当工地渣土是湿土或者黏土时，若雇主选择发布的是湿土或黏土，则需要额外支付车主清理费用。</p>
+                    <p>
+                        <p v-if="form.dryAdditionalPrice!=''&&form.dryAdditionalPrice!=null&&form.dryAdditionalPrice!=undefined">干土：额外支付{{form.dryAdditionalPrice}}元/车给到车主</p>
+                        <p v-else>干土：不收取额外费用</p>
+                    </p>
+                    <p>
+                        <p v-if="form.wetAdditionalPrice!=''&&form.wetAdditionalPrice!=null&&form.wetAdditionalPrice!=undefined">湿土：额外支付{{form.wetAdditionalPrice}}元/车给到车主</p>
+                        <p v-else>湿土：不收取额外费用</p>
+                    </p>
+                    <p>
+                        <p v-if="form.clayAdditionalPrice!=''&&form.clayAdditionalPrice!=null&&form.clayAdditionalPrice!=undefined">黏土：额外支付{{form.clayAdditionalPrice}}元/车给到车主</p>
+                        <p v-else>黏土：不收取额外费用</p>
+                    </p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">平台服务费：</header>
+                    <p>平台按每车每趟收取车主{{form.platCommission}}%的服务佣金</p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">继续要车（平台派车）：</header>
+                    <p>继续要车计价与实时计价方式一致</p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">支付方式：</header>
+                    <p>微信、支付宝、银联、余额支付</p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">提现方式：</header>
+                    <p>银行卡</p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">里程规则计算：</header>
+                    <p>泥头车在施工场地扫码出场开始记录行驶轨迹，到达指定消纳场地后扫码打卡后停止记录。</p>
+                    <p>1.行驶里程在预计里程的25%范围内，正常计价，例如：实际里程是15.55公里，则总费用是80元+（15.55-1）公里*15元/公里=298.25元；</p>
+                    <p>2.行驶里程低于预计里程的25%，提示异常，需要雇主确认正常或者申诉异常，例如，① 雇主确认正常，则按照对应消纳场预计里程计价；</p>
+                    <p>② 雇主提起申诉，则由平台协商双方后给出协商价；</p>
+                    <p>3.行驶里程高于预计里程的25%，提示异常，需要雇主确认正常或者申诉异常，例如，① 雇主确认正常，则按照实际里程计价；</p>
+                    <p>② 雇主提起申诉，则由平台协商双方后给出协商价</p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">考勤规则计算：</header>
+                    <p>泥头车运输考勤打卡记录，如果出现未打卡的费用计算。</p>
+                    <p>1.正常的在施工地和消纳场打卡后，若里程正常则按实际里程计价，否则按里程规则计算；</p>
+                    <p>2.若出现忘打卡，则：</p>
+                    <p>①施工地未打卡，消纳场打卡，雇主确认正常，则按打卡消纳场预计里程计价。若雇主申述异常则按平台协商价计价；</p>
+                    <p>②施工地打卡，消纳场未打卡，雇主确认正常，则按最近的消纳场预计里程计价。若雇主申诉异常则按平台协商价计价；</p>
+                    <p>③两边场地均未打卡，不计算工资；</p>
+                </section>
+            </div>
+            <div v-if="userType==2||userType==1">
+                <header style="text-align: center;font-size: 18px;font-weight: bold;margin-bottom: 25px;margin-top: 20px;">
+                    兼职司机工资计费规则
+                </header>
+                <section>
+                    <header style="font-weight: bold">计费规则：</header>
+                    <p> 台班工资：<span>{{form.driverTeamPrice}}</span>元/台班（1台班=8小时）</p>
+                    <p> 加班工资：<span>{{form.driverOutPrice}}</span>元/趟</p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">平台服务费：</header>
+                    <p> 无</p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">支付方式：</header>
+                    <p> 微信、支付宝、银联、余额支付</p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">提现方式：</header>
+                    <p>银行卡</p>
+                </section>
+                <section>
+                    <header style="font-weight: bold">考勤规则计算：</header>
+                    <p>1.上班卡打卡16小时后系统计算工资，去支付按钮可点击； </p>
+                    <p>2.上班打卡16小时后未打下班卡系统自动补卡，系统补卡时间为上班卡打卡后的8小时； </p>
+                    <p>3.若出现上下班打卡时间不足8小时即不足1台班时，按时间折算，每足半小时记18.75元； </p>
+                    <p>例如：①打卡时间为4小时，折算工资为150元；②打卡时间为4小时29分，折算工资为150元；</p>
+                    <p>4.车主如有异议可提起申请，由平台协商双方后给出协商价。</p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data:function() {
+                return{
+                    form:{},
+                    areaCode:"420100",
+                    userType:"1"
+                }
+            },
+            methods: {
+                getData: function(){
+                    var that=this
+                    axios.get( 'https://api.admin.vvjx.cn:7000/jxcTransCosts/queryByCityId', {
+                        params: {
+                            cityId:that.areaCode,
+                        }
+                    }).then(function(res){
+                        that.form=res.data.data
+                    }).catch(function(err){
+                        console.log(err)
+                    })
+                },
+                getPar: function (name) {
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                    var r = window.location.search.substr(1).match(reg); //匹配目标参数
+                    if (r != null) return unescape(r[2]); return null; //返回参数值
+                }
+            },
+
+            created:function(){
+               this.areaCode= this.getPar("areaCode")
+               this.userType= this.getPar("userType")
+                this. getData()
+            }
+        })
+    </script>
+</body>
+
+</html>

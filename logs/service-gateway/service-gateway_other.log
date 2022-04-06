@@ -1,0 +1,13 @@
+2020-03-11 10:47:04.163 INFO  [main] com.weiwei.jixieche.SpringCloudGateWayApplication.logStartupProfileInfo:679 -The following profiles are active: dev
+2020-03-11 10:47:05.012 DEBUG [main] reactor.util.Loggers$LoggerFactory.debug:249 -Using Slf4j logging framework
+2020-03-11 10:47:05.043 DEBUG [main] reactor.netty.tcp.TcpResources.debug:254 -[http] resources will use the default LoopResources: DefaultLoopResources {prefix=reactor-http, daemon=true, selectCount=4, workerCount=4}
+2020-03-11 10:47:05.044 DEBUG [main] reactor.netty.tcp.TcpResources.debug:254 -[http] resources will use the default ConnectionProvider: PooledConnectionProvider {name=http, poolFactory=reactor.netty.resources.ConnectionProvider$$Lambda$242/1820920259@2aeefcc}
+2020-03-11 10:47:05.239 DEBUG [main] io.lettuce.core.resource.DefaultClientResources.<clinit>:109 --Dio.netty.eventLoopThreads: 4
+2020-03-11 10:47:05.245 DEBUG [main] io.lettuce.core.resource.DefaultEventLoopGroupProvider.createEventLoopGroup:138 -Creating executor io.netty.util.concurrent.DefaultEventExecutorGroup
+2020-03-11 10:47:05.278 DEBUG [main] reactor.core.publisher.UnsafeSupport.debug:249 -Starting UnsafeSupport init in Java 1.8
+2020-03-11 10:47:05.278 DEBUG [main] reactor.core.publisher.UnsafeSupport.debug:249 -Unsafe is available
+2020-03-11 10:47:05.285 DEBUG [main] io.lettuce.core.resource.DefaultClientResources.<init>:190 -LatencyUtils/HdrUtils are not available, metrics are disabled
+2020-03-11 10:47:08.326 DEBUG [main] reactor.netty.resources.DefaultLoopEpoll.debug:249 -Default Epoll support : false
+2020-03-11 10:47:08.327 DEBUG [main] reactor.netty.resources.DefaultLoopKQueue.debug:249 -Default KQueue support : false
+2020-03-11 10:47:08.619 DEBUG [reactor-http-nio-1] reactor.netty.tcp.TcpServer.debug:249 -[id: 0xe92e8f5e, L:/0:0:0:0:0:0:0:0:8082] Bound new server
+2020-03-11 10:47:08.622 INFO  [main] com.weiwei.jixieche.SpringCloudGateWayApplication.logStarted:59 -Started SpringCloudGateWayApplication in 5.834 seconds (JVM running for 6.644)

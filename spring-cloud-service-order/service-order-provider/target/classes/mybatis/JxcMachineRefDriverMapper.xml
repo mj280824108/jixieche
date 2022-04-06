@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcMachineRefDriverMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcMachineRefDriver" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="machine_id" property="machineId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="bind_time" property="bindTime" jdbcType="TIMESTAMP" />
+    <result column="unbind_time" property="unbindTime" jdbcType="TIMESTAMP" />
+    <result column="bind_state" property="bindState" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, machine_id, user_id, bind_time, unbind_time, bind_state
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, machine_id AS machineId, user_id AS userId,
+    bind_time AS bindTime, unbind_time AS unbindTime, bind_state AS bindState
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_machine_ref_driver
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcMachineRefDriver" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_machine_ref_driver
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="machineId != null" >
+        machine_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="bindTime != null" >
+        bind_time,
+      </if>
+      <if test="unbindTime != null" >
+        unbind_time,
+      </if>
+      <if test="bindState != null" >
+        bind_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="machineId != null" >
+        #{machineId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bindTime != null" >
+        #{bindTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unbindTime != null" >
+        #{unbindTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bindState != null" >
+        #{bindState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcMachineRefDriver" >
+    update jxc_machine_ref_driver
+    <set >
+      <if test="machineId != null" >
+        machine_id = #{machineId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bindTime != null" >
+        bind_time = #{bindTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unbindTime != null" >
+        unbind_time = #{unbindTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bindState != null" >
+        bind_state = #{bindState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- 解绑机械与司机关系 -->
+  <update id="updateByMachineAndDriver">
+    update jxc_machine_ref_driver set bind_state = 0, unbind_time = #{unbindTime} where machine_id = #{machineId,jdbcType=INTEGER} and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <!-- 解绑司机绑定的机械关系 -->
+  <update id="updateByDriverId">
+    update jxc_machine_ref_driver set bind_state = 0, unbind_time = now() where user_id = #{userId,jdbcType=INTEGER} and bind_state = 1
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcMachineRefDriver" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_machine_ref_driver
+    <where>
+      <if test="machineId != null" >
+        AND machine_id = #{machineId,jdbcType=INTEGER}
+      </if>
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="bindTime != null" >
+        AND bind_time = #{bindTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="unbindTime != null" >
+        AND unbind_time = #{unbindTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="bindState != null" >
+        AND bind_state = #{bindState,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <!-- 检查机械与司机是否存在关系 -->
+  <select id="queryByMachineIdAndDriverId" resultType="com.weiwei.jixieche.bean.JxcMachineRefDriver">
+    select <include refid="Base_Column_List"/> from jxc_machine_ref_driver
+      where machine_id = #{machineId,jdbcType=INTEGER} and user_id = #{userId,jdbcType=INTEGER} and bind_state = 1
+  </select>
+
+  <!-- 查询司机所绑定的车辆信息 -->
+  <select id="getMachineCarNoById" resultType="com.weiwei.jixieche.bean.JxcMachine">
+    SELECT
+        jm.machine_card_no as machineCardNo, jm.id as id, jm.area_code as areaCode, jm.mode as mode
+    FROM
+        jxc_machine_ref_driver jmr
+        LEFT JOIN jxc_machine jm ON jmr.machine_id = jm.id
+    <where>
+      jmr.bind_state = 1 and jmr.user_id = #{userId}
+    </where>
+  </select>
+
+  <!-- 绑车记录 -->
+  <select id="getMachineRefDriverList" resultType="com.weiwei.jixieche.bean.JxcMachineRefDriver">
+    SELECT
+        jmr.id,
+        jmr.bind_time AS bindTime,
+        jmr.unbind_time AS unbindTime,
+        jmr.bind_state AS bindState,
+        jm.machine_card_no AS machineCarNo,
+        jmr.user_id AS userId,
+        jmr.machine_id AS machineId,
+        ju.real_name as ownerUserName,
+        ju.phone as ownerPhone
+    FROM
+        jxc_machine_ref_driver jmr
+        LEFT JOIN jxc_machine jm ON jmr.machine_id = jm.id
+        left join jxc_driver_ref_owner jdr on jdr.driver_id = jmr.user_id and del_state = 1
+        left join jxc_user ju on ju.id = jdr.owner_id
+    WHERE
+        jmr.user_id = #{userId} and jmr.bind_state = 0
+    ORDER BY
+        jmr.bind_state DESC
+  </select>
+
+  <!-- 查询司机所绑定的信息 -->
+  <select id="getMachineRefDriverById" resultType="com.weiwei.jixieche.bean.JxcMachineRefDriver">
+    SELECT
+        jmr.id,
+        jmr.bind_time AS bindTime,
+        jmr.unbind_time AS unbindTime,
+        jmr.bind_state AS bindState,
+        jm.machine_card_no AS machineCarNo,
+        jmr.user_id AS userId,
+        jmr.machine_id AS machineId,
+        ju.real_name as ownerUserName,
+        ju.phone as ownerPhone,
+        ju.id as ownerUserId
+    FROM
+        jxc_machine_ref_driver jmr
+        LEFT JOIN jxc_machine jm ON jmr.machine_id = jm.id
+        left join jxc_driver_ref_owner jdr on jdr.driver_id = jmr.user_id and del_state = 1
+        left join jxc_user ju on ju.id = jdr.owner_id
+    WHERE
+        jmr.user_id = #{userId} and jmr.bind_state = 1
+  </select>
+
+    <!-- 机械是否绑定司机 -->
+    <select id="getMachineBindDriver" resultType="java.lang.Integer">
+        select count(id) from jxc_machine_ref_driver
+        where machine_id =  #{machineId}
+        and bind_state = 1
+    </select>
+
+</mapper>

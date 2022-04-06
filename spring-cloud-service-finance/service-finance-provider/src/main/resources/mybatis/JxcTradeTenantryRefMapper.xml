@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcTradeTenantryRefMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcTradeTenantryRef" >
+    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="route_id" property="routeId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, route_id, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, route_id AS routeId, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcTradeTenantryRef" >
+    insert into jxc_trade_tenantry_ref
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="routeId != null" >
+        route_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="routeId != null" >
+        #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcTradeTenantryRef" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_trade_tenantry_ref
+    <where >
+      <if test="id != null" >
+        AND id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="routeId != null" >
+        AND route_id = #{routeId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!--**************************************-->
+  <!--批量添加承租方支付趟数记录-->
+  <insert id="insertBatch" parameterType="hashmap">
+    insert into jxc_trade_tenantry_ref(id,route_id)
+    values
+    <foreach collection="itemList" index="index" item="item"  separator="," >
+      (#{id},#{item})
+    </foreach>
+  </insert>
+
+  <!--根据id查询所有的行程id集合-->
+  <select id="queryRouteIdList" parameterType="java.lang.Long" resultType="java.lang.Long">
+      select jttr.route_id AS routeId
+      from jxc_trade_tenantry_ref jttr
+      WHERE jttr.id =#{id}
+  </select>
+
+  <!--批量修改行程记录的支付状态-->
+  <update id = "updateBatchMachineRoute" parameterType = "java.util.List">
+    update jxc_machine_route set pay_state = 2 where id IN
+      <foreach item = "item" index = "index" collection = "list" open = "(" separator = "," close = ")">
+        #{item}
+      </foreach>
+  </update>
+
+</mapper>

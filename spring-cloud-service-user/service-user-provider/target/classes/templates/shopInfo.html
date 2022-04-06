@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>店铺分享页</title>
+    <link rel="stylesheet" href="/css/shopIcon.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        // // 适配
+        (function(doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if (clientWidth >= 640) {
+                        docEl.style.fontSize = '100px';
+                    } else {
+                        docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+                    }
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+    <style>
+        .hidden{
+            overflow: hidden;
+        }
+        .el-tabs__item{
+            padding: 0 16px;
+        }
+        .el-tabs__nav-next,.el-tabs__nav-prev{
+            display: none;
+        }
+        p{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            margin: 0;
+        }
+        .clearfix:after { /*伪元素是行内元素 正常浏览器清除浮动方法*/
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        .titles{
+            font-size:18px;
+            font-family:PingFangSC;
+            font-weight:600;
+            color:rgba(51,51,51,1);
+        }
+        .container{
+            padding: 0 8px;
+        }
+        .authorInfo{
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .authorInfo span{
+            float: left;
+        }
+        .authorInfo .author{
+            margin-right: 15px;
+        }
+        .authorInfo .hasee{
+            float: right;
+            margin-right: 10px;
+        }
+        .content{
+            font-size: 14px;
+            color: #999;
+            margin-top: 20px;
+        }
+        .mainTitle{
+            margin: 10px 0;
+        }
+        .content .topIcon,.content .boIcon{
+            font-size: 12px;
+            opacity:0.24;
+        }
+        .footer{
+            color: #999;
+            font-size: 12px;
+            margin: 40px 0;
+            line-height: 19px;
+        }
+        .mainInfo img{
+            width: 100%;
+        }
+        .downApp{
+            width: 100%;
+            position: fixed;
+            bottom: 0px;
+            z-index: 9999 ;
+        }
+        .el-tabs__nav-wrap::after,.el-tabs__active-bar{
+            display: none;
+        }
+        .el-tabs__item.is-active{
+            color: #F96A0E;
+        }
+        .el-tabs__header{
+            margin: 0;
+        }
+            .btnActiver{
+                background:#F96A0E!important;
+                color: #fff!important;
+            }
+        .imgShowOn{
+            width: 2rem;
+            height: 2rem;
+            float: left;
+        }
+        .imgShowOff{
+            display: none;
+        }
+        .contentMargin{
+            margin-left: 2rem;
+            padding-left: 0.27rem;
+        }
+        .el-message-box__wrapper{
+            position: absolute;
+        }
+        .el-message-box{
+            width: 80%;
+            font-size: 12px!important;
+        }
+        .el-message-box__title{
+            font-size: 14px;
+        }
+        .el-message-box__message{
+            font-size: 12px;
+        }
+        .el-message-box__btns button{
+            font-size: 12px;
+        }
+        .el-tabs__nav-wrap{
+            width: 100%;
+        }
+        .el-tabs__nav-wrap.is-scrollable{
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body >
+<div id="app" >
+    <div class="container">
+        <div style="font-size: 0rem;margin-top: 10px;"><img  style="width: 100px;height: 18px;" src="/images/logo.jpg" alt=""></div>
+        <div style="font-size: 0rem;margin-bottom: 10px;margin-top: 10px;"><i style="display: inline-block;height: 1px;width: 100%;background: #f0f0f0;"></i></div>
+        <div style="padding:0.18rem;box-shadow:0px 5px 5px 5px rgba(0, 0, 0, 0.1);border-radius:5px; ">
+            <img @click="haveDownApp" style="width: 1.1rem;height:1.1rem;float: left;margin-right: 13px;margin-bottom: 8px;" :src="(form.shopSmallImgs!=''&&form.shopSmallImgs!=null&&form.shopSmallImgs!=undefined)?form.shopSmallImgs.split(',')[0]:form.shopSmallImgs" alt="">
+            <div style="margin-left:0.58rem;">
+                <div  style="font-size: 0.26rem;color: #333333;display: inline-block;vertical-align: top">
+                    <div>{{form.shopName}}</div>
+                    <div style="font-size: 0.18rem;color: #999999;">收藏数 {{(form.collectionNumber!=''&&form.collectionNumber!=null&&form.collectionNumber!=undefined)?'form.collectionNumber':'0' }} </div>
+                </div>
+                <div @click="haveDownApp" class="clearfix" style="float: right;font-size: 0.18rem;color: #999999;text-align: center">
+                    <span style="font-size: 0.6rem;color: #F0F0F0;" class="icon iconfont" >&#xe62c;</span>
+                    <div>收藏</div>
+                </div>
+            </div>
+            <div style="font-size: 0.18rem;color: #999999;"><span>{{form.shopAddress}}</span> <span @click="haveDownApp" style="float: right;vertical-align: top;margin-right: 10px;">∨</span></div>
+        </div>
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="机械租赁" name="first"><div style="font-size: 0.18rem">
+                <div style="font-size: 0.14rem">
+                    <el-button size="mini" :class="realeseType==4?'btnActiver':''"  @click="rendOut" round>出租</el-button>
+                    <el-button size="mini" :class="realeseType==3?'btnActiver':''" round @click="rendAsk">求租</el-button>
+                    <div  v-for="(item,index) in shopInfoList" :key="index">
+                        <div style="margin-top: 0.5rem;" class="clearfix" @click="haveDownApp">
+                            <img v-if="item.salePictures!=''&&item.salePictures!=null&&item.salePictures!=undefined"  :class="realeseType==4?'imgShowOn':'imgShowOff'" :src="item.salePictures.split(',')[0]" alt="">
+                            <img   :class="realeseType==4?'imgShowOn':'imgShowOff'" v-else :src="item.salePictures" alt="">
+                            <div :class="realeseType==4?'contentMargin':''">
+                                <p style="font-size: 0.26rem;color: #333333;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">【<span style="font-weight: bold">{{realeseType=='4'?'出售':'求租'}}</span>】{{item.title}}</p>
+                                <p style="font-size: 0.18rem;color:#9B9B9B;margin-top: 0.1rem;">{{item.areaName}}</p>
+                                <p style="margin-top: 0.1rem;"><el-tag style="margin-right: 5px;" type="warning" size="mini">{{item.machineTypeName}}</el-tag>
+                                    <!--<el-tag style="margin-right: 5px;" type="danger" size="mini">新上架</el-tag><el-tag style="margin-right: 5px;" type="info" size="mini">新车</el-tag>-->
+                                </p>
+                                <p style="margin-top: 0.38rem;font-size: 0.28rem;color: #FE585A;">
+                                    <span v-if="item.rentType=='1'">{{(item.leaseMonthPrice!=''&&item.leaseMonthPrice!=null&&item.leaseMonthPrice!=undefined?(item.leaseMonthPrice>10000?(Math.floor(item.leaseMonthPrice/10000*100)/100)+'万元/月':item.leaseMonthPrice+'元/月'):0+'元/月')}}</span>
+                                    <span v-if="item.rentType=='2'">{{(item.leaseTeamPrice!=''&&item.leaseTeamPrice!=null&&item.leaseTeamPrice!=undefined?(item.leaseTeamPrice>10000?(Math.floor(item.leaseTeamPrice/10000*100)/100)+'万元/台班':item.leaseTeamPrice+'元/台班'):0+'元/台班')}}</span>
+                                    <span v-if="item.rentType=='3'">{{(item.leaseHourPrice!=''&&item.leaseHourPrice!=null&&item.leaseHourPrice!=undefined?(item.leaseHourPrice>10000?(Math.floor(item.leaseHourPrice/10000*100)/100)+'万元/小时':item.leaseHourPrice+'元/小时'):0+'元/小时')}}</span>
+                                    <!--<span v-if="item.rentType=='2'">{{item.sourceSalePrice+'元/台班'}}</span>-->
+                                    <!--<span v-if="item.rentType=='3'">{{item.leaseHourPrice+'元/小时'}}</span>-->
+                                    <el-button @click="haveDownApp" size="mini" style="float: right" type="info" plain>询价</el-button></p>
+                            </div>
+                        </div>
+                        <div style="font-size: 0rem;margin-bottom: 0.28rem;margin-top: 0.28rem;"><i style="display: inline-block;height: 1px;width: 100%;background: #f0f0f0;"></i></div>
+                    </div>
+                </div>
+            </div>
+            </el-tab-pane>
+            <el-tab-pane label="二手交易" name="second"><div style="font-size: 0.18rem">
+                <div style="font-size: 0.14rem">
+                    <el-button size="mini" :class="realeseType==2?'btnActiver':''" @click="secondHandSold"  round>出售</el-button>
+                    <el-button size="mini" :class="realeseType==1?'btnActiver':''" @click="secondHandAsk"  round>求购</el-button>
+                    <div   v-for="(item,index) in shopInfoList" :key="index">
+                        <div style="margin-top: 0.5rem;" class="clearfix" @click="haveDownApp">
+                            <img :class="realeseType==2?'imgShowOn':'imgShowOff'"  v-if="item.salePictures!=''&&item.salePictures!=null&&item.salePictures!=undefined" style="width: 2rem;height: 2rem;float: left" :src="item.salePictures.split(',')[0]" alt="">
+                            <img :class="realeseType==2?'imgShowOn':'imgShowOff'"  style="width: 2rem;height: 2rem;float: left" v-else :src="item.salePictures" alt="">
+                            <div :class="realeseType==2?'contentMargin':''">
+                                <p style="font-size: 0.26rem;color: #333333;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">【<span style="font-weight: bold">出售</span>】{{item.title}}</p>
+                                <p style="font-size: 0.18rem;color:#9B9B9B;margin-top: 0.1rem;">{{item.areaName}}</p>
+                                <p style="margin-top: 0.1rem;"><el-tag style="margin-right: 5px;" type="warning" size="mini">{{item.machineTypeName}}</el-tag>
+                                    <!--<el-tag style="margin-right: 5px;" type="danger" size="mini">新上架</el-tag><el-tag style="margin-right: 5px;" type="info" size="mini">新车</el-tag>-->
+                                </p>
+                                <p style="margin-top: 0.38rem;font-size: 0.28rem;color: #FE585A;">
+                                    <span v-if="realeseType==2&&item.buyType==2">
+                                        {{item.salePrice!=''&&item.salePrice!=null&&item.salePrice!=undefined?(item.salePrice>10000?(Math.floor(item.salePrice/10000*100)/100+'万元'):(item.salePrice+'元')):'0元'}}
+                                    </span>
+                                    <span v-if="realeseType==1&&item.buyType==2">
+                                         {{item.buyPriceDown!=''&&item.buyPriceDown!=null&&item.buyPriceDown!=undefined?(item.buyPriceDown>10000?(Math.floor(item.buyPriceDown/10000*100)/100+'万元'):(item.buyPriceDown+'元')):'0元'}}~
+                                         {{item.buyPriceTop!=''&&item.buyPriceTop!=null&&item.buyPriceTop!=undefined?(item.buyPriceTop>10000?(Math.floor(item.buyPriceTop/10000*100)/100+'万元'):(item.buyPriceTop+'元')):'0元'}}
+                                    </span>
+                                    <span v-if="item.buyType==1">
+                                        面议
+                                    </span>
+                                    <!--<span v-if="item.salePrice!=''&&item.salePrice!=null&&item.salePrice!=undefined">{{item.buyType==2?(item.salePrice>10000?(Math.floor(item.salePrice/10000*100)/100+'万元'):(item.salePrice+'元')):'面议'}}</span>-->
+                                    <!--<span v-else>0元</span>-->
+                                    <el-button @click="haveDownApp" size="mini" style="float: right" type="info" plain>询价</el-button>
+                                </p>
+                            </div>
+                        </div>
+                        <div style="font-size: 0rem;margin-bottom: 0.28rem;margin-top: 0.28rem;"><i style="display: inline-block;height: 1px;width: 100%;background: #f0f0f0;"></i></div>
+                    </div>
+                </div>
+            </div></el-tab-pane>
+            <el-tab-pane label="新机交易" name="third"><div style="font-size: 0.18rem">
+                <div style="font-size: 0.14rem">
+                    <el-button size="mini" :class="realeseType==2?'btnActiver':''" @click="newMachineSold"  round>出售</el-button>
+                    <el-button size="mini" :class="realeseType==1?'btnActiver':''" @click="newMachineAsk"  round>求购</el-button>
+                    <div   v-for="(item,index) in shopInfoList" :key="index">
+                        <div style="margin-top: 0.5rem;" class="clearfix" @click="haveDownApp">
+                            <img :class="realeseType==2?'imgShowOn':'imgShowOff'"  v-if="item.salePictures!=''&&item.salePictures!=null&&item.salePictures!=undefined" style="width: 2rem;height: 2rem;float: left" :src="item.salePictures.split(',')[0]" alt="">
+                            <img :class="realeseType==2?'imgShowOn':'imgShowOff'"  style="width: 2rem;height: 2rem;float: left" v-else :src="item.salePictures" alt="">
+                            <div :class="realeseType==2?'contentMargin':''">
+                                <p style="font-size: 0.26rem;color: #333333;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">【<span style="font-weight: bold">出售</span>】{{item.title}}</p>
+                                <p style="font-size: 0.18rem;color:#9B9B9B;margin-top: 0.1rem;">{{item.areaName}}</p>
+                                <p style="margin-top: 0.1rem;"><el-tag style="margin-right: 5px;" type="warning" size="mini">{{item.machineTypeName}}</el-tag>
+                                    <!--<el-tag style="margin-right: 5px;" type="danger" size="mini">新上架</el-tag><el-tag style="margin-right: 5px;" type="info" size="mini">新车</el-tag>-->
+                                </p>
+                                <p style="margin-top: 0.38rem;font-size: 0.28rem;color: #FE585A;">
+                                     <span v-if="realeseType==2&&item.buyType==2">
+                                        {{item.salePrice!=''&&item.salePrice!=null&&item.salePrice!=undefined?(item.salePrice>10000?(Math.floor(item.salePrice/10000*100)/100+'万元'):(item.salePrice+'元')):'0元'}}
+                                    </span>
+                                    <span v-if="realeseType==1&&item.buyType==2">
+                                         {{item.buyPriceDown!=''&&item.buyPriceDown!=null&&item.buyPriceDown!=undefined?(item.buyPriceDown>10000?(Math.floor(item.buyPriceDown/10000*100)/100+'万元'):(item.buyPriceDown+'元')):'0元'}}~
+                                         {{item.buyPriceTop!=''&&item.buyPriceTop!=null&&item.buyPriceTop!=undefined?(item.buyPriceTop>10000?(Math.floor(item.buyPriceTop/10000*100)/100+'万元'):(item.buyPriceTop+'元')):'0元'}}
+                                    </span>
+                                    <span v-if="item.buyType==1">
+                                        面议
+                                    </span>
+                                    <el-button @click="haveDownApp" size="mini" style="float: right" type="info" plain>询价</el-button>
+                                </p>
+                            </div>
+                        </div>
+                        <div style="font-size: 0rem;margin-bottom: 0.28rem;margin-top: 0.28rem;"><i style="display: inline-block;height: 1px;width: 100%;background: #f0f0f0;"></i></div>
+                    </div>
+                </div>
+            </div></el-tab-pane>
+            <el-tab-pane label="资源交易" name="fourth">
+                   <div style="font-size: 0.14rem">
+                       <el-button size="mini" :class="realeseType==6?'btnActiver':''" @click="resoureSold" round>出售</el-button>
+                       <el-button size="mini" :class="realeseType==5?'btnActiver':''" @click="resoureAsk"  round>求购</el-button>
+                       <div   v-for="(item,index) in shopInfoList" @click="" :key="index">
+                           <div style="margin-top: 0.5rem;" class="clearfix" @click="haveDownApp">
+                               <img :class="realeseType==6?'imgShowOn':'imgShowOff'"  v-if="item.salePictures!=''&&item.salePictures!=null&&item.salePictures!=undefined" style="width: 2rem;height: 2rem;float: left" :src="item.salePictures.split(',')[0]" alt="">
+                               <img :class="realeseType==6?'imgShowOn':'imgShowOff'"  style="width: 2rem;height: 2rem;float: left" v-else :src="item.salePictures" alt="">
+                               <div :class="realeseType==6?'contentMargin':''">
+                                   <p style="font-size: 0.26rem;color: #333333;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">【<span style="font-weight: bold">{{realeseType=='6'?'出售':'求购'}}</span>】{{item.title}}</p>
+                                   <p style="font-size: 0.18rem;color:#9B9B9B;margin-top: 0.1rem;">{{item.areaName}}</p>
+                                   <p style="margin-top: 0.1rem;"><el-tag style="margin-right: 5px;" type="warning" size="mini">{{item.sourceName}}</el-tag>
+                                       <!--<el-tag style="margin-right: 5px;" type="danger" size="mini">新上架</el-tag><el-tag style="margin-right: 5px;" type="info" size="mini">新车</el-tag>-->
+                                   </p>
+                                   <p style="margin-top: 0.38rem;font-size: 0.28rem;color: #FE585A;">
+                                       <span v-if="realeseType==6">{{item.sourceType==2?(item.sourceSalePrice>10000?(Math.floor(item.sourceSalePrice/10000*100)/100+'万元'):(item.sourceSalePrice+'元')):'面议'}}</span>
+                                       <span v-if="realeseType==5&&item.sourceType==2">
+                                           {{item.sourceBuyDownPrice>10000?(Math.floor(item.sourceBuyDownPrice/10000*100)/100+'万元'):(item.sourceBuyDownPrice+'元')}}~{{item.sourceBuyTopPrice>10000?(Math.floor(item.sourceBuyTopPrice/10000*100)/100+'万元'):(item.sourceBuyTopPrice+'元')}}
+                                       </span>
+                                       <span v-if="realeseType==5&&item.sourceType==1">
+                                           面议
+                                       </span>
+                                       <el-button @click="haveDownApp" size="mini" style="float: right" type="info" plain>询价</el-button>
+                                   </p>
+                               </div>
+                           </div>
+                           <div style="font-size: 0rem;margin-bottom: 0.28rem;margin-top: 0.28rem;"><i style="display: inline-block;height: 1px;width: 100%;background: #f0f0f0;"></i></div>
+                       </div>
+                   </div>
+            </el-tab-pane>
+        </el-tabs>
+
+    <!--<div :class="isShow?'downAppBO':'downApp'" >-->
+    <!--<div v-if="isDown" style="background:rgba(255, 255, 255, 0.5);font-weight: bold;color: #000;text-align: center"><i  @click="getAll" style="vertical-align: middle;font-size: 20px" class="icon iconfont">&#xe612;</i></div>-->
+    <!--<div style="padding-bottom: 10px;background: #fff;">-->
+    <!--<button @click="haveDownApp">下载APP查看全文</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data:function() {
+            return{
+                form:{
+                    // headImg:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570338982149&di=e1043bed66debd6ab196a210aeaad2cf&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201708%2F24%2F20170824180037_JvViA.jpeg",
+                    shopBigImg:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570339058948&di=924dd2fc2cb7eb1e483640c77ea32959&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201807%2F18%2F20180718233259_vystx.thumb.700_0.jpg",
+                },
+                isDown:true,
+                areaCode:"420100",
+                userType:"1",
+                isShow:false,
+                id:31,
+                activeName: 'first',
+                shopInfoList:[],
+                buyType:'5',
+                realeseType:4,
+                newDegreeType:2,
+                newType:1, //1：二手交易 2：新机交易
+            }
+        },
+        methods: {
+            //机械租赁出租
+            rendOut(){
+                this.realeseType=4
+                this.getShopList()
+            },
+            //机械租赁求租
+            rendAsk:function(){
+                this.realeseType=3
+                console.log(this);
+                this.getShopList()
+            },
+
+            //二手市场出售
+            secondHandSold:function(){
+                this.realeseType=2
+                this.newDegreeType=2
+                this.getShopList()
+            },
+            //二手市场求购
+            secondHandAsk(){
+                this.realeseType=1
+                this.newDegreeType=2
+                this.getShopList()
+            },
+            //新机交易出售
+            newMachineSold:function(){
+                this.realeseType=2
+                this.newDegreeType=2
+                this.getShopList()
+            },
+            //新机交易求购
+            newMachineAsk(){
+                this.realeseType=1
+                this.newDegreeType=2
+                this.getShopList()
+            },
+            //资源交易出售
+            resoureSold:function(){
+                this.realeseType=6
+                this.getShopList()
+            },
+            //资源交易求购
+            resoureAsk(){
+                this.realeseType=5
+                this.getShopList()
+            },
+
+            handleClick(tab, event) {
+                if(this.activeName=='first'){
+                    this.realeseType=4
+                }
+                if(this.activeName=='second'){
+                    this.realeseType=2
+                    this.newDegreeType=2
+                }
+                if(this.activeName=='third'){
+                    this.realeseType=2
+                    this.newDegreeType=1
+                }
+                if(this.activeName=='fourth'){
+                    this.realeseType=6
+                }
+                this.getShopList()
+                // console.log(tab, event);
+                // this.haveDownApp()
+            },
+            getAll:function(){
+                document.getElementsByTagName('body')[0].classList.remove("hidden");
+                this.isShow=true
+                this.isDown=false
+            },
+            getData(){
+                let This=this
+                axios.get( 'https://api.admin.vvjx.cn:7000/jxcMarketShops/queryById', {
+                    params: {
+                        id:This.id,
+                    }
+                }).then(function(res){
+                    This.form=res.data.data
+                    // if(){
+                    //     activeName
+                    // }
+                }).catch(function(err){
+                })
+            },
+            getShopList() {
+                let This = this
+                let datas={"shopsId":This.id,"pageNo":1,"realeseType":This.realeseType}
+                if(this.activeName=='second'||this.activeName=='third'){
+                    datas.newDegreeType=this.newDegreeType
+                }
+                $.ajax({
+                    url: 'https://api.admin.vvjx.cn:7000/jxcMarketRelease/front/findByPage',
+                    type: 'post',
+                    dataType: 'json',
+                    data: JSON.stringify(datas),
+                    // data: {"shopsId":23,"pageNo":1,"realeseType":4},
+                    headers: {
+                        'Content-Type': 'application/json;'
+                    },
+                    success: function(res){
+                        if (res.code === 200) {
+                            This.shopInfoList=res.data.queryResult
+                            for(let i=0;i<res.data.queryResult.length;i++){
+                                if(res.data.queryResult[i].salePictures!=''&&res.data.queryResult[i].salePictures!=null&&res.data.queryResult[i].salePictures!=undefined){
+                                    This.shopInfoList[i].shopImgLeft=res.data.queryResult[i].salePictures.split(',')[0]
+                                }
+                            }
+                            console.log(This.shopInfoList);
+                        }
+                    },
+                    error: function(e) {
+
+                    }
+                });
+            },
+            haveDownApp(){
+                this.$confirm('查看更多信息需要下载App，是否下载?', '下载App', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    closeOnClickModal:false
+                }).then(() => {
+                    var ua = window.navigator.userAgent.toLowerCase();
+                    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+                        this.show = false
+                        var isAndroid = ua.indexOf('android') != -1;
+                        var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+                        console.log(isAndroid);
+                        console.log(isIos);
+                        if (this.userType == 0) {
+                            if (isIos) {
+                                window.location.href = 'https://itunes.apple.com/cn/app/id1454609172?mt=8'
+                            }
+                            if (isAndroid) {
+                                window.location.href = 'https://www.pgyer.com/iN3l'
+                            }
+                        } else if (this.userType == 1) {
+                            if (isIos) {
+                                window.location.href = 'https://itunes.apple.com/cn/app/id1454609157?mt=8'
+                            }
+                            if (isAndroid) {
+                                window.location.href = 'https://www.pgyer.com/A8Cb'
+                            }
+                        }
+                    }else {
+                        this.show = false
+                        var isAndroid = ua.indexOf('android') != -1;
+                        var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+                        console.log(isAndroid);
+                        console.log(isIos);
+                        if (this.userType == 0) {
+                            if (isIos) {
+                                window.location.href = 'https://itunes.apple.com/cn/app/id1454609172?mt=8'
+                            }
+                            if (isAndroid) {
+                                window.location.href = 'https://www.pgyer.com/iN3l'
+                            }
+                        } else if (this.userType == 1) {
+                            if (isIos) {
+                                window.location.href = 'https://itunes.apple.com/cn/app/id1454609157?mt=8'
+                            }
+                            if (isAndroid) {
+                                window.location.href = 'https://www.pgyer.com/A8Cb'
+                            }
+                        }
+                    }
+                }).catch(() => {
+
+                });
+
+            },
+            getPar: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg); //匹配目标参数
+                if (r != null) return unescape(r[2]); return null; //返回参数值
+            }
+        },
+
+        created:function(){
+            // $('html ,body').animate({scrollTop: 0}, 100,'linear',function () {
+            //     // document.querySelector('body').style.height= window.screen.height*window.devicePixelRatio+'px'
+            //     var mobileHeight=window.innerHeight+"px";
+            //     document.getElementsByTagName('html')[0].style.minHeight=mobileHeight;
+            //     document.getElementsByTagName('body')[0].classList.add("hidden");
+            // });
+            this.id= this.getPar("id")
+            this.userType= this.getPar("userType")
+            //1：机械求购,2:机械出售：3：机械求租;4:机械出租,5:资源求购,6：资源出售
+
+            this. getData()
+            this.getShopList()
+        }
+    })
+</script>
+</body>
+
+</html>

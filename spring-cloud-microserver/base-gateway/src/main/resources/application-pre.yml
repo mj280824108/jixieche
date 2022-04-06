@@ -1,0 +1,102 @@
+#端口
+server:
+  port: 8082
+
+#名字
+spring:
+  application:
+    name: service-gateway
+  #网关
+  cloud:
+    gateway:
+      routes:
+      #用户模块网关
+      - id: user-route
+        uri: lb://USER-SERVICE-PROVIDER # lb 表示负载均衡loadbalance，SERVICE-HI是服务名称
+        predicates:
+        #需要拦截的域名(dev开发环境不存在,其他环境需要放开)
+        #- Host=www.dalaoyang.cn
+        - Path=/user/** # 所有user开头的请求走这个路由
+        filters:
+        - StripPrefix=1 # 转发之前将/user去掉
+        - JwtCheck
+      #订单模块网关
+      - id: order-route
+        uri: lb://ORDER-SERVICE-PROVIDER # lb 表示负载均衡loadbalance，SERVICE-HI是服务名称
+        predicates:
+        #需要拦截的域名(dev开发环境不存在,其他环境需要放开)
+        #- Host=www.dalaoyang.cn
+        - Path=/user/** # 所有user开头的请求走这个路由
+        filters:
+        - StripPrefix=1 # 转发之前将/user去掉
+        - JwtCheck
+      #财务模块网关
+      - id: finance-route
+        uri: lb://FINANCE-SERVICE-PROVIDER # lb 表示负载均衡loadbalance，SERVICE-HI是服务名称
+        predicates:
+        #需要拦截的域名(dev开发环境不存在,其他环境需要放开)
+        #- Host=www.dalaoyang.cn
+        - Path=/finance/** # 所有user开头的请求走这个路由
+        filters:
+        - StripPrefix=1 # 转发之前将/user去掉
+        - JwtCheck
+      #公共模块网关
+      - id: common-route
+        uri: lb://COMMON-SERVICE-PROVIDER # lb 表示负载均衡loadbalance，SERVICE-HI是服务名称
+        predicates:
+        #需要拦截的域名(dev开发环境不存在,其他环境需要放开)
+        #- Host=www.dalaoyang.cn
+        - Path=/common/** # 所有user开头的请求走这个路由
+        filters:
+        - StripPrefix=1 # 转发之前将/user去掉
+        - JwtCheck
+      #市场模块网关
+      - id: market-route
+        uri: lb://MARKET-SERVICE-PROVIDER # lb 表示负载均衡loadbalance，SERVICE-HI是服务名称
+        predicates:
+        #需要拦截的域名(dev开发环境不存在,其他环境需要放开)
+        #- Host=www.dalaoyang.cn
+        - Path=/market/** # 所有user开头的请求走这个路由
+        filters:
+        - StripPrefix=1 # 转发之前将/user去掉
+        - JwtCheck
+      #咨询模块网关
+      - id: infor-route
+        uri: lb://MARKET-SERVICE-PROVIDER # lb 表示负载均衡loadbalance，SERVICE-HI是服务名称
+        predicates:
+        #需要拦截的域名(dev开发环境不存在,其他环境需要放开)
+        #- Host=www.dalaoyang.cn
+        - Path=/infor/** # 所有user开头的请求走这个路由
+        filters:
+        - StripPrefix=1 # 转发之前将/user去掉
+        - JwtCheck
+  #redis
+  redis:
+    database: 0
+    # Redis服务器地址
+    host: 172.18.10.6
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: jxc2018
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 10000ms
+#不进行拦截器拦截的URL
+auth:
+  skip:
+    urls: /jxcUser/login,/jxcUser/register,/jxcUser/resetPwd,/aliPay/notify,/wxPay/notify,/unionPay/notify, \
+      /jxcMarketRelease/queryById,/jxcMarketShops/queryById,/jxcInforInformation/queryById
+#注册中心地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://120.79.4.103:8081/eureka/
+
+#目的：防止服务重启后，第一次访问超时
+# 熔断超时时间
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 3000

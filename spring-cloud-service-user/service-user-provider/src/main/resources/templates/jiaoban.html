@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>交班流程</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.7.0/animate.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            padding: 0px 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div style="font-size: 0.32rem;color: #999999;;margin-bottom: 0.28rem;margin-top: 0.15rem; ">
+        订单正在跑趟中时，需要有司机来交接后才能下班
+    </div>
+    <div style="font-size: 0.28rem;color: #333333;;margin-bottom: 0.28rem;margin-top: 0.15rem; ">
+        第一步：上班司机点击下班按钮，进入扫一扫
+    </div>
+    <div>
+        <img style="width: 100%;" src="/images/changeStep_1.png" alt="">
+    </div>
+    <div style="font-size: 0.28rem;color: #333333;;margin-bottom: 0.28rem;margin-top: 0.15rem; ">
+        第二步：用扫一扫页面扫描交接班司机点击上班按钮出现的二维码页面，扫描接班司机交接班二维码即可交接下班
+    </div>
+    <div style="margin-bottom: 0.75rem;">
+        <img style="width: 100%;" src="/images/changeStep_2.png" alt="">
+    </div>
+</div>
+</body>
+<script >
+    (function(){
+        var currClientWidth,
+            fontValue,
+            originWidth;
+        originWidth = 750;//ui设计稿的宽度，一般750或640
+        __resize();
+
+        window.addEventListener('resize', __resize, false);
+        function __resize() {
+            currClientWidth = document.documentElement.clientWidth;
+            if (currClientWidth > 768){
+                currClientWidth = 768;
+            }
+            if (currClientWidth < 320){
+                currClientWidth = 320;
+            }
+            fontValue = ((625 * currClientWidth) / originWidth).toFixed(2);
+            document.documentElement.style.fontSize = fontValue + '%';
+            console.log(document.documentElement.style.fontSize);
+        }
+    })();
+</script>
+<script >
+
+</script>
+</html>

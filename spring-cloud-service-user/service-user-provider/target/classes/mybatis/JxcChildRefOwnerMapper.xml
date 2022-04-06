@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcChildRefOwnerMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcChildRefOwner" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="child_id" property="childId" jdbcType="INTEGER" />
+    <result column="owner_id" property="ownerId" jdbcType="INTEGER" />
+    <result column="driver_id" property="driverId" jdbcType="INTEGER" />
+    <result column="remark_name" property="remarkName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="del_state" property="delState" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, child_id, owner_id, driver_id, remark_name, phone, del_state, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, child_id AS childId, owner_id AS ownerId, driver_id AS driverId, remark_name AS remarkName, 
+    phone, del_state AS delState, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_child_ref_owner
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from jxc_child_ref_owner
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcChildRefOwner" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_child_ref_owner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="childId != null" >
+        child_id,
+      </if>
+      <if test="ownerId != null" >
+        owner_id,
+      </if>
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="remarkName != null" >
+        remark_name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="delState != null" >
+        del_state,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="childId != null" >
+        #{childId,jdbcType=INTEGER},
+      </if>
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=INTEGER},
+      </if>
+      <if test="driverId != null" >
+        #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="remarkName != null" >
+        #{remarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="delState != null" >
+        #{delState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcChildRefOwner" >
+    update jxc_child_ref_owner
+    <set >
+      <if test="childId != null" >
+        child_id = #{childId,jdbcType=INTEGER},
+      </if>
+      <if test="ownerId != null" >
+        owner_id = #{ownerId,jdbcType=INTEGER},
+      </if>
+      <if test="driverId != null" >
+        driver_id = #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="remarkName != null" >
+        remark_name = #{remarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="delState != null" >
+        del_state = #{delState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcChildRefOwner" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_child_ref_owner
+    <where >
+      <if test="childId != null" >
+        AND child_id = #{childId,jdbcType=INTEGER}
+      </if>
+      <if test="ownerId != null" >
+        AND owner_id = #{ownerId,jdbcType=INTEGER}
+      </if>
+      <if test="driverId != null" >
+        AND driver_id = #{driverId,jdbcType=INTEGER}
+      </if>
+      <if test="remarkName != null" >
+        AND remark_name = #{remarkName,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+        AND phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="delState != null" >
+        AND del_state = #{delState,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+</mapper>

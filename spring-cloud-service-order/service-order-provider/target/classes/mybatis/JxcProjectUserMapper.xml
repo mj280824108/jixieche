@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcProjectUserMapper" >
+
+    <!-- 根据车牌号码查询相关信息 -->
+    <select id="getInfoByMachineCarNo" resultType="com.weiwei.jixieche.vo.JxcProjectUserVo">
+        SELECT
+            js.into_flag AS intoFlag,
+            js.site_address AS siteAddress,
+            js.site_name AS siteName,
+            jm.id AS machineId,
+            jpo.id AS tenantryOrderId,
+            joo.id AS ownerOrderId,
+            joo.user_id as ownerUserId,
+            js.id AS siteId,
+            js.open_flag AS openFlag,
+            js.closing_notice AS closingNotice,
+            jpo.user_id AS projectUserId,
+            jpo.earth_type AS couponType,
+            jpo.capacity AS capacity,
+            jpo.project_id AS projectId
+        FROM jxc_project_order jpo
+        LEFT JOIN jxc_owner_order joo ON joo.tenantry_order_id = jpo.id
+        LEFT JOIN jxc_order_ref_site jor ON jpo.id = jor.tenantry_order_id
+        LEFT JOIN jxc_site js ON jor.site_id = js.id
+        LEFT JOIN jxc_machine jm ON jm.id = joo.machine_id
+        WHERE
+            joo.order_state = 2
+            AND jpo.order_state = 2
+            AND jor.state = 1
+            AND jm.machine_card_no = #{machineCarNo}
+            AND jm.delete_status = 0
+            LIMIT 1
+    </select>
+
+    <!-- 获取消纳劵电子券号 -->
+    <select id="getCouponNumById" resultType="java.lang.Long">
+        SELECT
+            jsc.id AS couponId
+        FROM
+            jxc_site_coupon jsc
+            LEFT JOIN jxc_site_order jso ON jsc.order_id = jso.id
+            LEFT JOIN jxc_site_coupon_type jsct ON jsct.id = jsc.coupon_type_id
+        WHERE
+            jsc.coupon_flag = 0
+            AND jsc.del_flag = 0
+            AND jso.tenantry_id = #{projectUserId}
+            AND jsc.site_id = #{siteId}
+            AND jsct.coupon_type = #{couponType}
+            AND jsct.capacity = #{capacity}
+        limit 1
+    </select>
+
+    <!-- 获取消纳劵电子券号剩余数量 -->
+    <select id="getTotalCountCoupon" resultType="java.lang.Integer">
+        SELECT
+            count(jsc.id)
+        FROM
+            jxc_site_coupon jsc
+            LEFT JOIN jxc_site_order jso ON jsc.order_id = jso.id
+            LEFT JOIN jxc_site_coupon_type jsct ON jsct.id = jsc.coupon_type_id
+        WHERE
+            jsc.coupon_flag = 0
+            AND jsc.del_flag = 0
+            AND jso.tenantry_id = #{projectUserId}
+            AND jsc.site_id = #{siteId}
+            AND jsct.coupon_type = #{couponType}
+            AND jsct.capacity = #{capacity}
+    </select>
+
+    <!-- 根据机械ID查询有未核销消纳劵 -->
+    <select id="getCouponByMachineCarNo" resultType="java.lang.Long">
+      SELECT
+            jsc.id
+        FROM
+            jxc_site_coupon jsc
+            INNER JOIN jxc_machine jm ON jsc.machine_id = jm.id
+        WHERE
+            jm.machine_card_no = #{machineCarNo}
+            AND jsc.coupon_flag = 1
+            AND jsc.del_flag = 0
+            AND jm.delete_status = 0
+    </select>
+
+    <select id="getOrderIdByMachineNo" resultType="java.lang.Long">
+        SELECT tenantry_order_id
+        FROM jxc_owner_order oo
+        LEFT JOIN jxc_machine mm ON mm.id = oo.machine_id
+        WHERE mm.machine_card_no = #{machineCardNo}
+        AND oo.order_state = 2
+        AND mm.delete_status = 0
+        limit 1
+    </select>
+
+    <select id="getMachineIdByMachineCardNo" resultType="java.lang.Integer">
+        SELECT  id
+        FROM jxc_machine
+        WHERE machine_card_no = #{machineCarNo}
+        AND delete_status = 0
+    </select>
+
+    <!-- 查询机械是否有正在上班的司机 -->
+    <select id="getDriverIdByMachineId" resultType="java.lang.Integer">
+        SELECT
+            jci.driver_id
+        FROM
+            jxc_clock_in_out_pair jci
+        WHERE
+            machine_id = #{machineId}
+            AND jci.clock_out_id = -1
+            AND jci.clock_out_time IS NULL
+    </select>
+
+    <!-- 更新消纳劵电子券 待核销-->
+    <update id="updateCouponById">
+        update jxc_site_coupon set machine_id = #{machineId}, project_id = #{projectId}, coupon_flag = 1,pair_time = NOW()
+        where id = #{id}
+    </update>
+
+    <!-- 更新消纳劵电子券 未使用 -->
+    <update id="updateSiteCouponById">
+        update jxc_site_coupon set coupon_flag = 0, machine_id = null, project_id = null,pair_time = null
+        where id = #{id}
+    </update>
+
+    <select id="getProjectIdByTenAdmin" resultType="java.lang.Integer">
+        SELECT project_id
+        FROM jxc_manager_ref_tenantry
+        WHERE ten_manager_id = #{userId}
+        AND disabled = 1
+        ORDER BY create_time DESC
+        LIMIT 1
+    </select>
+
+    <select id="getProjectIdAndTenId" resultType="java.util.HashMap">
+        SELECT project_id AS projectId,ten_id AS tenId
+        FROM jxc_manager_ref_tenantry
+        WHERE ten_manager_id = #{userId}
+        AND disabled = 1
+        ORDER BY create_time DESC
+        LIMIT 1
+    </select>
+
+    <select id="getTenIdByOrderId" resultType="java.lang.Integer">
+        SELECT user_id
+        FROM jxc_project_order
+        WHERE id = #{orderId}
+    </select>
+
+    <select id="getJxcProjectOrderVoById" resultType="com.weiwei.jixieche.vo.JxcProjectOrderVo">
+        SELECT id ,project_id AS projectId,user_id AS userId
+        FROM jxc_project_order
+        WHERE id = #{orderId}
+    </select>
+
+    <select id="getSiteIdByOrderId" resultType="java.lang.Integer">
+        SELECT site_id
+        FROM jxc_order_ref_site
+        WHERE tenantry_order_id = #{orderId}
+        AND state = 1
+    </select>
+
+    <select id="getSiteIdByMachineId" resultType="java.lang.Integer">
+        SELECT site_id
+        FROM jxc_site_coupon
+        WHERE machine_id = #{machineId}
+        AND coupon_flag = 1
+    </select>
+
+    <select id="countTotalSiteCoupon" parameterType="com.weiwei.jixieche.vo.JxcSendSiteCouponVo" resultType="java.lang.Integer">
+        SELECT count(jsc.id) AS totalCount
+        FROM jxc_site_coupon jsc
+        LEFT JOIN jxc_site_order jso ON jso.id = jsc.order_id
+        WHERE jsc.coupon_flag = 0
+        AND jso.tenantry_id = #{vo.tenantryId}
+        <if test="vo.projectId != null">
+        AND jsc.site_id IN (
+            SELECT ors.site_id
+            FROM jxc_project_order jpo
+            LEFT JOIN jxc_order_ref_site ors ON ors.tenantry_order_id = jpo.id
+            WHERE jpo.project_id = #{vo.projectId}
+        )
+        </if>
+    </select>
+
+    <select id="countUsedSiteCoupon" parameterType="com.weiwei.jixieche.vo.JxcSendSiteCouponVo" resultType="java.lang.Integer">
+        SELECT count(jsc.id) AS totalCount
+        FROM jxc_site_coupon jsc
+        LEFT JOIN jxc_site_order jso ON jso.id = jsc.order_id
+        WHERE jso.tenantry_id = #{vo.tenantryId}
+        AND (jsc.coupon_flag = 1 OR jsc.coupon_flag = 2)
+        AND DATE_FORMAT(jsc.pair_time,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d')
+        <if test="vo.projectId != null">
+            AND jsc.project_id = #{vo.projectId}
+        </if>
+    </select>
+
+    <select id="selectWaitSendCouponMachineList" parameterType="com.weiwei.jixieche.vo.JxcSendSiteCouponVo" resultType="com.weiwei.jixieche.vo.JxcSendSiteCouponVo">
+      SELECT DISTINCT mm.machine_card_no AS machineCardNo,
+                      uu.real_name AS ownerName,
+                      joo.machine_id AS machineId,
+                      jpo.id AS tenantryOrderId,
+                      joo.id AS ownerOrderId,
+                      jpo.project_id AS projectId,
+                      jpo.user_id AS tenantryId,
+                      js.site_name AS siteName
+        FROM jxc_project_order jpo
+        LEFT JOIN jxc_owner_order joo ON joo.tenantry_order_id = jpo.id
+        LEFT JOIN jxc_order_ref_site ors ON ors.tenantry_order_id = jpo.id
+        LEFT JOIN jxc_site js ON js.id = ors.site_id
+        LEFT JOIN jxc_machine mm ON mm.id = joo.machine_id
+        LEFT JOIN jxc_user uu ON uu.id = mm.user_id
+        LEFT JOIN jxc_machine_route mr ON mr.tenantry_order_id = jpo.id
+        WHERE jpo.user_id = #{vo.tenantryId}
+        AND ors.state = 1
+        AND js.into_flag = 1
+        AND jpo.order_state = 2
+        AND joo.order_state = 2
+        <if test="vo.projectId != null">
+        AND jpo.project_id = #{vo.projectId}
+        </if>
+        AND joo.machine_id  NOT IN (
+            SELECT jmr.machine_id
+            FROM jxc_machine_route jmr
+            LEFT JOIN jxc_project_order po ON po.id = jmr.tenantry_order_id
+            WHERE
+            jmr.pay_state = 0
+            AND jmr.abnormal_type = 0
+            AND po.order_state = 2
+            AND po.user_id = #{vo.tenantryId}
+            <if test="vo.projectId != null">
+                AND jpo.project_id = #{vo.projectId}
+            </if>
+        )
+        <if test="vo.machineCardNo != null and vo.machineCardNo != ''">
+            AND mm.machine_card_no LIKE CONCAT('%',#{vo.machineCardNo},'%')
+            AND mm.delete_status = 0
+        </if>
+    </select>
+
+    <select id="selectUsedCouponMachineList" parameterType="com.weiwei.jixieche.vo.JxcSendSiteCouponVo" resultType="com.weiwei.jixieche.vo.JxcSendSiteCouponVo">
+        SELECT mm.machine_card_no AS machineCardNo,
+                DATE_FORMAT(jsc.pair_time,'%Y-%m-%d %H:%i') AS pairTime,
+                sct.coupon_type AS couponType,
+                jsc.coupon_flag AS couponFlag
+        FROM jxc_site_coupon jsc
+        LEFT JOIN jxc_site_order jso ON jso.id = jsc.order_id
+        LEFT JOIN jxc_machine mm ON mm.id = jsc.machine_id
+        LEFT JOIN jxc_site_coupon_type sct ON sct.id = jsc.coupon_type_id
+        WHERE jso.tenantry_id = #{vo.tenantryId}
+        <if test="vo.projectId != null">
+            AND jsc.project_id = #{vo.projectId}
+        </if>
+        AND (jsc.coupon_flag = 1 OR jsc.coupon_flag = 2)
+        AND jsc.pair_time >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+        <if test="vo.machineCardNo != null and vo.machineCardNo != ''">
+            AND mm.machine_card_no LIKE CONCAT('%',#{vo.machineCardNo},'%')
+            AND mm.delete_status = 0
+        </if>
+    </select>
+
+</mapper>

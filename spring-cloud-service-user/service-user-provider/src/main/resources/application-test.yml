@@ -1,0 +1,79 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: user-service-provider
+  main:
+    #当遇到同样名字的时候，是否允许覆盖注册
+    allow-bean-definition-overriding: true
+  #数据库连接，应用名称以及文件上传设置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.79.4.103:3306/jxc-cloud?characterEncoding=utf8&useSSL=false&useJDBCCompliantTimezoneShift=true
+    username: root
+    password: xyx@123
+    #url: jdbc:mysql://120.79.4.103:3306/jxc?characterEncoding=utf8&useSSL=false
+    #username: root
+    #password: xyx@123
+  redis:
+    database: 0
+    #host: 192.168.0.221
+    host: 172.18.10.6
+    port: 6379
+    #password: gongyou2018
+    password: jxc2018
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 10000ms
+
+  #rabbitMq的相关配置
+  rabbitmq:
+    host: 120.79.4.103
+    port: 5672
+    username: gongyou
+    password: 123456
+
+  resources:
+    static-locations: classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
+
+#银联相关API
+unionpay:
+  #API认证账号
+  app-id: up_fc7zum001l1t_s6z9
+  #API认证密钥
+  app-secret: 8d457c061a86328511ea9fa964cd9757
+  #获取token测试请求地址
+  token-url: https://openapi.unionpay.com/upapi/cardbin/token
+  #根据银行卡获取银行卡信息测试
+  cardinfo-url: https://openapi.unionpay.com/upapi/cardbin/cardinfo
+  #签名秘钥
+  signature: gyzj
+
+mybatis:
+  type-aliases-package: com.weiwei.jixieche.bean
+  mapper-locations: classpath:mybatis/*.xml,classpath:mybatis/*/*.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#日志记录设置
+logging:
+  file: /www/wwwlogs/springcloud/userProvider/yytn.log
+  level:
+       com:
+           weiwei:
+                    jixieche: trace
+       root: warn

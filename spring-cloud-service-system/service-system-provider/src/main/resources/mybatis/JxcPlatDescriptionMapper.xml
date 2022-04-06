@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcPlatDescriptionMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcPlatDescription" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="descript_type" property="descriptType" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="disable" property="disable" jdbcType="TINYINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_type, descript_type, content, disable, create_user_id, create_user_name, 
+    create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, user_type AS userType, descript_type AS descriptType, content, disable, create_user_id AS createUserId, 
+    create_user_name AS createUserName, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_plat_description
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jxc_plat_description
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcPlatDescription" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_plat_description
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="descriptType != null" >
+        descript_type,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="descriptType != null" >
+        #{descriptType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="disable != null" >
+        #{disable,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcPlatDescription" >
+    update jxc_plat_description
+    <set >
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="descriptType != null" >
+        descript_type = #{descriptType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createUserName != null" >
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcPlatDescription" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_plat_description
+    <where >
+      <if test="userType != null" >
+        AND user_type = #{userType,jdbcType=INTEGER}
+      </if>
+      <if test="descriptType != null" >
+        AND descript_type = #{descriptType,jdbcType=INTEGER}
+      </if>
+      <if test="content != null" >
+        AND content = #{content,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable,jdbcType=TINYINT}
+      </if>
+      <if test="createUserId != null" >
+        AND create_user_id = #{createUserId,jdbcType=INTEGER}
+      </if>
+      <if test="createUserName != null" >
+        AND create_user_name = #{createUserName,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+</mapper>

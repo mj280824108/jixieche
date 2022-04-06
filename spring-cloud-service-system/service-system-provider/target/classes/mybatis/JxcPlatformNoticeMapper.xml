@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcPlatformNoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcPlatformNotice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="aimed_type" property="aimedType" jdbcType="INTEGER" />
+    <result column="content_type" property="contentType" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="title_img" property="titleImg" jdbcType="VARCHAR" />
+    <result column="effective_start_time" property="effectiveStartTime" jdbcType="TIMESTAMP" />
+    <result column="effective_end_time" property="effectiveEndTime" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, aimed_type, content_type, title, title_img, effective_start_time, effective_end_time, 
+    content, state, create_id, creator, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, aimed_type AS aimedType, content_type AS contentType, title, title_img AS titleImg, 
+    effective_start_time AS effectiveStartTime, effective_end_time AS effectiveEndTime, 
+    content, state, create_id AS createId, creator, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_platform_notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jxc_platform_notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcPlatformNotice" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_platform_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aimedType != null" >
+        aimed_type,
+      </if>
+      <if test="contentType != null" >
+        content_type,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="titleImg != null" >
+        title_img,
+      </if>
+      <if test="effectiveStartTime != null" >
+        effective_start_time,
+      </if>
+      <if test="effectiveEndTime != null" >
+        effective_end_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aimedType != null" >
+        #{aimedType,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null" >
+        #{contentType,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleImg != null" >
+        #{titleImg,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveStartTime != null" >
+        #{effectiveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndTime != null" >
+        #{effectiveEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcPlatformNotice" >
+    update jxc_platform_notice
+    <set >
+      <if test="aimedType != null" >
+        aimed_type = #{aimedType,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null" >
+        content_type = #{contentType,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="titleImg != null" >
+        title_img = #{titleImg,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveStartTime != null" >
+        effective_start_time = #{effectiveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndTime != null" >
+        effective_end_time = #{effectiveEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcPlatformNotice" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_platform_notice
+    <where >
+      <if test="aimedType != null" >
+        AND aimed_type = #{aimedType,jdbcType=INTEGER}
+      </if>
+      <if test="contentType != null" >
+        AND content_type = #{contentType,jdbcType=INTEGER}
+      </if>
+      <if test="title != null" >
+        AND title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="titleImg != null" >
+        AND title_img = #{titleImg,jdbcType=VARCHAR}
+      </if>
+      <if test="effectiveStartTime != null" >
+        AND effective_start_time = #{effectiveStartTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="effectiveEndTime != null" >
+        AND effective_end_time = #{effectiveEndTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="content != null" >
+        AND content = #{content,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="state != null" >
+        AND state = #{state,jdbcType=INTEGER}
+      </if>
+      <if test="createId != null" >
+        AND create_id = #{createId,jdbcType=INTEGER}
+      </if>
+      <if test="creator != null" >
+        AND creator = #{creator,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+</mapper>

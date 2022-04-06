@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcTransCostsMapper">
+
+    <!--通过承租方订单ID查询项目城市ID-->
+    <select id="getCityCodeByOrderId" resultType="java.util.HashMap">
+        SELECT ifnull(pp.city_code,0) AS cityCode , ifnull(po.earth_type,-1) AS earthType
+        FROM jxc_project_order po
+        LEFT JOIN jxc_project pp on pp.id = po.project_id
+        WHERE po.id = #{orderId}
+    </select>
+
+    <!--根据城市编码查询对应城市的运输费计算规则-->
+    <select id="getTransCosts" resultType="com.weiwei.jixieche.vo.JxcTransCostsVo">
+        SELECT
+        id,
+        province_id AS provinceId,
+        city_id AS cityId,
+        ifnull(plat_commission,0) AS platCommission,
+        <if test="params.earthType == 1 or params.earthType == '1'">
+            ifnull(dry_type,'') AS earthType,
+            ifnull(dry_start_price,0) AS startPrice,
+            ifnull(dry_start_price_mileage,0) AS startPriceMileage,
+            ifnull(dry_follow_price,0) AS followPrice,
+            ifnull(dry_out_mileage,0) AS outMileage,
+            ifnull(dry_unified_price,0) AS unifiedPrice,
+            ifnull(dry_waite_price,0) AS waitePrice,
+            ifnull(dry_additional_price,0) AS additionalPrice
+        </if>
+        <if test="params.earthType == 0 or params.earthType == '0'">
+            ifnull(wet_type,'') AS earthType,
+            ifnull(wet_start_price,0) AS startPrice,
+            ifnull(wet_start_price_mileage,0) AS startPriceMileage,
+            ifnull(wet_follow_price,0) AS followPrice,
+            ifnull(wet_out_mileage,0) AS outMileage,
+            ifnull(wet_unified_price,0) AS unifiedPrice,
+            ifnull(wet_waite_price,0) AS waitePrice,
+            ifnull(wet_additional_price,0) AS additionalPrice
+        </if>
+        <if test="params.earthType == 2 or params.earthType == '2'">
+            ifnull(clay_type,'') AS earthType,
+            ifnull(clay_start_price,0) AS startPrice,
+            ifnull(clay_start_price_mileage,0) AS startPriceMileage,
+            ifnull(clay_follow_price,0) AS followPrice,
+            ifnull(clay_out_mileage,0) AS outMileage,
+            ifnull(clay_unified_price,0) AS unifiedPrice,
+            ifnull(clay_waite_price,0) AS waitePrice,
+            ifnull(clay_additional_price,0) AS additionalPrice
+        </if>
+        FROM jxc_trans_costs
+        WHERE city_id = #{params.cityCode}
+    </select>
+
+    <!--根据项目ID查询对应的cityCode-->
+    <select id="getCityCodeByProjectId" resultType="java.lang.Integer">
+        SELECT city_code
+        FROM jxc_project
+        WHERE id = #{projectId}
+    </select>
+
+</mapper>

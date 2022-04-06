@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.weiwei.jixieche</groupId>
+        <artifactId>common-provider</artifactId>
+        <version>2.0</version>
+        <relativePath>../../spring-cloud-common/common-provider/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>service-user-provider</artifactId>
+
+    <dependencies>
+        <!--引入user-bean-->
+        <dependency>
+            <groupId>com.weiwei.jixieche</groupId>
+            <artifactId>service-user-bean</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!--引入user-bean-->
+        <dependency>
+            <groupId>com.weiwei.jixieche</groupId>
+            <artifactId>common-utils</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!--引入user-bean-->
+        <dependency>
+            <groupId>com.weiwei.jixieche</groupId>
+            <artifactId>service-order-feign</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!--引入user-bean-->
+        <dependency>
+            <groupId>com.weiwei.jixieche</groupId>
+            <artifactId>service-common-feign</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- 邀请页是要用 -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring5</artifactId>
+            <version>3.0.11.RELEASE</version>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <finalName>user-provider</finalName>
+       <!-- 加载资源文件-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+            </resource>
+        </resources>
+    </build>
+
+</project>

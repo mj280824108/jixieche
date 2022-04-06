@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcBankMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcBank" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bg_img" property="bgImg" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, bank_name, bg_img, logo
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, bank_name AS bankName, bg_img AS bgImg, logo
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_bank
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcBank" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="bgImg != null" >
+        bg_img,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bgImg != null" >
+        #{bgImg,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcBank" >
+    update jxc_bank
+    <set >
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bgImg != null" >
+        bg_img = #{bgImg,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcBank" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_bank
+    <where >
+      <if test="bankName != null" >
+        AND bank_name = #{bankName,jdbcType=VARCHAR}
+      </if>
+      <if test="bgImg != null" >
+        AND bg_img = #{bgImg,jdbcType=VARCHAR}
+      </if>
+      <if test="logo != null" >
+        AND logo = #{logo,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+</mapper>

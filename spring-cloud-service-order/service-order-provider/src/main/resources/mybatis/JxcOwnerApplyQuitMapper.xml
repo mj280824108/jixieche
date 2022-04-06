@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcOwnerApplyQuitMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcOwnerApplyQuit" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="owner_order_id" property="ownerOrderId" jdbcType="BIGINT" />
+    <result column="apply_state" property="applyState" jdbcType="INTEGER" />
+    <result column="apply_reason" property="applyReason" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, owner_order_id, apply_state, apply_reason, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, owner_order_id AS ownerOrderId, apply_state AS applyState, apply_reason AS applyReason, 
+    create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_owner_apply_quit
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByOrderId" parameterType="java.lang.Long" >
+    delete from jxc_owner_apply_quit
+    where owner_order_id = #{ownerOrderId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcOwnerApplyQuit" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_owner_apply_quit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ownerOrderId != null" >
+        owner_order_id,
+      </if>
+      <if test="applyState != null" >
+        apply_state,
+      </if>
+      <if test="applyReason != null" >
+        apply_reason,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ownerOrderId != null" >
+        #{ownerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="applyState != null" >
+        #{applyState,jdbcType=INTEGER},
+      </if>
+      <if test="applyReason != null" >
+        #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcOwnerApplyQuit" >
+    update jxc_owner_apply_quit
+    <set >
+      <if test="ownerOrderId != null" >
+        owner_order_id = #{ownerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="applyState != null" >
+        apply_state = #{applyState,jdbcType=INTEGER},
+      </if>
+      <if test="applyReason != null" >
+        apply_reason = #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcOwnerApplyQuit" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_owner_apply_quit
+    <where >
+      <if test="ownerOrderId != null" >
+        AND owner_order_id = #{ownerOrderId,jdbcType=BIGINT}
+      </if>
+      <if test="applyState != null" >
+        AND apply_state = #{applyState,jdbcType=INTEGER}
+      </if>
+      <if test="applyReason != null" >
+        AND apply_reason = #{applyReason,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectQuitList" resultType="com.weiwei.jixieche.vo.JxcOwnerApplyQuitVo">
+    SELECT oq.id AS id,
+           oo.machine_id AS machineId,
+           oq.owner_order_id AS ownerOrderId,
+           mm.machine_img AS machineImg,
+           mm.machine_card_no AS machineCardNo,
+           uu.real_name AS ownerName,
+           oq.apply_reason AS applyReason,
+           pp.project_name AS projectName,
+           oq.apply_state AS applyState,
+           DATE_FORMAT(oq.create_time,'%Y-%m-%d %H:%i:%s') AS createTime
+    FROM jxc_owner_apply_quit oq
+    LEFT JOIN jxc_owner_order oo ON oo.id = oq.owner_order_id
+    LEFT JOIN jxc_project_order po ON po.id = oo.tenantry_order_id
+    LEFT JOIN jxc_project pp ON pp.id = po.project_id
+    LEFT JOIN jxc_machine mm ON mm.id = oo.machine_id
+    LEFT JOIN jxc_user uu ON uu.id = oo.user_id
+    WHERE po.user_id = #{userId}
+    <if test="orderId != null">
+      AND po.id = #{orderId}
+    </if>
+    <if test="ownerOrderId != null">
+      AND oq.owner_order_id = #{ownerOrderId}
+      AND oq.apply_state = 0
+    </if>
+
+  </select>
+
+  <select id="queryByOwnerOrderId" resultType="com.weiwei.jixieche.vo.JxcOwnerApplyQuitVo">
+    SELECT id ,owner_order_id AS ownerOrderId
+    FROM jxc_owner_apply_quit
+    WHERE owner_order_id = #{ownerOrderId}
+    AND apply_state != 2
+  </select>
+
+</mapper>

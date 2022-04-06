@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcExceptionAppealMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcExceptionAppeal" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_order_id" property="projectOrderId" jdbcType="BIGINT" />
+    <result column="owner_order_id" property="ownerOrderId" jdbcType="BIGINT" />
+    <result column="route_id" property="routeId" jdbcType="BIGINT" />
+    <result column="clock_id" property="clockId" jdbcType="BIGINT" />
+    <result column="abnormal_type" property="abnormalType" jdbcType="INTEGER" />
+    <result column="abnormal_description" property="abnormalDescription" jdbcType="LONGVARCHAR" />
+    <result column="abnormal_status" property="abnormalStatus" jdbcType="INTEGER" />
+    <result column="consult_mileage" property="consultMileage" jdbcType="DECIMAL" />
+    <result column="consult_price" property="consultPrice" jdbcType="INTEGER" />
+    <result column="appeal_user_id" property="appealUserId" jdbcType="BIGINT" />
+    <result column="appeal_user_type" property="appealUserType" jdbcType="INTEGER" />
+    <result column="appeal_user_name" property="appealUserName" jdbcType="VARCHAR" />
+    <result column="appeal_user_phone" property="appealUserPhone" jdbcType="VARCHAR" />
+    <result column="consult_user_id" property="consultUserId" jdbcType="BIGINT" />
+    <result column="consult_user_name" property="consultUserName" jdbcType="VARCHAR" />
+    <result column="self_handle_flag" property="selfHandleFlag" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, project_id, project_order_id, owner_order_id, route_id, clock_id, abnormal_type, 
+    abnormal_description, abnormal_status, consult_mileage, consult_price, appeal_user_id, 
+    appeal_user_type, appeal_user_name, appeal_user_phone, consult_user_id, consult_user_name, 
+    self_handle_flag, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, project_id AS projectId, project_order_id AS projectOrderId, owner_order_id AS ownerOrderId, 
+    route_id AS routeId, clock_id AS clockId, abnormal_type AS abnormalType, abnormal_description AS abnormalDescription, 
+    abnormal_status AS abnormalStatus, consult_mileage AS consultMileage, consult_price AS consultPrice, 
+    appeal_user_id AS appealUserId, appeal_user_type AS appealUserType, appeal_user_name AS appealUserName, 
+    appeal_user_phone AS appealUserPhone, consult_user_id AS consultUserId, consult_user_name AS consultUserName, 
+    self_handle_flag AS selfHandleFlag, create_time AS createTime, update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_exception_appeal
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jxc_exception_appeal
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcExceptionAppeal" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_exception_appeal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="projectOrderId != null" >
+        project_order_id,
+      </if>
+      <if test="ownerOrderId != null" >
+        owner_order_id,
+      </if>
+      <if test="routeId != null" >
+        route_id,
+      </if>
+      <if test="clockId != null" >
+        clock_id,
+      </if>
+      <if test="abnormalType != null" >
+        abnormal_type,
+      </if>
+      <if test="abnormalDescription != null" >
+        abnormal_description,
+      </if>
+      <if test="abnormalStatus != null" >
+        abnormal_status,
+      </if>
+      <if test="consultMileage != null" >
+        consult_mileage,
+      </if>
+      <if test="consultPrice != null" >
+        consult_price,
+      </if>
+      <if test="appealUserId != null" >
+        appeal_user_id,
+      </if>
+      <if test="appealUserType != null" >
+        appeal_user_type,
+      </if>
+      <if test="appealUserName != null" >
+        appeal_user_name,
+      </if>
+      <if test="appealUserPhone != null" >
+        appeal_user_phone,
+      </if>
+      <if test="consultUserId != null" >
+        consult_user_id,
+      </if>
+      <if test="consultUserName != null" >
+        consult_user_name,
+      </if>
+      <if test="selfHandleFlag != null" >
+        self_handle_flag,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectOrderId != null" >
+        #{projectOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerOrderId != null" >
+        #{ownerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="routeId != null" >
+        #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="clockId != null" >
+        #{clockId,jdbcType=BIGINT},
+      </if>
+      <if test="abnormalType != null" >
+        #{abnormalType,jdbcType=INTEGER},
+      </if>
+      <if test="abnormalDescription != null" >
+        #{abnormalDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="abnormalStatus != null" >
+        #{abnormalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="consultMileage != null" >
+        #{consultMileage,jdbcType=DECIMAL},
+      </if>
+      <if test="consultPrice != null" >
+        #{consultPrice,jdbcType=INTEGER},
+      </if>
+      <if test="appealUserId != null" >
+        #{appealUserId,jdbcType=BIGINT},
+      </if>
+      <if test="appealUserType != null" >
+        #{appealUserType,jdbcType=INTEGER},
+      </if>
+      <if test="appealUserName != null" >
+        #{appealUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="appealUserPhone != null" >
+        #{appealUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="consultUserId != null" >
+        #{consultUserId,jdbcType=BIGINT},
+      </if>
+      <if test="consultUserName != null" >
+        #{consultUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="selfHandleFlag != null" >
+        #{selfHandleFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcExceptionAppeal" >
+    update jxc_exception_appeal
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectOrderId != null" >
+        project_order_id = #{projectOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerOrderId != null" >
+        owner_order_id = #{ownerOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="routeId != null" >
+        route_id = #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="clockId != null" >
+        clock_id = #{clockId,jdbcType=BIGINT},
+      </if>
+      <if test="abnormalType != null" >
+        abnormal_type = #{abnormalType,jdbcType=INTEGER},
+      </if>
+      <if test="abnormalDescription != null" >
+        abnormal_description = #{abnormalDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="abnormalStatus != null" >
+        abnormal_status = #{abnormalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="consultMileage != null" >
+        consult_mileage = #{consultMileage,jdbcType=DECIMAL},
+      </if>
+      <if test="consultPrice != null" >
+        consult_price = #{consultPrice,jdbcType=INTEGER},
+      </if>
+      <if test="appealUserId != null" >
+        appeal_user_id = #{appealUserId,jdbcType=BIGINT},
+      </if>
+      <if test="appealUserType != null" >
+        appeal_user_type = #{appealUserType,jdbcType=INTEGER},
+      </if>
+      <if test="appealUserName != null" >
+        appeal_user_name = #{appealUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="appealUserPhone != null" >
+        appeal_user_phone = #{appealUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="consultUserId != null" >
+        consult_user_id = #{consultUserId,jdbcType=BIGINT},
+      </if>
+      <if test="consultUserName != null" >
+        consult_user_name = #{consultUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="selfHandleFlag != null" >
+        self_handle_flag = #{selfHandleFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcExceptionAppeal" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_exception_appeal
+    <where >
+      <if test="projectId != null" >
+        AND project_id = #{projectId,jdbcType=INTEGER}
+      </if>
+      <if test="projectOrderId != null" >
+        AND project_order_id = #{projectOrderId,jdbcType=BIGINT}
+      </if>
+      <if test="ownerOrderId != null" >
+        AND owner_order_id = #{ownerOrderId,jdbcType=BIGINT}
+      </if>
+      <if test="routeId != null" >
+        AND route_id = #{routeId,jdbcType=BIGINT}
+      </if>
+      <if test="clockId != null" >
+        AND clock_id = #{clockId,jdbcType=BIGINT}
+      </if>
+      <if test="abnormalType != null" >
+        AND abnormal_type = #{abnormalType,jdbcType=INTEGER}
+      </if>
+      <if test="abnormalDescription != null" >
+        AND abnormal_description = #{abnormalDescription,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="abnormalStatus != null" >
+        AND abnormal_status = #{abnormalStatus,jdbcType=INTEGER}
+      </if>
+      <if test="consultMileage != null" >
+        AND consult_mileage = #{consultMileage,jdbcType=DECIMAL}
+      </if>
+      <if test="consultPrice != null" >
+        AND consult_price = #{consultPrice,jdbcType=INTEGER}
+      </if>
+      <if test="appealUserId != null" >
+        AND appeal_user_id = #{appealUserId,jdbcType=BIGINT}
+      </if>
+      <if test="appealUserType != null" >
+        AND appeal_user_type = #{appealUserType,jdbcType=INTEGER}
+      </if>
+      <if test="appealUserName != null" >
+        AND appeal_user_name = #{appealUserName,jdbcType=VARCHAR}
+      </if>
+      <if test="appealUserPhone != null" >
+        AND appeal_user_phone = #{appealUserPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="consultUserId != null" >
+        AND consult_user_id = #{consultUserId,jdbcType=BIGINT}
+      </if>
+      <if test="consultUserName != null" >
+        AND consult_user_name = #{consultUserName,jdbcType=VARCHAR}
+      </if>
+      <if test="selfHandleFlag != null" >
+        AND self_handle_flag = #{selfHandleFlag,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!-- 查询异常申诉信息-->
+  <select id="getById" resultType="com.weiwei.jixieche.bean.JxcExceptionAppeal">
+    select <include refid="Base_Column_List"/> from jxc_exception_appeal
+      where clock_id = #{clockId}
+    limit 1
+  </select>
+
+</mapper>

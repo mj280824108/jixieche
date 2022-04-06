@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcMarketReleaseMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcMarketRelease" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="realese_type" property="realeseType" jdbcType="INTEGER" />
+    <result column="source_id" property="sourceId" jdbcType="INTEGER" />
+    <result column="machine_type_id" property="machineTypeId" jdbcType="INTEGER" />
+    <result column="brand_type_id" property="brandTypeId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="buy_type" property="buyType" jdbcType="INTEGER" />
+    <result column="buy_price_down" property="buyPriceDown" jdbcType="INTEGER" />
+    <result column="buy_price_top" property="buyPriceTop" jdbcType="INTEGER" />
+    <result column="product_number" property="productNumber" jdbcType="INTEGER" />
+    <result column="request_details" property="requestDetails" jdbcType="VARCHAR" />
+    <result column="new_degree_type" property="newDegreeType" jdbcType="INTEGER" />
+    <result column="new_degree_level" property="newDegreeLevel" jdbcType="INTEGER" />
+    <result column="upper_lower_status" property="upperLowerStatus" jdbcType="INTEGER" />
+    <result column="product_time" property="productTime" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="district_id" property="districtId" jdbcType="INTEGER" />
+    <result column="parke_address" property="parkeAddress" jdbcType="VARCHAR" />
+    <result column="sale_price" property="salePrice" jdbcType="INTEGER" />
+    <result column="sale_number" property="saleNumber" jdbcType="INTEGER" />
+    <result column="sale_pictures" property="salePictures" jdbcType="VARCHAR" />
+    <result column="estimate_project_time" property="estimateProjectTime" jdbcType="INTEGER" />
+    <result column="project_start_time" property="projectStartTime" jdbcType="VARCHAR" />
+    <result column="project_end_time" property="projectEndTime" jdbcType="VARCHAR" />
+    <result column="project_address" property="projectAddress" jdbcType="VARCHAR" />
+    <result column="rent_type" property="rentType" jdbcType="INTEGER" />
+    <result column="lease_hour_price" property="leaseHourPrice" jdbcType="INTEGER" />
+    <result column="lease_month_price" property="leaseMonthPrice" jdbcType="INTEGER" />
+    <result column="lease_team_price" property="leaseTeamPrice" jdbcType="INTEGER" />
+    <result column="source_type" property="sourceType" jdbcType="INTEGER" />
+    <result column="source_sale_price" property="sourceSalePrice" jdbcType="INTEGER" />
+    <result column="source_number" property="sourceNumber" jdbcType="INTEGER" />
+    <result column="source_unit" property="sourceUnit" jdbcType="VARCHAR" />
+    <result column="source_buy_down_price" property="sourceBuyDownPrice" jdbcType="INTEGER" />
+    <result column="source_buy_top_price" property="sourceBuyTopPrice" jdbcType="INTEGER" />
+    <result column="source_address" property="sourceAddress" jdbcType="VARCHAR" />
+    <result column="source_pictures" property="sourcePictures" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_phone" property="personPhone" jdbcType="VARCHAR" />
+    <result column="view_number" property="viewNumber" jdbcType="INTEGER" />
+    <result column="shops_id" property="shopsId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="shop_keeper_id" property="shopKeeperId" jdbcType="INTEGER" />
+    <result column="display_flag" property="displayFlag" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, realese_type, source_id, machine_type_id, brand_type_id, title, buy_type, buy_price_down,
+    buy_price_top, product_number, request_details, new_degree_type, new_degree_level,
+    upper_lower_status, product_time, city_id, district_id, parke_address, sale_price,
+    sale_number, sale_pictures, estimate_project_time, project_start_time, project_end_time,
+    project_address, rent_type, lease_hour_price, lease_month_price, lease_team_price,
+    source_type, source_sale_price, source_number, source_unit, source_buy_down_price,
+    source_buy_top_price, source_address, source_pictures, person_name, person_phone,
+    view_number, shops_id, create_time, update_time, shop_keeper_id, display_flag
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, realese_type AS realeseType, source_id AS sourceId, machine_type_id AS machineTypeId,
+    brand_type_id AS brandTypeId, title, buy_type AS buyType, buy_price_down AS buyPriceDown,
+    buy_price_top AS buyPriceTop, product_number AS productNumber, request_details AS requestDetails,
+    new_degree_type AS newDegreeType, new_degree_level AS newDegreeLevel, upper_lower_status AS upperLowerStatus,
+    product_time AS productTime, city_id AS cityId, district_id AS districtId, parke_address AS parkeAddress,
+    sale_price AS salePrice, sale_number AS saleNumber, sale_pictures AS salePictures,
+    estimate_project_time AS estimateProjectTime, project_start_time AS projectStartTime,
+    project_end_time AS projectEndTime, project_address AS projectAddress, rent_type AS rentType,
+    lease_hour_price AS leaseHourPrice, lease_month_price AS leaseMonthPrice, lease_team_price AS leaseTeamPrice,
+    source_type AS sourceType, source_sale_price AS sourceSalePrice, source_number AS sourceNumber,
+    source_unit AS sourceUnit, source_buy_down_price AS sourceBuyDownPrice, source_buy_top_price AS sourceBuyTopPrice,
+    source_address AS sourceAddress, source_pictures AS sourcePictures, person_name AS personName,
+    person_phone AS personPhone, view_number AS viewNumber, shops_id AS shopsId, create_time AS createTime,
+    update_time AS updateTime, shop_keeper_id AS shopKeeperId, display_flag AS displayFlag
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_market_release
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcMarketRelease" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_market_release
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="realeseType != null" >
+        realese_type,
+      </if>
+      <if test="sourceId != null" >
+        source_id,
+      </if>
+      <if test="machineTypeId != null" >
+        machine_type_id,
+      </if>
+      <if test="brandTypeId != null" >
+        brand_type_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="buyType != null" >
+        buy_type,
+      </if>
+      <if test="buyPriceDown != null" >
+        buy_price_down,
+      </if>
+      <if test="buyPriceTop != null" >
+        buy_price_top,
+      </if>
+      <if test="productNumber != null" >
+        product_number,
+      </if>
+      <if test="requestDetails != null" >
+        request_details,
+      </if>
+      <if test="newDegreeType != null" >
+        new_degree_type,
+      </if>
+      <if test="newDegreeLevel != null" >
+        new_degree_level,
+      </if>
+      <if test="upperLowerStatus != null" >
+        upper_lower_status,
+      </if>
+      <if test="productTime != null" >
+        product_time,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="districtId != null" >
+        district_id,
+      </if>
+      <if test="parkeAddress != null" >
+        parke_address,
+      </if>
+      <if test="salePrice != null" >
+        sale_price,
+      </if>
+      <if test="saleNumber != null" >
+        sale_number,
+      </if>
+      <if test="salePictures != null" >
+        sale_pictures,
+      </if>
+      <if test="estimateProjectTime != null" >
+        estimate_project_time,
+      </if>
+      <if test="projectStartTime != null" >
+        project_start_time,
+      </if>
+      <if test="projectEndTime != null" >
+        project_end_time,
+      </if>
+      <if test="projectAddress != null" >
+        project_address,
+      </if>
+      <if test="rentType != null" >
+        rent_type,
+      </if>
+      <if test="leaseHourPrice != null" >
+        lease_hour_price,
+      </if>
+      <if test="leaseMonthPrice != null" >
+        lease_month_price,
+      </if>
+      <if test="leaseTeamPrice != null" >
+        lease_team_price,
+      </if>
+      <if test="sourceType != null" >
+        source_type,
+      </if>
+      <if test="sourceSalePrice != null" >
+        source_sale_price,
+      </if>
+      <if test="sourceNumber != null" >
+        source_number,
+      </if>
+      <if test="sourceUnit != null" >
+        source_unit,
+      </if>
+      <if test="sourceBuyDownPrice != null" >
+        source_buy_down_price,
+      </if>
+      <if test="sourceBuyTopPrice != null" >
+        source_buy_top_price,
+      </if>
+      <if test="sourceAddress != null" >
+        source_address,
+      </if>
+      <if test="sourcePictures != null" >
+        source_pictures,
+      </if>
+      <if test="personName != null" >
+        person_name,
+      </if>
+      <if test="personPhone != null" >
+        person_phone,
+      </if>
+      <if test="viewNumber != null" >
+        view_number,
+      </if>
+      <if test="shopsId != null" >
+        shops_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="shopKeeperId != null" >
+        shop_keeper_id,
+      </if>
+      <if test="displayFlag != null" >
+        display_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="realeseType != null" >
+        #{realeseType,jdbcType=INTEGER},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="machineTypeId != null" >
+        #{machineTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="brandTypeId != null" >
+        #{brandTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="buyType != null" >
+        #{buyType,jdbcType=INTEGER},
+      </if>
+      <if test="buyPriceDown != null" >
+        #{buyPriceDown,jdbcType=INTEGER},
+      </if>
+      <if test="buyPriceTop != null" >
+        #{buyPriceTop,jdbcType=INTEGER},
+      </if>
+      <if test="productNumber != null" >
+        #{productNumber,jdbcType=INTEGER},
+      </if>
+      <if test="requestDetails != null" >
+        #{requestDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="newDegreeType != null" >
+        #{newDegreeType,jdbcType=INTEGER},
+      </if>
+      <if test="newDegreeLevel != null" >
+        #{newDegreeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="upperLowerStatus != null" >
+        #{upperLowerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productTime != null" >
+        #{productTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null" >
+        #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="parkeAddress != null" >
+        #{parkeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null" >
+        #{salePrice,jdbcType=INTEGER},
+      </if>
+      <if test="saleNumber != null" >
+        #{saleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="salePictures != null" >
+        #{salePictures,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateProjectTime != null" >
+        #{estimateProjectTime,jdbcType=INTEGER},
+      </if>
+      <if test="projectStartTime != null" >
+        #{projectStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="projectEndTime != null" >
+        #{projectEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="projectAddress != null" >
+        #{projectAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="rentType != null" >
+        #{rentType,jdbcType=INTEGER},
+      </if>
+      <if test="leaseHourPrice != null" >
+        #{leaseHourPrice,jdbcType=INTEGER},
+      </if>
+      <if test="leaseMonthPrice != null" >
+        #{leaseMonthPrice,jdbcType=INTEGER},
+      </if>
+      <if test="leaseTeamPrice != null" >
+        #{leaseTeamPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sourceType != null" >
+        #{sourceType,jdbcType=INTEGER},
+      </if>
+      <if test="sourceSalePrice != null" >
+        #{sourceSalePrice,jdbcType=INTEGER},
+      </if>
+      <if test="sourceNumber != null" >
+        #{sourceNumber,jdbcType=INTEGER},
+      </if>
+      <if test="sourceUnit != null" >
+        #{sourceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBuyDownPrice != null" >
+        #{sourceBuyDownPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sourceBuyTopPrice != null" >
+        #{sourceBuyTopPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sourceAddress != null" >
+        #{sourceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePictures != null" >
+        #{sourcePictures,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null" >
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personPhone != null" >
+        #{personPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="viewNumber != null" >
+        #{viewNumber,jdbcType=INTEGER},
+      </if>
+      <if test="shopsId != null" >
+        #{shopsId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopKeeperId != null" >
+        #{shopKeeperId,jdbcType=INTEGER},
+      </if>
+      <if test="displayFlag != null" >
+        #{displayFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcMarketRelease" >
+    update jxc_market_release
+    <set >
+      <if test="realeseType != null" >
+        realese_type = #{realeseType,jdbcType=INTEGER},
+      </if>
+      <if test="sourceId != null" >
+        source_id = #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="machineTypeId != null" >
+        machine_type_id = #{machineTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="brandTypeId != null" >
+        brand_type_id = #{brandTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="buyType != null" >
+        buy_type = #{buyType,jdbcType=INTEGER},
+      </if>
+      <if test="buyPriceDown != null" >
+        buy_price_down = #{buyPriceDown,jdbcType=INTEGER},
+      </if>
+      <if test="buyPriceTop != null" >
+        buy_price_top = #{buyPriceTop,jdbcType=INTEGER},
+      </if>
+      <if test="productNumber != null" >
+        product_number = #{productNumber,jdbcType=INTEGER},
+      </if>
+      <if test="requestDetails != null" >
+        request_details = #{requestDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="newDegreeType != null" >
+        new_degree_type = #{newDegreeType,jdbcType=INTEGER},
+      </if>
+      <if test="newDegreeLevel != null" >
+        new_degree_level = #{newDegreeLevel,jdbcType=INTEGER},
+      </if>
+      <if test="upperLowerStatus != null" >
+        upper_lower_status = #{upperLowerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productTime != null" >
+        product_time = #{productTime,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null" >
+        district_id = #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="parkeAddress != null" >
+        parke_address = #{parkeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null" >
+        sale_price = #{salePrice,jdbcType=INTEGER},
+      </if>
+      <if test="saleNumber != null" >
+        sale_number = #{saleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="salePictures != null" >
+        sale_pictures = #{salePictures,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateProjectTime != null" >
+        estimate_project_time = #{estimateProjectTime,jdbcType=INTEGER},
+      </if>
+      <if test="projectStartTime != null" >
+        project_start_time = #{projectStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="projectEndTime != null" >
+        project_end_time = #{projectEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="projectAddress != null" >
+        project_address = #{projectAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="rentType != null" >
+        rent_type = #{rentType,jdbcType=INTEGER},
+      </if>
+      <if test="leaseHourPrice != null" >
+        lease_hour_price = #{leaseHourPrice,jdbcType=INTEGER},
+      </if>
+      <if test="leaseMonthPrice != null" >
+        lease_month_price = #{leaseMonthPrice,jdbcType=INTEGER},
+      </if>
+      <if test="leaseTeamPrice != null" >
+        lease_team_price = #{leaseTeamPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sourceType != null" >
+        source_type = #{sourceType,jdbcType=INTEGER},
+      </if>
+      <if test="sourceSalePrice != null" >
+        source_sale_price = #{sourceSalePrice,jdbcType=INTEGER},
+      </if>
+      <if test="sourceNumber != null" >
+        source_number = #{sourceNumber,jdbcType=INTEGER},
+      </if>
+      <if test="sourceUnit != null" >
+        source_unit = #{sourceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceBuyDownPrice != null" >
+        source_buy_down_price = #{sourceBuyDownPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sourceBuyTopPrice != null" >
+        source_buy_top_price = #{sourceBuyTopPrice,jdbcType=INTEGER},
+      </if>
+      <if test="sourceAddress != null" >
+        source_address = #{sourceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePictures != null" >
+        source_pictures = #{sourcePictures,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null" >
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personPhone != null" >
+        person_phone = #{personPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="viewNumber != null" >
+        view_number = #{viewNumber,jdbcType=INTEGER},
+      </if>
+      <if test="shopsId != null" >
+        shops_id = #{shopsId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopKeeperId != null" >
+        shop_keeper_id = #{shopKeeperId,jdbcType=INTEGER},
+      </if>
+      <if test="displayFlag != null" >
+        display_flag = #{displayFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcMarketRelease" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_market_release
+    <where >
+      <if test="realeseType != null" >
+        AND realese_type = #{realeseType,jdbcType=INTEGER}
+      </if>
+      <if test="sourceId != null" >
+        AND source_id = #{sourceId,jdbcType=INTEGER}
+      </if>
+      <if test="machineTypeId != null" >
+        AND machine_type_id = #{machineTypeId,jdbcType=INTEGER}
+      </if>
+      <if test="brandTypeId != null" >
+        AND brand_type_id = #{brandTypeId,jdbcType=INTEGER}
+      </if>
+      <if test="title != null" >
+        AND title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="buyType != null" >
+        AND buy_type = #{buyType,jdbcType=INTEGER}
+      </if>
+      <if test="buyPriceDown != null" >
+        AND buy_price_down = #{buyPriceDown,jdbcType=INTEGER}
+      </if>
+      <if test="buyPriceTop != null" >
+        AND buy_price_top = #{buyPriceTop,jdbcType=INTEGER}
+      </if>
+      <if test="productNumber != null" >
+        AND product_number = #{productNumber,jdbcType=INTEGER}
+      </if>
+      <if test="requestDetails != null" >
+        AND request_details = #{requestDetails,jdbcType=VARCHAR}
+      </if>
+      <if test="newDegreeType != null" >
+        AND new_degree_type = #{newDegreeType,jdbcType=INTEGER}
+      </if>
+      <if test="newDegreeLevel != null" >
+        AND new_degree_level = #{newDegreeLevel,jdbcType=INTEGER}
+      </if>
+      <if test="upperLowerStatus != null" >
+        AND upper_lower_status = #{upperLowerStatus,jdbcType=INTEGER}
+      </if>
+      <if test="productTime != null" >
+        AND product_time = #{productTime,jdbcType=VARCHAR}
+      </if>
+      <if test="cityId != null" >
+        AND city_id = #{cityId,jdbcType=INTEGER}
+      </if>
+      <if test="districtId != null" >
+        AND district_id = #{districtId,jdbcType=INTEGER}
+      </if>
+      <if test="parkeAddress != null" >
+        AND parke_address = #{parkeAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="salePrice != null" >
+        AND sale_price = #{salePrice,jdbcType=INTEGER}
+      </if>
+      <if test="saleNumber != null" >
+        AND sale_number = #{saleNumber,jdbcType=INTEGER}
+      </if>
+      <if test="salePictures != null" >
+        AND sale_pictures = #{salePictures,jdbcType=VARCHAR}
+      </if>
+      <if test="estimateProjectTime != null" >
+        AND estimate_project_time = #{estimateProjectTime,jdbcType=INTEGER}
+      </if>
+      <if test="projectStartTime != null" >
+        AND project_start_time = #{projectStartTime,jdbcType=VARCHAR}
+      </if>
+      <if test="projectEndTime != null" >
+        AND project_end_time = #{projectEndTime,jdbcType=VARCHAR}
+      </if>
+      <if test="projectAddress != null" >
+        AND project_address = #{projectAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="rentType != null" >
+        AND rent_type = #{rentType,jdbcType=INTEGER}
+      </if>
+      <if test="leaseHourPrice != null" >
+        AND lease_hour_price = #{leaseHourPrice,jdbcType=INTEGER}
+      </if>
+      <if test="leaseMonthPrice != null" >
+        AND lease_month_price = #{leaseMonthPrice,jdbcType=INTEGER}
+      </if>
+      <if test="leaseTeamPrice != null" >
+        AND lease_team_price = #{leaseTeamPrice,jdbcType=INTEGER}
+      </if>
+      <if test="sourceType != null" >
+        AND source_type = #{sourceType,jdbcType=INTEGER}
+      </if>
+      <if test="sourceSalePrice != null" >
+        AND source_sale_price = #{sourceSalePrice,jdbcType=INTEGER}
+      </if>
+      <if test="sourceNumber != null" >
+        AND source_number = #{sourceNumber,jdbcType=INTEGER}
+      </if>
+      <if test="sourceUnit != null" >
+        AND source_unit = #{sourceUnit,jdbcType=VARCHAR}
+      </if>
+      <if test="sourceBuyDownPrice != null" >
+        AND source_buy_down_price = #{sourceBuyDownPrice,jdbcType=INTEGER}
+      </if>
+      <if test="sourceBuyTopPrice != null" >
+        AND source_buy_top_price = #{sourceBuyTopPrice,jdbcType=INTEGER}
+      </if>
+      <if test="sourceAddress != null" >
+        AND source_address = #{sourceAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="sourcePictures != null" >
+        AND source_pictures = #{sourcePictures,jdbcType=VARCHAR}
+      </if>
+      <if test="personName != null" >
+        AND person_name = #{personName,jdbcType=VARCHAR}
+      </if>
+      <if test="personPhone != null" >
+        AND person_phone = #{personPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="viewNumber != null" >
+        AND view_number = #{viewNumber,jdbcType=INTEGER}
+      </if>
+      <if test="shopsId != null" >
+        AND shops_id = #{shopsId,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="shopKeeperId != null" >
+        AND shop_keeper_id = #{shopKeeperId,jdbcType=INTEGER}
+      </if>
+      <if test="displayFlag != null" >
+        AND display_flag = #{displayFlag,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <!--***********************************-->
+  <!--根据区查询省市区的名称-->
+  <select id="queryAreaName" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.AreaNameVo">
+      select B.id AS dId,B.name AS dName,C.id AS cId,C.name AS cName,P.id AS pId,P.name AS pName from
+	(select pid,id,name from jxc_area b where b.id = #{districtId})B
+	LEFT JOIN
+	(select c.id,c.name,c.pid from jxc_area c WHERE c.id = (select pid from jxc_area b where b.id = #{districtId}))C
+	ON B.pid = C.id
+      LEFT JOIN
+      (select id,name from jxc_area p WHERE p.id = (select c.pid from jxc_area c WHERE c.id = (select b.pid from jxc_area b where b.id = #{districtId})))P
+      ON c.pid = P.id
+  </select>
+
+  <!--根据区查询市的id-->
+  <select id="queryCityIdByDistrictId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      select ja.pid from jxc_area ja where ja.id = #{districtId}
+  </select>
+
+  <!--筛选交易机械信息-->
+  <select id="queryMarketTrade" parameterType="com.weiwei.jixieche.vo.MarketTradeTabVo" resultType="com.weiwei.jixieche.vo.JxcMarketReleaseVo" >
+    select <include refid="BaseAliasColumn"/> from jxc_market_release
+    <where >
+      <if test="title">
+        AND title LIKE CONCAT(CONCAT('%', #{title}), '%')
+      </if>
+      <if test="machineTrade.machineTradeType != null" >
+        AND realese_type = #{machineTrade.machineTradeType}
+      </if>
+      <if test="machineTrade.machineType != null" >
+        AND machine_type_id = #{machineTrade.machineType}
+      </if>
+      <if test="machineTrade.machineNewOld != null" >
+        AND new_degree_type = #{machineTrade.machineNewOld}
+      </if>
+
+      <if test="machineTrade.switchVo.machineNewOld != null" >
+        AND new_degree_type = #{machineTrade.switchVo.machineNewOld}
+      </if>
+      <if test="machineTrade.switchVo.machineTradeType != null" >
+        AND realese_type = #{machineTrade.switchVo.machineTradeType}
+      </if>
+      <if test="machineTrade.switchVo.brandType != null" >
+        AND brand_type_id = #{machineTrade.switchVo.brandType}
+      </if>
+      <if test="machineTrade.switchVo.buyPriceTop != null and machineTrade.switchVo.buyPriceDown != null " >
+        AND sale_price <![CDATA[ >= ]]> #{machineTrade.switchVo.buyPriceDown} AND buy_price_top <![CDATA[ <= ]]> #{machineTrade.switchVo.buyPriceTop}
+      </if>
+
+      <if test="rentTrade.rentType != null" >
+        AND realese_type = #{rentTrade.rentType}
+      </if>
+      <if test="rentTrade.machineType != null" >
+        AND machine_type_id = #{rentTrade.machineType}
+      </if>
+      <if test="rentTrade.rentLeaseType != null" >
+        <if test="rentTrade.rentLeaseType == 1">
+          AND lease_month_price <![CDATA[ > ]]> 0
+        </if>
+        <if test="rentTrade.rentLeaseType == 2">
+          AND lease_team_price <![CDATA[ > ]]> 0
+        </if>
+        <if test="rentTrade.rentLeaseType == 3">
+          AND lease_hour_price <![CDATA[ > ]]> 0
+        </if>
+      </if>
+
+      <if test="sourceTrade.sourceType != null" >
+        AND source_id = #{sourceTrade.sourceType}
+      </if>
+      <if test="sourceTrade.sourceTradeType != null" >
+        AND realese_type = #{sourceTrade.sourceTradeType}
+      </if>
+      <if test="sourceTrade.cityId != null" >
+        AND city_id = #{sourceTrade.cityId}
+      </if>
+      <if test="sourceTrade.districtId != null" >
+        AND district_id = #{sourceTrade.districtId}
+      </if>
+      AND upper_lower_status = 1 AND display_flag = 1
+    </where>
+  </select>
+
+  <!--查询我的店铺中的机械-->
+  <select id="queryOwnShopMachineList" parameterType="com.weiwei.jixieche.vo.UserShopsInfoVo" resultType="com.weiwei.jixieche.vo.JxcMarketReleaseVo" >
+    select <include refid="BaseAliasColumn"/> from jxc_market_release
+    <where >
+      <if test="realeseType != null" >
+        AND realese_type = #{realeseType,jdbcType=INTEGER}
+      </if>
+      <if test="userId != null" >
+        AND shop_keeper_id = #{userId}
+      </if>
+      AND upper_lower_status = 1 AND display_flag = 1
+    </where>
+  </select>
+
+</mapper>

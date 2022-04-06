@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcShortJobRefDriverMapper">
+    <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcShortJobRefDriver">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="short_job_id" property="shortJobId" jdbcType="INTEGER"/>
+        <result column="owner_id" property="ownerId" jdbcType="INTEGER"/>
+        <result column="driver_id" property="driverId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, state, short_job_id, owner_id, driver_id, create_time, update_time
+  </sql>
+
+    <sql id="BaseAliasColumn">
+    id, state, short_job_id AS shortJobId, owner_id AS ownerId, driver_id AS driverId, 
+    create_time AS createTime, update_time AS updateTime
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from jxc_short_job_ref_driver
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcShortJobRefDriver" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into jxc_short_job_ref_driver
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="state != null">
+                state,
+            </if>
+            <if test="shortJobId != null">
+                short_job_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="driverId != null">
+                driver_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="shortJobId != null">
+                #{shortJobId,jdbcType=INTEGER},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=INTEGER},
+            </if>
+            <if test="driverId != null">
+                #{driverId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcShortJobRefDriver">
+        update jxc_short_job_ref_driver
+        <set>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="shortJobId != null">
+                short_job_id = #{shortJobId,jdbcType=INTEGER},
+            </if>
+            <if test="ownerId != null">
+                owner_id = #{ownerId,jdbcType=INTEGER},
+            </if>
+            <if test="driverId != null">
+                driver_id = #{driverId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 解雇司机 -->
+    <update id="updateShortJobDriverById">
+      update jxc_short_job_ref_driver set state = #{state}, update_time = now(), fire_reason = #{reason}
+            where short_job_id = #{shortJobId} and driver_id = #{driverId}
+  </update>
+
+    <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcShortJobRefDriver"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jxc_short_job_ref_driver
+        <where>
+            <if test="state != null">
+                AND state = #{state,jdbcType=INTEGER}
+            </if>
+            <if test="shortJobId != null">
+                AND short_job_id = #{shortJobId,jdbcType=INTEGER}
+            </if>
+            <if test="ownerId != null">
+                AND owner_id = #{ownerId,jdbcType=INTEGER}
+            </if>
+            <if test="driverId != null">
+                AND driver_id = #{driverId,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                AND create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateTime != null">
+                AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+    <!-- 司机-工作管理 -->
+    <select id="getShortJobManager" resultType="com.weiwei.jixieche.vo.ShortJobVo">
+        SELECT
+            js.id AS shortJobId,
+            js.work_time_start AS startDate,
+            js.work_time_end AS endDate,
+            js.car_address AS carAddress,
+            js.contact_phone AS phone,
+            jsj.state AS state,
+            js.area_id AS areaId,
+            ju.phone AS ownerPhone,
+            ju.head_img as ownerHeadImg,
+            ju.real_name as ownerUserName
+        FROM
+            jxc_short_job_ref_driver jsj
+            LEFT JOIN jxc_short_job js ON jsj.short_job_id = js.id
+            LEFT JOIN jxc_user ju ON ju.id = jsj.owner_id
+        <where>
+            <if test="flag == 0">
+                jsj.state = 0
+            </if>
+            <if test="flag == 1">
+                jsj.state = 1
+            </if>
+            <if test="flag == 2">
+                ( jsj.state = 2 or jsj.state = 3 or jsj.state = 4 or jsj.state = 5)
+            </if>
+            <if test="driverUserId != null">
+                and jsj.driver_id = #{driverUserId}
+            </if>
+        </where>
+        order by js.work_time_start
+    </select>
+
+    <!-- 查询司机工作的是否有未支付的台班 -->
+    <select id="checkShortJobPayState" resultType="java.lang.Integer">
+    select count(jc.clock_in_id) from jxc_clock_in_out_pair jc
+	  where jc.short_job_id = #{shortJobId} and jc.driver_id = #{driverUserId}
+	  and jc.pay_state = 0
+  </select>
+
+    <!-- 司机-工作管理详情 -->
+    <select id="getShortJobDetail" resultType="com.weiwei.jixieche.vo.ShortJobVo">
+      SELECT
+        jsj.short_job_id as shortJobId,
+        js.work_time_start AS startDate,
+        js.work_time_end AS endDate,
+        js.time_frame_start AS timeFrameStart,
+        js.time_frame_end AS timeFrameEnd,
+        js.car_address AS carAddress,
+        jsj.state AS state,
+        ju.real_name AS ownerUserName,
+        ju.phone AS ownerPhone,
+        ju.head_img AS ownerHeadImg,
+        ju.score AS ownerScore,
+        js.time_frame AS timeFrame,
+        js.area_id AS areaId,
+        js.owner_id AS ownerUserId,
+        ifnull(juc.owner_confirm_status,0) as confirmStatus,
+        ( unix_timestamp( js.work_time_end ) - unix_timestamp( js.work_time_start ) + ( 3600 * 24 ) ) / ( 3600 * 24 ) AS jobWorkTime
+    FROM
+        jxc_short_job_ref_driver jsj
+        LEFT JOIN jxc_short_job js ON js.id = jsj.short_job_id
+        LEFT JOIN jxc_user ju ON js.owner_id = ju.id
+        LEFT JOIN jxc_user_confirm juc on ju.id = juc.user_id
+        where jsj.short_job_id = #{shortJobId}
+        AND jsj.driver_id = #{userId}
+  </select>
+
+    <!--临时司机取消订单-->
+    <update id="deleteByShortIdUserId">
+        update jxc_short_job_ref_driver set state = 3  WHERE short_job_id = #{shortJobId}  AND driver_id = #{driverUserId}
+    </update>
+
+    <!-- 删除兼职职位与司机关系 -->
+    <delete id="delShortJobRefDriverById">
+      delete from jxc_short_job_ref_driver WHERE short_job_id = #{shortJobId}  AND driver_id = #{driverId} and state = 0
+    </delete>
+
+    <!-- 判断该职位是否已经被该司机接过 -->
+    <select id="checkDriverTookOver" resultType="java.lang.Integer">
+        select count(id) from jxc_short_job_ref_driver
+          where (state = 3 or state = 4 or state = 5)
+          and short_job_id = #{shortJobId}
+          and driver_id = #{driverId}
+      </select>
+
+    <select id="getShortJobIdByDriverId" resultType="java.lang.Integer">
+    SELECT
+        jsj.short_job_id
+    FROM
+        jxc_short_job_ref_driver jsj left join jxc_short_job js on jsj.short_job_id = js.id
+    WHERE
+        jsj.driver_id = #{driverId}
+        AND jsj.state = 1
+        LIMIT 1
+  </select>
+
+    <!-- 查询司机对应的机主的职位ID -->
+    <select id="getShortJobIdByDriverIdAndOwnerId" resultType="java.lang.Integer">
+    SELECT short_job_id
+    FROM jxc_short_job_ref_driver
+    WHERE driver_id = #{driverId} and owner_id = #{ownerId} AND state = 1
+  </select>
+
+    <!-- 查询司机是否有接兼职职位 -->
+    <select id="queryShortJobByDriverId" resultType="java.lang.Integer">
+        SELECT
+            count(id)
+        FROM
+            jxc_short_job_ref_driver
+        WHERE
+            driver_id = #{driverId}
+            and (state = 0 or state = 1)
+    </select>
+
+</mapper>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcMarketResourceTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcMarketResourceType" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="resource_name" property="resourceName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="machine_type_id" property="machineTypeId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, resource_name, create_time, update_time, code, brand_id, machine_type_id, remark
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, resource_name AS resourceName, create_time AS createTime, update_time AS updateTime,
+    code, brand_id AS brandId, machine_type_id AS machineTypeId, remark
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_market_resource_type
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcMarketResourceType" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_market_resource_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceName != null" >
+        resource_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="machineTypeId != null" >
+        machine_type_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceName != null" >
+        #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="machineTypeId != null" >
+        #{machineTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcMarketResourceType" >
+    update jxc_market_resource_type
+    <set >
+      <if test="resourceName != null" >
+        resource_name = #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="machineTypeId != null" >
+        machine_type_id = #{machineTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcMarketResourceType" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_market_resource_type
+    <where >
+      <if test="resourceName != null" >
+        AND resource_name = #{resourceName,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="code != null" >
+        AND code = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="brandId != null" >
+        AND brand_id = #{brandId,jdbcType=INTEGER}
+      </if>
+      <if test="machineTypeId != null" >
+        AND machine_type_id = #{machineTypeId,jdbcType=INTEGER}
+      </if>
+      <if test="remark != null" >
+        AND remark = #{remark,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+
+  <!--*************************************************-->
+  <select id="queryMarketResourceTypeList" parameterType="com.weiwei.jixieche.vo.MarketResourceTypeListVo" resultType="com.weiwei.jixieche.vo.MarketResourceTypeListVo">
+      select jmrt.id AS id ,jmrt.resource_name AS resourceName,jmrt.img_url AS imgUrl
+      from jxc_market_resource_type jmrt WHERE jmrt.code = #{code}
+  </select>
+
+  <!-- 查询子类资源类型列表-->
+  <select id="queryChildSourceTypeList" resultType="com.weiwei.jixieche.bean.JxcMarketResourceType">
+        select jmrt.id AS id,jmrt.resource_name AS resourceName from jxc_market_resource_type jmrt WHERE jmrt.code != 0
+  </select>
+
+
+
+</mapper>

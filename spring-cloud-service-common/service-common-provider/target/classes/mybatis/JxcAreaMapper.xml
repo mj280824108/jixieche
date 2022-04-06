@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcArea" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+    <result column="merger_name" property="mergerName" jdbcType="VARCHAR" />
+    <result column="lon" property="lon" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+    <result column="is_du" property="isDu" jdbcType="BIT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, name, pid, short_name, level, city_code, zip_code, merger_name, lon, lat, pinyin, 
+    is_du
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, name, pid, short_name AS shortName, level, city_code AS cityCode, zip_code AS zipCode, 
+    merger_name AS mergerName, lon, lat, pinyin, is_du AS isDu
+  </sql>
+
+  <!--根据10000查询城市区数据-->
+  <sql id="BASE_COLUMN">
+    id,name,pid,short_name as shortName,level,lon,lat,left(pinyin, 1) as firstLetter
+  </sql>
+
+  <!--根据大写拼音首字母查询的数据-->
+  <sql id="SIMPLE_COLUMN">
+    id,name
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_area
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcArea" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="shortName != null" >
+        short_name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="zipCode != null" >
+        zip_code,
+      </if>
+      <if test="mergerName != null" >
+        merger_name,
+      </if>
+      <if test="lon != null" >
+        lon,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="pinyin != null" >
+        pinyin,
+      </if>
+      <if test="isDu != null" >
+        is_du,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="shortName != null" >
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mergerName != null" >
+        #{mergerName,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null" >
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="isDu != null" >
+        #{isDu,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcArea" >
+    update jxc_area
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="shortName != null" >
+        short_name = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        zip_code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="mergerName != null" >
+        merger_name = #{mergerName,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null" >
+        pinyin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="isDu != null" >
+        is_du = #{isDu,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcArea" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_area
+    <where >
+      <if test="name != null" >
+        AND name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="pid != null" >
+        AND pid = #{pid,jdbcType=INTEGER}
+      </if>
+      <if test="shortName != null" >
+        AND short_name = #{shortName,jdbcType=VARCHAR}
+      </if>
+      <if test="level != null" >
+        AND level = #{level,jdbcType=INTEGER}
+      </if>
+      <if test="cityCode != null" >
+        AND city_code = #{cityCode,jdbcType=VARCHAR}
+      </if>
+      <if test="zipCode != null" >
+        AND zip_code = #{zipCode,jdbcType=VARCHAR}
+      </if>
+      <if test="mergerName != null" >
+        AND merger_name = #{mergerName,jdbcType=VARCHAR}
+      </if>
+      <if test="lon != null" >
+        AND lon = #{lon,jdbcType=VARCHAR}
+      </if>
+      <if test="lat != null" >
+        AND lat = #{lat,jdbcType=VARCHAR}
+      </if>
+      <if test="pinyin != null" >
+        AND pinyin = #{pinyin,jdbcType=VARCHAR}
+      </if>
+      <if test="isDu != null" >
+        AND is_du = #{isDu,jdbcType=BIT}
+      </if>
+    </where>
+  </select>
+
+
+  <!--***************************************-->
+  <!--根据id=100000(中国)查询省市区数据-->
+  <select id="getAreaById" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.AreaVo">
+    select <include refid="BASE_COLUMN"/> from jxc_area where id=#{id}
+  </select>
+
+  <!--根据pid查询省市区数据-->
+  <select id="getAreaListByPid" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.AreaVo">
+    select <include refid="BASE_COLUMN"/> from jxc_area where pid=#{pid}
+  </select>
+
+  <!--根据大写拼音首字母查询(市)集合-->
+  <select id="getCityListByFirstLetter" parameterType="java.lang.String" resultType="com.weiwei.jixieche.vo.FirstLetterCityVo">
+    select <include refid="SIMPLE_COLUMN"/> from jxc_area where level = 2 and left(pinyin, 1) = #{firstLetter} order by pinyin
+  </select>
+
+  <!--查询已经开放 (市) 的列表集合-->
+  <select id="getOpenedAreaList" resultType="com.weiwei.jixieche.vo.OpenedCityVo">
+    select a.id as cityId,a.name as cityName,a.lon,a.lat,a.pid AS provinceId  from jxc_opened_city oc left join jxc_area a on oc.city_id = a.id
+  </select>
+
+  <!--根据childId查询父类的数据信息，参数市的id-->
+  <select id="getParentOpened" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.OpenedProvinceVo">
+    select t2.id as areaId,t2.name as areaName,t2.lon,t2.lat
+    from jxc_area t1 left join jxc_area t2 on t1.pid = t2.id
+    where t1.id = #{id}
+  </select>
+
+    <!--根据id查询开放省的信息-->
+    <select id="getOpenProvince" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.OpenedProvinceVo">
+        select ja.id as provinceId,ja.name as provinceName,ja.lon,ja.lat
+        from jxc_area ja
+        where ja.id = #{id}
+    </select>
+
+  <!--根据id查询开放省的列表-->
+  <select id="getOpenProvinceList" parameterType="java.lang.Integer" resultType="com.weiwei.jixieche.vo.OpenedProvinceVo">
+    select ja.id AS areaId,ja.name AS areaName,ja.lon,ja.lat from jxc_area ja WHERE ja.id in (select a.pid AS provinceId
+    from jxc_opened_city oc left join jxc_area a on oc.city_id = a.id GROUP BY provinceId)
+  </select>
+
+
+</mapper>

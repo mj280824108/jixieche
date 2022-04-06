@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcCreditScoreTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcCreditScoreTemplate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="effective_start_time" property="effectiveStartTime" jdbcType="TIMESTAMP" />
+    <result column="effective_end_time" property="effectiveEndTime" jdbcType="TIMESTAMP" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="use_scope" property="useScope" jdbcType="INTEGER" />
+    <result column="rule_setting" property="ruleSetting" jdbcType="VARCHAR" />
+    <result column="rule_description" property="ruleDescription" jdbcType="VARCHAR" />
+    <result column="enabled" property="enabled" jdbcType="INTEGER" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, title, effective_start_time, effective_end_time, score, use_scope,
+    rule_setting, rule_description, enabled, create_user_id, create_user_name, create_time, 
+    update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, title, effective_start_time AS effectiveStartTime, effective_end_time AS effectiveEndTime, 
+    score, use_scope AS useScope, rule_setting AS ruleSetting, rule_description AS ruleDescription,
+    enabled, create_user_id AS createUserId, create_user_name AS createUserName, create_time AS createTime, 
+    update_time AS updateTime
+  </sql>
+
+  <sql id="BaseAliasColumn1">
+		id, title,
+		effective_start_time AS effectiveStartTime,
+		effective_end_time AS effectiveEndTime,
+		`condition`, score, use_scope AS
+		useScope, rule_setting AS ruleSetting,
+		rule_description AS ruleDescription, enabled,
+		create_user_id AS createUserId,
+		create_user_name AS createUserName,
+		create_time AS createTime,
+		update_time	AS updateTime
+	</sql>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_credit_score_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcCreditScoreTemplate" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_credit_score_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="effectiveStartTime != null" >
+        effective_start_time,
+      </if>
+      <if test="effectiveEndTime != null" >
+        effective_end_time,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="useScope != null" >
+        use_scope,
+      </if>
+      <if test="ruleSetting != null" >
+        rule_setting,
+      </if>
+      <if test="ruleDescription != null" >
+        rule_description,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="createUserName != null" >
+        create_user_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveStartTime != null" >
+        #{effectiveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndTime != null" >
+        #{effectiveEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="useScope != null" >
+        #{useScope,jdbcType=INTEGER},
+      </if>
+      <if test="ruleSetting != null" >
+        #{ruleSetting,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleDescription != null" >
+        #{ruleDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcCreditScoreTemplate" >
+    update jxc_credit_score_template
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveStartTime != null" >
+        effective_start_time = #{effectiveStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveEndTime != null" >
+        effective_end_time = #{effectiveEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="useScope != null" >
+        use_scope = #{useScope,jdbcType=INTEGER},
+      </if>
+      <if test="ruleSetting != null" >
+        rule_setting = #{ruleSetting,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleDescription != null" >
+        rule_description = #{ruleDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createUserName != null" >
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcCreditScoreTemplate" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_credit_score_template
+    <where >
+      <if test="title != null" >
+        AND title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="effectiveStartTime != null" >
+        AND effective_start_time = #{effectiveStartTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="effectiveEndTime != null" >
+        AND effective_end_time = #{effectiveEndTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="score != null" >
+        AND score = #{score,jdbcType=INTEGER}
+      </if>
+      <if test="useScope != null" >
+        AND use_scope = #{useScope,jdbcType=INTEGER}
+      </if>
+      <if test="ruleSetting != null" >
+        AND rule_setting = #{ruleSetting,jdbcType=VARCHAR}
+      </if>
+      <if test="ruleDescription != null" >
+        AND rule_description = #{ruleDescription,jdbcType=VARCHAR}
+      </if>
+      <if test="enabled != null" >
+        AND enabled = #{enabled,jdbcType=INTEGER}
+      </if>
+      <if test="createUserId != null" >
+        AND create_user_id = #{createUserId,jdbcType=INTEGER}
+      </if>
+      <if test="createUserName != null" >
+        AND create_user_name = #{createUserName,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!-- 查询有效的积分模板 -->
+  <select id="getEffectiveById"
+          resultType="com.weiwei.jixieche.bean.JxcCreditScoreTemplate"
+          parameterType="java.lang.Integer">
+    SELECT
+    <include refid="BaseAliasColumn1" />
+    FROM jxc_credit_score_template
+    WHERE id = #{id}
+    AND enabled = 0
+    AND effective_start_time &lt;= NOW()
+    AND effective_end_time &gt;= NOW()
+  </select>
+
+</mapper>

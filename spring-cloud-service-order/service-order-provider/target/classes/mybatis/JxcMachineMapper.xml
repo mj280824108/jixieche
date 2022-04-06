@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcMachineMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcMachine" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="machine_card_no" property="machineCardNo" jdbcType="VARCHAR" />
+    <result column="area_code" property="areaCode" jdbcType="INTEGER" />
+    <result column="machine_product_time" property="machineProductTime" jdbcType="DATE" />
+    <result column="machine_operation_certificate_front" property="machineOperationCertificateFront" jdbcType="VARCHAR" />
+    <result column="machine_operation_certificate_behind" property="machineOperationCertificateBehind" jdbcType="VARCHAR" />
+    <result column="operation_certificate_valid_time" property="operationCertificateValidTime" jdbcType="VARCHAR" />
+    <result column="operation_certificate_state" property="operationCertificateState" jdbcType="INTEGER" />
+    <result column="machine_driving_license_front" property="machineDrivingLicenseFront" jdbcType="VARCHAR" />
+    <result column="machine_driving_license_behind" property="machineDrivingLicenseBehind" jdbcType="VARCHAR" />
+    <result column="driving_license_valid_time" property="drivingLicenseValidTime" jdbcType="VARCHAR" />
+    <result column="driving_license_state" property="drivingLicenseState" jdbcType="INTEGER" />
+    <result column="confirm_state" property="confirmState" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="machine_capacity" property="machineCapacity" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+    <result column="list_type" property="listType" jdbcType="INTEGER" />
+    <result column="refuse_reason" property="refuseReason" jdbcType="VARCHAR" />
+    <result column="mode" property="mode" jdbcType="INTEGER" />
+    <result column="mode_start_time" property="modeStartTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_status" property="deleteStatus" javaType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, machine_card_no, area_code, machine_product_time, machine_operation_certificate_front, 
+    machine_operation_certificate_behind, operation_certificate_valid_time, operation_certificate_state, 
+    machine_driving_license_front, machine_driving_license_behind, driving_license_valid_time, 
+    driving_license_state, confirm_state, user_id, status, machine_capacity, score, list_type, 
+    refuse_reason, mode, mode_start_time, create_time, update_time, delete_status
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, machine_card_no AS machineCardNo, area_code AS areaCode, machine_product_time AS machineProductTime, 
+    machine_operation_certificate_front AS machineOperationCertificateFront, machine_operation_certificate_behind AS machineOperationCertificateBehind, 
+    operation_certificate_valid_time AS operationCertificateValidTime, operation_certificate_state AS operationCertificateState, 
+    machine_driving_license_front AS machineDrivingLicenseFront, machine_driving_license_behind AS machineDrivingLicenseBehind, 
+    driving_license_valid_time AS drivingLicenseValidTime, driving_license_state AS drivingLicenseState, 
+    confirm_state AS confirmState, user_id AS userId, status, machine_capacity AS machineCapacity, 
+    score, list_type AS listType, refuse_reason AS refuseReason, mode, mode_start_time AS modeStartTime, 
+    create_time AS createTime, update_time AS updateTime, delete_status as deleteStatus
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_machine
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcMachine" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_machine
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="machineCardNo != null" >
+        machine_card_no,
+      </if>
+      <if test="areaCode != null" >
+        area_code,
+      </if>
+      <if test="machineProductTime != null" >
+        machine_product_time,
+      </if>
+      <if test="machineOperationCertificateFront != null" >
+        machine_operation_certificate_front,
+      </if>
+      <if test="machineOperationCertificateBehind != null" >
+        machine_operation_certificate_behind,
+      </if>
+      <if test="operationCertificateValidTime != null" >
+        operation_certificate_valid_time,
+      </if>
+      <if test="operationCertificateState != null" >
+        operation_certificate_state,
+      </if>
+      <if test="machineDrivingLicenseFront != null" >
+        machine_driving_license_front,
+      </if>
+      <if test="machineDrivingLicenseBehind != null" >
+        machine_driving_license_behind,
+      </if>
+      <if test="drivingLicenseValidTime != null" >
+        driving_license_valid_time,
+      </if>
+      <if test="drivingLicenseState != null" >
+        driving_license_state,
+      </if>
+      <if test="confirmState != null" >
+        confirm_state,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="machineCapacity != null" >
+        machine_capacity,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="listType != null" >
+        list_type,
+      </if>
+      <if test="refuseReason != null" >
+        refuse_reason,
+      </if>
+      <if test="mode != null" >
+        mode,
+      </if>
+      <if test="modeStartTime != null" >
+        mode_start_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="machineCardNo != null" >
+        #{machineCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        #{areaCode,jdbcType=INTEGER},
+      </if>
+      <if test="machineProductTime != null" >
+        #{machineProductTime,jdbcType=DATE},
+      </if>
+      <if test="machineOperationCertificateFront != null" >
+        #{machineOperationCertificateFront,jdbcType=VARCHAR},
+      </if>
+      <if test="machineOperationCertificateBehind != null" >
+        #{machineOperationCertificateBehind,jdbcType=VARCHAR},
+      </if>
+      <if test="operationCertificateValidTime != null" >
+        #{operationCertificateValidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operationCertificateState != null" >
+        #{operationCertificateState,jdbcType=INTEGER},
+      </if>
+      <if test="machineDrivingLicenseFront != null" >
+        #{machineDrivingLicenseFront,jdbcType=VARCHAR},
+      </if>
+      <if test="machineDrivingLicenseBehind != null" >
+        #{machineDrivingLicenseBehind,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingLicenseValidTime != null" >
+        #{drivingLicenseValidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingLicenseState != null" >
+        #{drivingLicenseState,jdbcType=INTEGER},
+      </if>
+      <if test="confirmState != null" >
+        #{confirmState,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="machineCapacity != null" >
+        #{machineCapacity,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="listType != null" >
+        #{listType,jdbcType=INTEGER},
+      </if>
+      <if test="refuseReason != null" >
+        #{refuseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="mode != null" >
+        #{mode,jdbcType=INTEGER},
+      </if>
+      <if test="modeStartTime != null" >
+        #{modeStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcMachine" >
+    update jxc_machine
+    <set >
+      <if test="machineCardNo != null" >
+        machine_card_no = #{machineCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        area_code = #{areaCode,jdbcType=INTEGER},
+      </if>
+      <if test="machineProductTime != null" >
+        machine_product_time = #{machineProductTime,jdbcType=DATE},
+      </if>
+      <if test="machineOperationCertificateFront != null" >
+        machine_operation_certificate_front = #{machineOperationCertificateFront,jdbcType=VARCHAR},
+      </if>
+      <if test="machineOperationCertificateBehind != null" >
+        machine_operation_certificate_behind = #{machineOperationCertificateBehind,jdbcType=VARCHAR},
+      </if>
+      <if test="operationCertificateValidTime != null" >
+        operation_certificate_valid_time = #{operationCertificateValidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operationCertificateState != null" >
+        operation_certificate_state = #{operationCertificateState,jdbcType=INTEGER},
+      </if>
+      <if test="machineDrivingLicenseFront != null" >
+        machine_driving_license_front = #{machineDrivingLicenseFront,jdbcType=VARCHAR},
+      </if>
+      <if test="machineDrivingLicenseBehind != null" >
+        machine_driving_license_behind = #{machineDrivingLicenseBehind,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingLicenseValidTime != null" >
+        driving_license_valid_time = #{drivingLicenseValidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingLicenseState != null" >
+        driving_license_state = #{drivingLicenseState,jdbcType=INTEGER},
+      </if>
+      <if test="confirmState != null" >
+        confirm_state = #{confirmState,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="machineCapacity != null" >
+        machine_capacity = #{machineCapacity,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="listType != null" >
+        list_type = #{listType,jdbcType=INTEGER},
+      </if>
+      <if test="refuseReason != null" >
+        refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="mode != null" >
+        mode = #{mode,jdbcType=INTEGER},
+      </if>
+      <if test="modeStartTime != null" >
+        mode_start_time = #{modeStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteStatus != null">
+        delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!-- 解绑司机 -->
+    <update id="updateMachineById">
+      update jxc_machine_ref_driver set bind_state = 0, unbind_time = now()
+          where machine_id = #{machineId} and bind_state = 1
+    </update>
+
+    <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcMachine" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_machine
+    <where >
+      <if test="machineCardNo != null" >
+        AND machine_card_no = #{machineCardNo,jdbcType=VARCHAR}
+      </if>
+      <if test="areaCode != null" >
+        AND area_code = #{areaCode,jdbcType=INTEGER}
+      </if>
+      <if test="machineProductTime != null" >
+        AND machine_product_time = #{machineProductTime,jdbcType=DATE}
+      </if>
+      <if test="machineOperationCertificateFront != null" >
+        AND machine_operation_certificate_front = #{machineOperationCertificateFront,jdbcType=VARCHAR}
+      </if>
+      <if test="machineOperationCertificateBehind != null" >
+        AND machine_operation_certificate_behind = #{machineOperationCertificateBehind,jdbcType=VARCHAR}
+      </if>
+      <if test="operationCertificateValidTime != null" >
+        AND operation_certificate_valid_time = #{operationCertificateValidTime,jdbcType=VARCHAR}
+      </if>
+      <if test="operationCertificateState != null" >
+        AND operation_certificate_state = #{operationCertificateState,jdbcType=INTEGER}
+      </if>
+      <if test="machineDrivingLicenseFront != null" >
+        AND machine_driving_license_front = #{machineDrivingLicenseFront,jdbcType=VARCHAR}
+      </if>
+      <if test="machineDrivingLicenseBehind != null" >
+        AND machine_driving_license_behind = #{machineDrivingLicenseBehind,jdbcType=VARCHAR}
+      </if>
+      <if test="drivingLicenseValidTime != null" >
+        AND driving_license_valid_time = #{drivingLicenseValidTime,jdbcType=VARCHAR}
+      </if>
+      <if test="drivingLicenseState != null" >
+        AND driving_license_state = #{drivingLicenseState,jdbcType=INTEGER}
+      </if>
+      <if test="confirmState != null" >
+        AND confirm_state = #{confirmState,jdbcType=INTEGER}
+      </if>
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="status != null" >
+        AND status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="machineCapacity != null" >
+        AND machine_capacity = #{machineCapacity,jdbcType=INTEGER}
+      </if>
+      <if test="score != null" >
+        AND score = #{score,jdbcType=DOUBLE}
+      </if>
+      <if test="listType != null" >
+        AND list_type = #{listType,jdbcType=INTEGER}
+      </if>
+      <if test="refuseReason != null" >
+        AND refuse_reason = #{refuseReason,jdbcType=VARCHAR}
+      </if>
+      <if test="mode != null" >
+        AND mode = #{mode,jdbcType=INTEGER}
+      </if>
+      <if test="modeStartTime != null" >
+        AND mode_start_time = #{modeStartTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="deleteStatus != null" >
+        AND delete_status = #{deleteStatus,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+
+  <!-- 根据机械ID查询项目相关信息 -->
+  <select id="getProjectById" resultType="com.weiwei.jixieche.bean.JxcProject">
+    SELECT
+        jp.project_name as projectName,
+        jpo.start_date as startDate,
+        jpo.end_date as endDate,
+        jp.project_address as projectAddress,
+        jo.id as ownerOrderId
+    FROM
+        jxc_owner_order jo
+        left join jxc_project_order jpo on jpo.id = jo.tenantry_order_id
+        left join jxc_project jp on jp.id = jpo.project_id
+    WHERE
+        jo.machine_id = #{machineId}
+        AND jo.order_state = 2
+  </select>
+
+  <!-- 根据机械ID查询正在进行中的消纳场地址 -->
+  <select id="getSiteAddressById" resultType="java.lang.String">
+    SELECT
+        js.site_address
+    FROM
+        jxc_owner_order jo
+        LEFT JOIN jxc_order_ref_site jor ON jo.tenantry_order_id = jor.tenantry_order_id
+        LEFT JOIN jxc_site js ON js.id = jor.site_id
+    WHERE
+        jo.machine_id = #{machineId}
+        AND jo.order_state = 2 AND jor.state = 1
+  </select>
+
+  <!-- 机械列表 -->
+  <select id="getMachineList" resultType="com.weiwei.jixieche.vo.JxcMachineVo">
+    SELECT
+      jm.id as id,
+      jm.machine_card_no AS machineCardNo,
+      jm.STATUS AS STATUS,
+      jm.confirm_state as confirmState,
+      jm.score as score
+    FROM
+      jxc_machine jm
+      where jm.delete_status = 0 and jm.user_id = #{ownerUserId}
+      <if test="lastPageLastId != null and lastPageLastId != ''">
+        <![CDATA[ and jm.id < #{lastPageLastId}  ]]>
+      </if>
+      ORDER BY jm.id DESC
+      <if test="pageSize != null">
+        limit #{pageSize}
+      </if>
+  </select>
+
+  <select id="hasNextPage" resultType="java.lang.Integer">
+    SELECT
+      jm.id as id
+      FROM
+      jxc_machine jm
+      where jm.delete_status = 0
+      <if test="lastPageLastId != null and lastPageLastId != ''">
+        <![CDATA[ and jm.id < #{lastPageLastId} ]]>
+      </if>
+      ORDER BY jm.id DESC
+      limit 1
+  </select>
+
+  <!-- 车辆下拉列表 -->
+  <select id="selectMachineList" resultType="java.util.Map">
+      SELECT
+          jm.id,
+          jm.machine_card_no AS machineCardNo,
+          jm.area_code AS areaCode,
+          jdr.driver_type AS driverType,
+          jm.mode as mode
+      FROM
+          jxc_machine jm
+          left JOIN jxc_machine_ref_driver jmr ON jm.id = jmr.machine_id
+          left JOIN jxc_driver_ref_owner jdr ON jdr.driver_id = jmr.user_id
+      WHERE
+          jm.delete_status = 0
+          and jm.user_id = #{ownerUserId}
+          and jmr.bind_state = 1
+      GROUP BY jm.machine_card_no
+      ORDER BY
+          jdr.driver_type
+  </select>
+
+    <!-- 检查是否绑定司机 -->
+    <select id="checkBindDriver" resultType="java.lang.Integer">
+      SELECT
+          count( jm.id )
+      FROM
+          jxc_machine jm
+          INNER JOIN jxc_machine_ref_driver jmr ON jm.id = jmr.machine_id
+      WHERE
+          jm.user_id = #{userId}
+          AND jm.delete_status = 0
+          AND jmr.bind_state = 1
+    </select>
+
+    <!-- 查询机械审核模式 -->
+    <select id="getSetAuditMode" resultType="java.lang.Integer">
+        select audit_mode from jxc_set_audit_mode where id = 1
+    </select>
+
+  <!-- 查询机械是否有未完成订单 -->
+  <select id="checkOwnerOrderByMachineId" resultType="java.lang.Integer">
+    SELECT
+        count(id)
+    FROM
+        jxc_owner_order
+        where machine_id = #{machineId}
+        and (order_state = 2 or order_state = 0)
+  </select>
+
+  <!-- 查询机械是否有进行中订单(没有则更新订单状态为空闲中) -->
+  <select id="checkMachineRunByMachineId" resultType="java.lang.Integer">
+    SELECT
+        count(id)
+    FROM
+        jxc_owner_order
+        where machine_id = #{machineId}
+        and order_state = 2
+  </select>
+
+  <!-- 筛选车辆列表 -->
+    <select id="getMachineSelectAllByUserId" resultType="com.weiwei.jixieche.vo.JxcMachineSelectVo">
+      SELECT
+          id,
+          machine_card_no AS machineCardNo,
+          area_code as areaCode
+      FROM
+          jxc_machine
+          where user_id = #{userId}
+          AND delete_status = 0
+      GROUP BY
+          machine_card_no
+    </select>
+
+  <!-- 查询承租方订单信息 -->
+  <select id="getProjectOrderById" resultType="com.weiwei.jixieche.bean.JxcProjectOrder">
+    select order_state as orderState from jxc_project_order where id = #{projectOrderId}
+  </select>
+
+</mapper>

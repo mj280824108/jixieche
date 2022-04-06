@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcUserConfirmMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcUserConfirm" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="card_code" property="cardCode" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="card_img_front" property="cardImgFront" jdbcType="VARCHAR" />
+    <result column="card_img_back" property="cardImgBack" jdbcType="VARCHAR" />
+    <result column="face_img" property="faceImg" jdbcType="VARCHAR" />
+    <result column="confirm_type" property="confirmType" jdbcType="INTEGER" />
+    <result column="person_confirm_status" property="personConfirmStatus" jdbcType="INTEGER" />
+    <result column="company_confirm_status" property="companyConfirmStatus" jdbcType="INTEGER" />
+    <result column="driver_confirm_status" property="driverConfirmStatus" jdbcType="INTEGER" />
+    <result column="mud_driver_confirm_status" property="mudDriverConfirmStatus" jdbcType="INTEGER" />
+    <result column="owner_confirm_status" property="ownerConfirmStatus" jdbcType="INTEGER" />
+    <result column="legal_name" property="legalName" jdbcType="VARCHAR" />
+    <result column="business_num" property="businessNum" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="site_manager" property="siteManager" jdbcType="VARCHAR" />
+    <result column="business_license" property="businessLicense" jdbcType="VARCHAR" />
+    <result column="certification_img_back" property="certificationImgBack" jdbcType="VARCHAR" />
+    <result column="certification_img_front" property="certificationImgFront" jdbcType="VARCHAR" />
+    <result column="certificate_validity_time" property="certificateValidityTime" jdbcType="DATE" />
+    <result column="drive_license_back" property="driveLicenseBack" jdbcType="VARCHAR" />
+    <result column="drive_license_front" property="driveLicenseFront" jdbcType="VARCHAR" />
+    <result column="licence_validity_time" property="licenceValidityTime" jdbcType="DATE" />
+    <result column="face_confirm_type" property="faceConfirmType" jdbcType="INTEGER" />
+    <result column="refuse_reason" property="refuseReason" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="confirm_user_id" property="confirmUserId" jdbcType="INTEGER" />
+    <result column="confirm_user_name" property="confirmUserName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_id, real_name, card_code, phone, card_img_front, card_img_back, face_img,
+    confirm_type, person_confirm_status, company_confirm_status, driver_confirm_status,
+    mud_driver_confirm_status, owner_confirm_status, legal_name, business_num, company_name,
+    site_manager, business_license, certification_img_back, certification_img_front,
+    certificate_validity_time, drive_license_back, drive_license_front, licence_validity_time,
+    face_confirm_type, refuse_reason, create_time, update_time, confirm_user_id, confirm_user_name
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, user_id AS userId, real_name AS realName, card_code AS cardCode, phone, card_img_front AS cardImgFront,
+    card_img_back AS cardImgBack, face_img AS faceImg, confirm_type AS confirmType, person_confirm_status AS personConfirmStatus,
+    company_confirm_status AS companyConfirmStatus, driver_confirm_status AS driverConfirmStatus,
+    mud_driver_confirm_status AS mudDriverConfirmStatus, owner_confirm_status AS ownerConfirmStatus,
+    legal_name AS legalName, business_num AS businessNum, company_name AS companyName,
+    site_manager AS siteManager, business_license AS businessLicense, certification_img_back AS certificationImgBack,
+    certification_img_front AS certificationImgFront, certificate_validity_time AS certificateValidityTime,
+    drive_license_back AS driveLicenseBack, drive_license_front AS driveLicenseFront,
+    licence_validity_time AS licenceValidityTime, face_confirm_type AS faceConfirmType,
+    refuse_reason AS refuseReason, create_time AS createTime, update_time AS updateTime,
+    confirm_user_id AS confirmUserId, confirm_user_name AS confirmUserName
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_user_confirm
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcUserConfirm" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_user_confirm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="cardCode != null" >
+        card_code,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="cardImgFront != null" >
+        card_img_front,
+      </if>
+      <if test="cardImgBack != null" >
+        card_img_back,
+      </if>
+      <if test="faceImg != null" >
+        face_img,
+      </if>
+      <if test="confirmType != null" >
+        confirm_type,
+      </if>
+      <if test="personConfirmStatus != null" >
+        person_confirm_status,
+      </if>
+      <if test="companyConfirmStatus != null" >
+        company_confirm_status,
+      </if>
+      <if test="driverConfirmStatus != null" >
+        driver_confirm_status,
+      </if>
+      <if test="mudDriverConfirmStatus != null" >
+        mud_driver_confirm_status,
+      </if>
+      <if test="ownerConfirmStatus != null" >
+        owner_confirm_status,
+      </if>
+      <if test="legalName != null" >
+        legal_name,
+      </if>
+      <if test="businessNum != null" >
+        business_num,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="siteManager != null" >
+        site_manager,
+      </if>
+      <if test="businessLicense != null" >
+        business_license,
+      </if>
+      <if test="certificationImgBack != null" >
+        certification_img_back,
+      </if>
+      <if test="certificationImgFront != null" >
+        certification_img_front,
+      </if>
+      <if test="certificateValidityTime != null" >
+        certificate_validity_time,
+      </if>
+      <if test="driveLicenseBack != null" >
+        drive_license_back,
+      </if>
+      <if test="driveLicenseFront != null" >
+        drive_license_front,
+      </if>
+      <if test="licenceValidityTime != null" >
+        licence_validity_time,
+      </if>
+      <if test="faceConfirmType != null" >
+        face_confirm_type,
+      </if>
+      <if test="refuseReason != null" >
+        refuse_reason,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="confirmUserId != null" >
+        confirm_user_id,
+      </if>
+      <if test="confirmUserName != null" >
+        confirm_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCode != null" >
+        #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImgFront != null" >
+        #{cardImgFront,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImgBack != null" >
+        #{cardImgBack,jdbcType=VARCHAR},
+      </if>
+      <if test="faceImg != null" >
+        #{faceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmType != null" >
+        #{confirmType,jdbcType=INTEGER},
+      </if>
+      <if test="personConfirmStatus != null" >
+        #{personConfirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="companyConfirmStatus != null" >
+        #{companyConfirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="driverConfirmStatus != null" >
+        #{driverConfirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="mudDriverConfirmStatus != null" >
+        #{mudDriverConfirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="ownerConfirmStatus != null" >
+        #{ownerConfirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="legalName != null" >
+        #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessNum != null" >
+        #{businessNum,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="siteManager != null" >
+        #{siteManager,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null" >
+        #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationImgBack != null" >
+        #{certificationImgBack,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationImgFront != null" >
+        #{certificationImgFront,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateValidityTime != null" >
+        #{certificateValidityTime,jdbcType=DATE},
+      </if>
+      <if test="driveLicenseBack != null" >
+        #{driveLicenseBack,jdbcType=VARCHAR},
+      </if>
+      <if test="driveLicenseFront != null" >
+        #{driveLicenseFront,jdbcType=VARCHAR},
+      </if>
+      <if test="licenceValidityTime != null" >
+        #{licenceValidityTime,jdbcType=DATE},
+      </if>
+      <if test="faceConfirmType != null" >
+        #{faceConfirmType,jdbcType=INTEGER},
+      </if>
+      <if test="refuseReason != null" >
+        #{refuseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmUserId != null" >
+        #{confirmUserId,jdbcType=INTEGER},
+      </if>
+      <if test="confirmUserName != null" >
+        #{confirmUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcUserConfirm" >
+    update jxc_user_confirm
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCode != null" >
+        card_code = #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImgFront != null" >
+        card_img_front = #{cardImgFront,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImgBack != null" >
+        card_img_back = #{cardImgBack,jdbcType=VARCHAR},
+      </if>
+      <if test="faceImg != null" >
+        face_img = #{faceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmType != null" >
+        confirm_type = #{confirmType,jdbcType=INTEGER},
+      </if>
+      <if test="personConfirmStatus != null" >
+        person_confirm_status = #{personConfirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="companyConfirmStatus != null" >
+        company_confirm_status = #{companyConfirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="driverConfirmStatus != null" >
+        driver_confirm_status = #{driverConfirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="mudDriverConfirmStatus != null" >
+        mud_driver_confirm_status = #{mudDriverConfirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="ownerConfirmStatus != null" >
+        owner_confirm_status = #{ownerConfirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="legalName != null" >
+        legal_name = #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessNum != null" >
+        business_num = #{businessNum,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="siteManager != null" >
+        site_manager = #{siteManager,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null" >
+        business_license = #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationImgBack != null" >
+        certification_img_back = #{certificationImgBack,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationImgFront != null" >
+        certification_img_front = #{certificationImgFront,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateValidityTime != null" >
+        certificate_validity_time = #{certificateValidityTime,jdbcType=DATE},
+      </if>
+      <if test="driveLicenseBack != null" >
+        drive_license_back = #{driveLicenseBack,jdbcType=VARCHAR},
+      </if>
+      <if test="driveLicenseFront != null" >
+        drive_license_front = #{driveLicenseFront,jdbcType=VARCHAR},
+      </if>
+      <if test="licenceValidityTime != null" >
+        licence_validity_time = #{licenceValidityTime,jdbcType=DATE},
+      </if>
+      <if test="faceConfirmType != null" >
+        face_confirm_type = #{faceConfirmType,jdbcType=INTEGER},
+      </if>
+      <if test="refuseReason != null" >
+        refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmUserId != null" >
+        confirm_user_id = #{confirmUserId,jdbcType=INTEGER},
+      </if>
+      <if test="confirmUserName != null" >
+        confirm_user_name = #{confirmUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcUserConfirm" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_user_confirm
+    <where >
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="realName != null" >
+        AND real_name = #{realName,jdbcType=VARCHAR}
+      </if>
+      <if test="cardCode != null" >
+        AND card_code = #{cardCode,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null" >
+        AND phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="cardImgFront != null" >
+        AND card_img_front = #{cardImgFront,jdbcType=VARCHAR}
+      </if>
+      <if test="cardImgBack != null" >
+        AND card_img_back = #{cardImgBack,jdbcType=VARCHAR}
+      </if>
+      <if test="faceImg != null" >
+        AND face_img = #{faceImg,jdbcType=VARCHAR}
+      </if>
+      <if test="confirmType != null" >
+        AND confirm_type = #{confirmType,jdbcType=INTEGER}
+      </if>
+      <if test="personConfirmStatus != null" >
+        AND person_confirm_status = #{personConfirmStatus,jdbcType=INTEGER}
+      </if>
+      <if test="companyConfirmStatus != null" >
+        AND company_confirm_status = #{companyConfirmStatus,jdbcType=INTEGER}
+      </if>
+      <if test="driverConfirmStatus != null" >
+        AND driver_confirm_status = #{driverConfirmStatus,jdbcType=INTEGER}
+      </if>
+      <if test="mudDriverConfirmStatus != null" >
+        AND mud_driver_confirm_status = #{mudDriverConfirmStatus,jdbcType=INTEGER}
+      </if>
+      <if test="ownerConfirmStatus != null" >
+        AND owner_confirm_status = #{ownerConfirmStatus,jdbcType=INTEGER}
+      </if>
+      <if test="legalName != null" >
+        AND legal_name = #{legalName,jdbcType=VARCHAR}
+      </if>
+      <if test="businessNum != null" >
+        AND business_num = #{businessNum,jdbcType=VARCHAR}
+      </if>
+      <if test="companyName != null" >
+        AND company_name = #{companyName,jdbcType=VARCHAR}
+      </if>
+      <if test="siteManager != null" >
+        AND site_manager = #{siteManager,jdbcType=VARCHAR}
+      </if>
+      <if test="businessLicense != null" >
+        AND business_license = #{businessLicense,jdbcType=VARCHAR}
+      </if>
+      <if test="certificationImgBack != null" >
+        AND certification_img_back = #{certificationImgBack,jdbcType=VARCHAR}
+      </if>
+      <if test="certificationImgFront != null" >
+        AND certification_img_front = #{certificationImgFront,jdbcType=VARCHAR}
+      </if>
+      <if test="certificateValidityTime != null" >
+        AND certificate_validity_time = #{certificateValidityTime,jdbcType=DATE}
+      </if>
+      <if test="driveLicenseBack != null" >
+        AND drive_license_back = #{driveLicenseBack,jdbcType=VARCHAR}
+      </if>
+      <if test="driveLicenseFront != null" >
+        AND drive_license_front = #{driveLicenseFront,jdbcType=VARCHAR}
+      </if>
+      <if test="licenceValidityTime != null" >
+        AND licence_validity_time = #{licenceValidityTime,jdbcType=DATE}
+      </if>
+      <if test="faceConfirmType != null" >
+        AND face_confirm_type = #{faceConfirmType,jdbcType=INTEGER}
+      </if>
+      <if test="refuseReason != null" >
+        AND refuse_reason = #{refuseReason,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="confirmUserId != null" >
+        AND confirm_user_id = #{confirmUserId,jdbcType=INTEGER}
+      </if>
+      <if test="confirmUserName != null" >
+        AND confirm_user_name = #{confirmUserName,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+</mapper>

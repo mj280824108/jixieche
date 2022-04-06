@@ -1,0 +1,105 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: finance-service-provider
+  main:
+    #当遇到同样名字的时候，是否允许覆盖注册
+    allow-bean-definition-overriding: true
+#数据库连接，应用名称以及文件上传设置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://rm-wz9d3uq2rn35r0p6m.mysql.rds.aliyuncs.com:3306/jxc-cloud?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: weiweijixie
+    password: WeiWei2019
+  redis:
+    database: 0
+    host: 172.18.10.7
+    port: 6379
+    password: gongyou2018
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 10000ms
+  rabbitmq:
+    host: 120.79.145.29
+    port: 5672
+    username: gongyou
+    password: gongyou2019
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://120.79.145.29:8081/eureka/
+
+mybatis:
+  type-aliases-package: com.weiwei.jixieche.bean
+  mapper-locations: classpath:mybatis/*.xml,classpath:mybatis/*/*.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+alipay:
+  owner:
+    gatewayUrl: https://openapi.alipay.com/gateway.do
+    appId: 2019030163393460
+    appPrivateKey: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDP6KqKRA3DLPOOYQGzpvcalCyzILFV7WdFyc1LiwpP8x2GQGshnxutET0UpiHeI6DV6r+kJcfVVC5E4r3teCzJjc8u2YrPYAqqrwHzUCC2u/Rye41mL6rFDXpDjJH72EqMkrWb61qz9s7A1aQvb+1pFvuLye0eqJ1ajSAFWq9+v2zmSIBX0qKJ13ajZxA52yJRAWlkJG2k5OHnzIRDAHZ68c2yGdak2OGKReO702OpIRoopSJXhhVt8X/7tN4rBMSPzwKJZGISf1i8OVoAFQo+PZ+bdIL/TF78zYDpcYK6eDfGcU1PW2QTcHgQwZadxhXZiyluv9CAT2f5EnL9BXT9AgMBAAECggEADwShfQdZbyXKGhjLxKxk4Rie+fl8ldZmRVZEbBaJEilfkpkIpA8YMrIyFVHC1IcCUTF50mOgQbqo9PTj/0lVAuIpexrfugcX/ihSHb9F/a0qBTMDjcQXs9A7arG2wdhn2iumzrJ7hNBpMui7yWluXs74MKrPZA2OAEJ9c6WPU7pitdc4sojrAorgMUJh8Kn4+k2HW0+XTMbxFn0iOyFNvDreNDkAQ+HEoWxBTN9XEbekymdDCHdSM8epzxUvbLD8vB3TcNid34Q37sz96WpQ9gjvbqnIGRtZA+qV/2TcQBqL1wP0xZwD/8gjXVLrs++MbfG+nyuIlEtYkIqaBGLqAQKBgQD51mNquQPOwZR1o01oAjmHvHcMnsYpnnoppGjJy5b1YhbMMcsQLDpo8ydVWN8ibJmDbCsyNPgLrJ1RH4rBdhV8b9CVbzT8ZexO6/gnQDzzxpRQBbc91ZOfru8eFdvW2j3UVb2LsNZpDVmz1jAZiTAHjo4RJ0I5yPPdEvQnMvLJQQKBgQDVCYR5We9MS3VdI943P4f9oltVerDct+JYXJPRYXtpOGddsoi4JanMq2eFWUs2sDcz/UHx4VGm84T7jgYRyjf9+t3lVTvnc5KHAB3mzazp/0q0g5ysueuuXSPTTrm0sT8KxyDJbgYjKOgyyoFtIq/G1Ki0S7M/HvkTgNLGRi7gvQKBgCdC7K6p0pJcU3NFLXXp25acJG1ESkniELqYjqsfpmJ7fq+qJ4osGSXDCGxeIfqr7Ff92K/0KQLUpohIF6sdXnUGsVW6ey4q6j7g0EeCzdFVZJtKuqgp9yACAqvMrZaPB2Zl7vqT2K37nhwnzblFmNmnKmZBsCOak9ArGVlLpWHBAoGAd+PdS7XTN+qXaA1Rd2InlBOUtuxPMEfD99pRzdnAbByz/0UEMC3x+x7TKXZxH5vX1UhHnmohW4VcZ30r6UMWc7aEvhVTmxOteJAWQ9en4iAr2J7gw0v2WLBOAxMg65F8WwJpbzKd/Zd95WeVoueMaKcxMhYQEAvMPK+Y7sB8jTkCgYEA03HXKge6EYNqODcmv9ZbxXZ6GEA0fegck00ia1sU9FzEn17n85rJp/+PsgldtT5XYoRIRqLCFS4SMbOM/BH+djEN6LuaX8E2OEHb503yu7TOHBuD1hj9l7bQ0LCQ20AOR3iiRq6beoUPV8C56DYFK4IHMPOsZ4jEd0xk5l7ux88=
+    alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1HUqMKKFDDxIILL2Xtn7boJ7NBuaq+LRGlANPZ4y32N2TGaQinDo1zy+759KC+1S6dn2isMFzCG0mkF4ZHKDEsBUEeguoG3a/HlarIW0rbGe8TtdrlxUHpkNKaJHr2lO+KvEt7X5rGesKTJVK7vuAuvzMpl44lrjaup3CJsL995EJOKUhhvYH4dfF9B+sN5NL97Fc4nWQR8K8DC9IMAG4WmDdzB1GIqmhsVwWBz2Yg/84Wm+2Y3Rasqj4iltkDfUuj9ZgA3ILNIhXIEplRkskUFnnUQMIn9c1RgJXxGUf/Wj3WXzWJtFDY/ycnTfcUmwD07/7Y1OMitfiexKaIxDSwIDAQAB
+    #alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6pm2az8pNkah/jjNMwddkwGyX7h/lc8g8fT+nBWu63XpSBCGkwMd5VCgUmkI4rDi/nLHnmaP9ofhZYFtmFYSLVVVjZHKfHolq1932+NEEdyG6L7/XWbLyvR0XbEICl5yhH8HbxadkC1sbS4LFrYUaQOIUGTo7JgMVqvoqfGKYjuxzU6Ayy9dNcQndjYZzcNLh5iDQxCcKZZq3yzcQZk77DvZ+ifiDqJbxB+Y+uruvcOqfZtDIXUpcVYt8LlTs1CqvBj+47nXkv63rh94zF6Jgh1xBxNR6ROlfoFFOPcMRLR2+EaxDTrRPxVj2YmYY0Rj9yJNFT7KX8z0qb47dHnOhQIDAQAB
+    notifyUrl: https://api.app.vvjx.cn/finance/aliPay/notify
+  tenantry:
+    gatewayUrl: https://openapi.alipay.com/gateway.do
+    appId: 2019030163449467
+    appPrivateKey: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCALj7LFQM96J/v0luRL5v85L6qwrZ0gtT+zLZquz0877Msru+fRIizOHrM31lHDg14Zbh8V6g2k/7DZtMvsRu6daHgGu5idu4Pjj6mK/O6EOpCoMFb3Ws40UDBXL8Wf0qogV/XxaObuUUUbCSMMa86K0SCHjKh4xozNbDT9I7mvuGZGG1Bmc8H7WXGeJepZUld4MW6bmSmgZRT9Ei5Ab6y/7zNlD2ObiBEMH7IxDUY/iTbz7blS+jXfOCRSit4sapIUjN7RoS4CEXdoRhp9eJKALygwhErBCyqqIBLxM+FNHo53+UXJN2/1gKLXYCXJmrrOnKIij54VRZbdtsdkLBrAgMBAAECggEACW/eLaNxZqhuxgBNv4WqzVal9vp45mEPf2bg80CvxIG9Rkfm2mn4SoGZAOZcs0+EjF2o1Ha7qrEAq7AxUiyO5w5sCYzSCivJYRnO4PsRaZx/MsKVGcdWcottYg8K/oQGohtMTB1/6yIbxOIlWrD5vqWa2J2SirqmniiQyToTH0fJHOkmRvDgRM8gaWgsQZ5d3HCeHlD4APtV71mSgcuxAg9BABNQQt9rAX295lNVwNyR17LlzIajAerfW9IcwVGREwwzIxmOsoY8F+eFztKpnCxx4v+5wCluqUIFL2uL+YzZwJ4NLN7FxdPTxvBX9GtHVnkw5vA6pl659ha/SrB/uQKBgQDfwJ6zgL0YEgfb/17QCcz+hNdZkTYIuUsBz6cgA8I66CdsBX+x/KrFR4GAnvps3nI9Il7+i95H810Eonal+Rovj7FOT3NAEOiw9sGLuqjYwfh9r2yHc7Djyw1sjuVzntsp/eKPc872qSow1VGmOvZP2axIbnSGF/utsfUaEtKJ5QKBgQCSp31t+7G6NrYX8TJqhPrz82F3rYon7vIvsDSnfqRVYXW7g8d9Ey+mtEYvPMUpeMPlYCi/mH1pQgqsunywjs1PtmKz3YeDd8zVQKqCAIGX/4N+ez/1ANpFY1z6Fn/+ntZaSlNMQEfqIk/W3rwPlsAdhbja/K8u0iL0bI9RA/ZsDwKBgEZDUpLDxp2ca+Nl2fwyV7FFPerecr1ikm9LKgwfogqlhFujjmnyEh5JSh19zt4JLI6OEI6WlYK6pWcjLWcJRnPRB7izsllX9fo8QqMCRqtqngG56LbQWafux5RjeyJHrEMPeunZUBCdJqaXFkDBG0AP9s34AZdqSJpO280IRB0RAoGAdgros/FG0fsdwNG84e5dzKRXDKybqp7zQ51SFIukHLFQwXlFxg/+Z/FtGLKShFoXW/Z1dhp4v5OP4g5NNRQMgB/u/JXQcOqp7fCaDf/4T+8z2Ue9aCiih/19pjMcHUeeg5iVyadn+zZZCzvHJckSo/CxpVqEa2xrBFCpXu2QmNMCgYAYQx+m0O2cnSsHF6MWBrllGqWca251+mrve2rlh9qgjfgUsmm3+bRP6I+Sgki26VvSEAkROBFuKwsk/LT637lY8Zs/+D849KkOK3SC3lV7OC7AC58g0A6AWh5RB/Iuk2/hIdWZWQ31akEWla4XEh2YBsCB5wl3CAKGavo/7IklsQ==
+    #alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgC4+yxUDPeif79JbkS+b/OS+qsK2dILU/sy2ars9PO+zLK7vn0SIszh6zN9ZRw4NeGW4fFeoNpP+w2bTL7EbunWh4BruYnbuD44+pivzuhDqQqDBW91rONFAwVy/Fn9KqIFf18Wjm7lFFGwkjDGvOitEgh4yoeMaMzWw0/SO5r7hmRhtQZnPB+1lxniXqWVJXeDFum5kpoGUU/RIuQG+sv+8zZQ9jm4gRDB+yMQ1GP4k28+25Uvo13zgkUoreLGqSFIze0aEuAhF3aEYafXiSgC8oMIRKwQsqqiAS8TPhTR6Od/lFyTdv9YCi12AlyZq6zpyiIo+eFUWW3bbHZCwawIDAQAB
+    alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1HUqMKKFDDxIILL2Xtn7boJ7NBuaq+LRGlANPZ4y32N2TGaQinDo1zy+759KC+1S6dn2isMFzCG0mkF4ZHKDEsBUEeguoG3a/HlarIW0rbGe8TtdrlxUHpkNKaJHr2lO+KvEt7X5rGesKTJVK7vuAuvzMpl44lrjaup3CJsL995EJOKUhhvYH4dfF9B+sN5NL97Fc4nWQR8K8DC9IMAG4WmDdzB1GIqmhsVwWBz2Yg/84Wm+2Y3Rasqj4iltkDfUuj9ZgA3ILNIhXIEplRkskUFnnUQMIn9c1RgJXxGUf/Wj3WXzWJtFDY/ycnTfcUmwD07/7Y1OMitfiexKaIxDSwIDAQAB
+    notifyUrl: https://api.app.vvjx.cn/finance/aliPay/notify
+  maxQueryRetry: 5
+  queryDuration: 5000
+  maxCancelRetry: 3
+  cancelDuration: 3000
+  formate: json
+  charset: UTF-8
+  signType: RSA2
+
+
+wxpay:
+  owner:
+    appId: wx8821457d4485246f
+    mchId: 1528326471
+    key: weiweikeji201903weiweikeji201903
+    certPath: /www/wwwroot/java/jxc_jars/cert/1528326471/apiclient_cert.p12
+    notifyUrl: https://api.app.vvjx.cn/finance/wxPay/notify
+  tenantry:
+    appId: wx250b86d782b0f9be
+    mchId: 1528278151
+    key: weiweikeji201903weiweikeji201903
+    certPath: /www/wwwroot/java/jxc_jars/cert/1528278151/apiclient_cert.p12
+    notifyUrl: https://api.app.vvjx.cn/finance/wxPay/notify
+  httpConnectTimeoutMs: 8000
+  httpReadTimeoutMs: 10000
+
+
+#提现的配置
+unionPay:
+  merId: 808080211308312
+  keyUsage: 0
+  keyFilePath: /www/wwwroot/java/jxc_jars/chinapay_cer_key/MerPrK_808080211308312_20190604163720.key
+  version: 20160530
+  signFlag: 1
+  transferUrl: https://sfj.chinapay.com/dac/SinPayServletUTF8
+
+#日志记录设置
+logging:
+  file: /www/wwwlogs/springcloud/financeProvider/yytn.log
+  level:
+       com:
+           weiwei:
+                    jixieche: trace
+       root: warn

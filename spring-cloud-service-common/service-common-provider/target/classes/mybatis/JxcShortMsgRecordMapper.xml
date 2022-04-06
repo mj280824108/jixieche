@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcShortMsgRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcShortMsgRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="msg_type_id" property="msgTypeId" jdbcType="INTEGER" />
+    <result column="template_code" property="templateCode" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="client" property="client" jdbcType="INTEGER" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, phone, msg_type_id, template_code, create_time, client, msg
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, phone, msg_type_id AS msgTypeId, template_code AS templateCode, create_time AS createTime,
+    client, msg
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from jxc_short_msg_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jxc_short_msg_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcShortMsgRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_short_msg_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="msgTypeId != null" >
+        msg_type_id,
+      </if>
+      <if test="templateCode != null" >
+        template_code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="client != null" >
+        client,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTypeId != null" >
+        #{msgTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="templateCode != null" >
+        #{templateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="client != null" >
+        #{client,jdbcType=INTEGER},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcShortMsgRecord" >
+    update jxc_short_msg_record
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTypeId != null" >
+        msg_type_id = #{msgTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="templateCode != null" >
+        template_code = #{templateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="client != null" >
+        client = #{client,jdbcType=INTEGER},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcShortMsgRecord" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_short_msg_record
+    <where >
+      <if test="phone != null" >
+        AND phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="msgTypeId != null" >
+        AND msg_type_id = #{msgTypeId,jdbcType=INTEGER}
+      </if>
+      <if test="templateCode != null" >
+        AND template_code = #{templateCode,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="client != null" >
+        AND client = #{client,jdbcType=INTEGER}
+      </if>
+      <if test="msg != null" >
+        AND msg = #{msg,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+
+
+</mapper>

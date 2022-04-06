@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcMachineRouteMapper">
+    <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcMachineRoute">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="tenantry_order_id" property="tenantryOrderId" jdbcType="BIGINT"/>
+        <result column="owner_order_id" property="ownerOrderId" jdbcType="BIGINT"/>
+        <result column="machine_id" property="machineId" jdbcType="INTEGER"/>
+        <result column="driver_id" property="driverId" jdbcType="INTEGER"/>
+        <result column="child_id" property="childId" jdbcType="INTEGER"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="site_id" property="siteId" jdbcType="INTEGER"/>
+        <result column="abnormal_type" property="abnormalType" jdbcType="INTEGER"/>
+        <result column="pay_state" property="payState" jdbcType="INTEGER"/>
+        <result column="fact_mileage" property="factMileage" jdbcType="DECIMAL"/>
+        <result column="amount" property="amount" jdbcType="INTEGER"/>
+        <result column="to_owner_amount" property="toOwnerAmount" jdbcType="INTEGER"/>
+        <result column="card_type" property="cardType" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, tenantry_order_id, owner_order_id, machine_id, driver_id, child_id, start_time, 
+    end_time, site_id, abnormal_type, pay_state, fact_mileage, amount, to_owner_amount, card_type
+  </sql>
+
+    <sql id="BaseAliasColumn">
+    id, tenantry_order_id AS tenantryOrderId, owner_order_id AS ownerOrderId, machine_id AS machineId, 
+    driver_id AS driverId, child_id AS childId, start_time AS startTime, end_time AS endTime, 
+    site_id AS siteId, abnormal_type AS abnormalType, pay_state AS payState, fact_mileage AS factMileage, 
+    amount, to_owner_amount AS toOwnerAmount, card_type as cardType
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from jxc_machine_route
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcMachineRoute" useGeneratedKeys="false"
+            keyProperty="id">
+        insert into jxc_machine_route
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="tenantryOrderId != null">
+                tenantry_order_id,
+            </if>
+            <if test="ownerOrderId != null">
+                owner_order_id,
+            </if>
+            <if test="machineId != null">
+                machine_id,
+            </if>
+            <if test="driverId != null">
+                driver_id,
+            </if>
+            <if test="childId != null">
+                child_id,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="siteId != null">
+                site_id,
+            </if>
+            <if test="abnormalType != null">
+                abnormal_type,
+            </if>
+            <if test="payState != null">
+                pay_state,
+            </if>
+            <if test="factMileage != null">
+                fact_mileage,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="toOwnerAmount != null">
+                to_owner_amount,
+            </if>
+            <if test="cardType != null">
+                card_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="tenantryOrderId != null">
+                #{tenantryOrderId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerOrderId != null">
+                #{ownerOrderId,jdbcType=BIGINT},
+            </if>
+            <if test="machineId != null">
+                #{machineId,jdbcType=INTEGER},
+            </if>
+            <if test="driverId != null">
+                #{driverId,jdbcType=INTEGER},
+            </if>
+            <if test="childId != null">
+                #{childId,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="siteId != null">
+                #{siteId,jdbcType=INTEGER},
+            </if>
+            <if test="abnormalType != null">
+                #{abnormalType,jdbcType=INTEGER},
+            </if>
+            <if test="payState != null">
+                #{payState,jdbcType=INTEGER},
+            </if>
+            <if test="factMileage != null">
+                #{factMileage,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="toOwnerAmount != null">
+                #{toOwnerAmount,jdbcType=INTEGER},
+            </if>
+            <if test="cardType != null">
+                #{cardType,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcMachineRoute">
+        update jxc_machine_route
+        <set>
+            <if test="tenantryOrderId != null">
+                tenantry_order_id = #{tenantryOrderId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerOrderId != null">
+                owner_order_id = #{ownerOrderId,jdbcType=BIGINT},
+            </if>
+            <if test="machineId != null">
+                machine_id = #{machineId,jdbcType=INTEGER},
+            </if>
+            <if test="driverId != null">
+                driver_id = #{driverId,jdbcType=INTEGER},
+            </if>
+            <if test="childId != null">
+                child_id = #{childId,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="siteId != null">
+                site_id = #{siteId,jdbcType=INTEGER},
+            </if>
+            <if test="abnormalType != null">
+                abnormal_type = #{abnormalType,jdbcType=INTEGER},
+            </if>
+            <if test="payState != null">
+                pay_state = #{payState,jdbcType=INTEGER},
+            </if>
+            <if test="factMileage != null">
+                fact_mileage = #{factMileage,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="toOwnerAmount != null">
+                to_owner_amount = #{toOwnerAmount,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcMachineRoute"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jxc_machine_route
+        <where>
+            <if test="tenantryOrderId != null">
+                AND tenantry_order_id = #{tenantryOrderId,jdbcType=BIGINT}
+            </if>
+            <if test="ownerOrderId != null">
+                AND owner_order_id = #{ownerOrderId,jdbcType=BIGINT}
+            </if>
+            <if test="machineId != null">
+                AND machine_id = #{machineId,jdbcType=INTEGER}
+            </if>
+            <if test="driverId != null">
+                AND driver_id = #{driverId,jdbcType=INTEGER}
+            </if>
+            <if test="childId != null">
+                AND child_id = #{childId,jdbcType=INTEGER}
+            </if>
+            <if test="startTime != null">
+                AND start_time = #{startTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null">
+                AND end_time = #{endTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="siteId != null">
+                AND site_id = #{siteId,jdbcType=INTEGER}
+            </if>
+            <if test="abnormalType != null">
+                AND abnormal_type = #{abnormalType,jdbcType=INTEGER}
+            </if>
+            <if test="payState != null">
+                AND pay_state = #{payState,jdbcType=INTEGER}
+            </if>
+            <if test="factMileage != null">
+                AND fact_mileage = #{factMileage,jdbcType=DECIMAL}
+            </if>
+            <if test="amount != null">
+                AND amount = #{amount,jdbcType=INTEGER}
+            </if>
+            <if test="toOwnerAmount != null">
+                AND to_owner_amount = #{toOwnerAmount,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <!--***********************************************************-->
+    <!-- 根据机械ID查询总趟数 -->
+    <select id="getTotalCountByMachineId" resultType="java.lang.Integer">
+      select count(mr.id)
+      from jxc_machine_route mr
+      LEFT JOIN jxc_owner_order oo ON oo.id = mr.owner_order_id
+      where oo.machine_id = #{machineId}
+      AND oo.order_state = 2
+      AND (mr.abnormal_type != 0 OR mr.pay_state != 0)
+  </select>
+
+    <!--根据机械行程趟数集合查询趟数总金额-->
+    <select id="queryTotalAmount" parameterType="arraylist" resultType="java.lang.Integer">
+        SELECT ifnull(sum(amount),0) AS totalAmount FROM jxc_machine_route jmr WHERE jmr.id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--根据机械行程趟数集合批量修改机械行程支付状态-->
+    <update id="updateBatchPayStatus" parameterType="com.weiwei.jixieche.vo.UpdateBatchRoutePayStatusVo">
+        UPDATE jxc_machine_route SET pay_state =#{payState} WHERE jmr.id IN
+        <foreach collection="routeIdList" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 趟数记录 -->
+    <select id="getMachineRouteList" resultType="com.weiwei.jixieche.vo.JxcMachineRouteVo">
+        SELECT
+            jmr.id as routeId,
+            js.site_address AS siteAddress,
+            jp.project_address AS projectAddress,
+            DATE_FORMAT(jmr.start_time, '%Y-%m-%d %H:%i') AS startTime,
+            DATE_FORMAT(jmr.end_time, '%Y-%m-%d %H:%i') AS endTime,
+            jm.machine_card_no as machineCarNo,
+            jm.id as machineId,
+            jmr.abnormal_type as abnormalType,
+            jmr.pay_state as payState,
+            jmr.to_owner_amount  as amount,
+            ifnull(jcp.abnormal_status,0) as abnormalStatus
+        FROM
+            jxc_machine_route jmr
+            LEFT JOIN jxc_site js ON jmr.site_id = js.id
+            LEFT JOIN jxc_project_order jpo ON jpo.id = jmr.tenantry_order_id
+            LEFT JOIN jxc_project jp ON jp.id = jpo.project_id
+            left join jxc_machine jm on jm.id = jmr.machine_id
+            LEFT JOIN jxc_exception_appeal jcp ON jcp.route_id = jmr.id
+        where 1=1
+        <if test="driverId != null and driverId != ''">
+            and jmr.driver_id = #{driverId}
+        </if>
+        <if test="ownerOrderId != null and ownerOrderId != ''">
+            and jmr.owner_order_id = #{ownerOrderId}
+        </if>
+        <if test="startTime != null or endTime != null">
+            AND ifnull(jmr.start_time,jmr.end_time) &gt;= DATE_FORMAT(#{startTime}, '%Y-%m-%d 00:00:00')
+            AND ifnull(jmr.end_time,jmr.start_time) &lt;= DATE_FORMAT(#{endTime}, '%Y-%m-%d 23:59:59')
+        </if>
+        <if test="machineIds != null and machineIds.size() > 0">
+            and jm.id in
+            <foreach item="item" index="index" collection="machineIds" open="("  close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="lastPageLastId != null and lastPageLastId != '' and lastPageLastId != 0">
+            AND jmr.id &lt; #{lastPageLastId}
+        </if>
+        ORDER BY jmr.id DESC
+        limit 10
+    </select>
+
+    <!-- -->
+    <select id="hasNextPage" resultType="java.lang.Long">
+        SELECT
+        jmr.id as routeId
+        FROM
+        jxc_machine_route jmr
+        LEFT JOIN jxc_site js ON jmr.site_id = js.id
+        LEFT JOIN jxc_project_order jpo ON jpo.id = jmr.tenantry_order_id
+        LEFT JOIN jxc_project jp ON jp.id = jpo.project_id
+        left join jxc_machine jm on jm.id = jmr.machine_id
+        where 1=1
+        <if test="driverId != null and driverId != ''">
+            and jmr.driver_id = #{driverId}
+        </if>
+        <if test="ownerOrderId != null and ownerOrderId != ''">
+            and jmr.owner_order_id = #{ownerOrderId}
+        </if>
+        <if test="startTime != null or endTime != null">
+            AND ifnull(jmr.start_time,jmr.end_time) &gt;= DATE_FORMAT(#{startTime}, '%Y-%m-%d 00:00:00')
+            AND ifnull(jmr.end_time,jmr.start_time) &lt;= DATE_FORMAT(#{endTime}, '%Y-%m-%d 23:59:59')
+        </if>
+        <if test="machineIds != null and machineIds.size() > 0">
+            and jm.id in
+            <foreach item="item" index="index" collection="machineIds" open="("  close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="lastPageLastId != null and lastPageLastId != '' and lastPageLastId != 0">
+            AND jmr.id &lt; #{lastPageLastId}
+        </if>
+        ORDER BY jmr.id DESC
+        limit 1
+    </select>
+
+    <!-- 总趟数 -->
+    <select id="getTotalCountMachineRoute" resultType="java.lang.Integer">
+        SELECT
+        count(jmr.id)
+        FROM
+        jxc_machine_route jmr
+        LEFT JOIN jxc_site js ON jmr.site_id = js.id
+        LEFT JOIN jxc_project_order jpo ON jpo.id = jmr.tenantry_order_id
+        LEFT JOIN jxc_project jp ON jp.id = jpo.project_id
+        left join jxc_machine jm on jm.id = jmr.machine_id
+        where 1=1
+        <if test="driverId != null and driverId != ''">
+            and jmr.driver_id = #{driverId}
+        </if>
+        <if test="ownerOrderId != null and ownerOrderId != ''">
+            and jmr.owner_order_id = #{ownerOrderId}
+        </if>
+        <if test="machineCarNo != null">
+            and jm.machine_card_no = #{machineCarNo}
+            AND jm.delete_status = 0
+        </if>
+        <if test="startTime != null or endTime != null">
+            AND ifnull(jmr.start_time,jmr.end_time) &gt;= DATE_FORMAT(#{startTime}, '%Y-%m-%d 00:00:00')
+            AND ifnull(jmr.end_time,jmr.start_time) &lt;= DATE_FORMAT(#{endTime}, '%Y-%m-%d 23:59:59')
+        </if>
+        <if test="machineIds != null and machineIds.size() > 0">
+            and jm.id in
+            <foreach item="item" index="index" collection="machineIds" open="("  close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        ORDER BY jmr.id DESC
+    </select>
+
+    <!-- 检查司机是否正在跑趟中 -->
+    <select id="checkDriverRun" resultType="java.lang.Long">
+      select id from jxc_machine_route
+        where driver_id = #{driverId}
+      and end_time is null
+      and abnormal_type = 0
+      and pay_State = 0
+      limit 1
+    </select>
+
+    <!-- 检查机械是否正在跑趟中 -->
+    <select id="checkMachineRun" resultType="java.lang.Long">
+      select id from jxc_machine_route
+        where machine_id = #{machineId}
+      and end_time is null
+      and abnormal_type = 0
+      and pay_State = 0
+      limit 1
+    </select>
+
+    <!-- 根据订单ID统计已完成和异常趟数 -->
+    <select id="getTotalCountByOrderId" resultType="java.util.Map">
+        select count(jm.id) as totalCount, IFNULL(sum(jm.to_owner_amount),0) as ownerAmount from jxc_machine_route jm
+        where jm.owner_order_id = #{ownerOrderId}
+        <if test="flag == 1">
+            <![CDATA[ and jm.pay_state <> 0 ]]>
+        </if>
+        <if test="flag == 2">
+            <![CDATA[ and jm.abnormal_type <> 0 AND jm.pay_state = 0]]>
+        </if>
+    </select>
+
+    <select id="getRouteInfoById" resultType="com.weiwei.jixieche.bean.JxcMachineRoute">
+    SELECT mr.id ,
+            po.project_id AS projectId,
+            mr.tenantry_order_id AS tenantryOrderId,
+            mr.owner_order_id AS ownerOrderId,
+            mr.abnormal_type AS abnormalType,
+            po.user_id AS tenantryId,
+            oo.user_id AS ownerId,
+            uu.real_name AS tenantryName,
+            mr.machine_id AS machineId,
+            pp.project_name AS projectName,
+            mr.amount,
+            mr.to_owner_amount AS toOwnerAmount,
+            mr.driver_id AS driverId
+    FROM jxc_machine_route mr
+    LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+    LEFT JOIN jxc_owner_order oo ON oo.id = mr.owner_order_id
+    LEFT JOIN jxc_project pp ON pp.id = po.project_id
+    LEFT JOIN jxc_user uu ON po.user_id = uu.id
+    WHERE mr.id = #{routeId}
+  </select>
+
+    <select id="getJxcAbnormalOrderAppealByRouteId" resultType="com.weiwei.jixieche.bean.JxcAbnormalOrderAppeal">
+        SELECT id,project_id AS projectId
+        FROM jxc_exception_appeal
+        WHERE route_id = #{routeId}
+    </select>
+
+    <select id="getSiteIdByUserId" resultType="java.lang.Integer">
+    SELECT a.site_id
+    FROM jxc_admin_ref_site a
+    LEFT JOIN jxc_user uu ON uu.id = a.user_id
+    WHERE a.user_id = #{userId}
+    AND uu.state = 1
+  </select>
+
+    <select id="getJxcSiteById" resultType="com.weiwei.jixieche.bean.JxcSite">
+    SELECT id,longitude,latitude
+    FROM jxc_site
+    WHERE id = #{siteId}
+  </select>
+
+    <select id="checkSiteIntoFlag" resultType="java.lang.Integer">
+    SELECT into_flag
+    FROM jxc_site
+    WHERE id = #{siteId}
+  </select>
+
+    <select id="getSiteCouponByMachineId" resultType="com.weiwei.jixieche.vo.JxcSiteCouponVo">
+    SELECT sc.id , sct.capacity,sct.coupon_type AS couponType , ss.site_name AS siteName,sc.machine_id AS machineId,sc.coupon_flag AS couponFlag
+    FROM jxc_site_coupon sc
+    LEFT JOIN jxc_site ss ON ss.id = sc.site_id
+    LEFT JOIN jxc_site_coupon_type sct ON sct.id = sc.coupon_type_id
+    LEFT JOIN jxc_machine mm ON mm.id = sc.machine_id
+    WHERE mm.machine_card_no = #{machineCardNo}
+    AND mm.delete_status = 0
+    AND sc.site_id = #{siteId}
+    AND sc.coupon_flag = 1
+    ORDER BY sc.pair_time ASC
+    limit 1
+  </select>
+
+    <select id="queryJxcMachineRoute" parameterType="com.weiwei.jixieche.vo.JxcMachineRouteVo"
+            resultType="com.weiwei.jixieche.bean.JxcMachineRoute">
+        SELECT mr.id,
+        mr.machine_id AS machineId,
+        mr.start_time AS startTime,
+        mr.tenantry_order_id AS tenantryOrderId,
+        po.user_id AS tenantryId,
+        oo.user_id AS ownerId,
+        mr.driver_id AS driverId,
+        pp.project_name AS projectName
+        FROM jxc_machine_route mr
+        LEFT JOIN jxc_machine mm ON mm.id = mr.machine_id
+        LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+        LEFT JOIN jxc_project pp ON pp.id = po.project_id
+        LEFT JOIN jxc_owner_order oo ON oo.id = mr.owner_order_id
+        WHERE 1=1
+        <if test="routeVo.machineId != null">
+            AND mr.machine_id = #{routeVo.machineId}
+        </if>
+        <if test="routeVo.machineCarNo != null">
+            AND mm.machine_card_no = #{routeVo.machineCarNo}
+            AND mm.delete_status = 0
+        </if>
+        AND mr.end_time is null
+        AND mr.start_time is not NULL
+        AND mr.abnormal_type = 0
+        and mr.pay_state = 0
+        ORDER BY mr.start_time DESC
+        limit 1
+    </select>
+
+    <select id="queryMachineOrderInfo" parameterType="com.weiwei.jixieche.vo.JxcMachineRouteVo"
+            resultType="com.weiwei.jixieche.bean.JxcMachineRoute">
+    SELECT oo.tenantry_order_id AS tenantryOrderId, oo.id AS ownerOrderId, oo.machine_id AS machineId, pp.project_name AS projectName
+    FROM jxc_owner_order oo
+    LEFT JOIN jxc_machine mm ON mm.id = oo.machine_id
+    LEFT JOIN jxc_project_order po ON oo.tenantry_order_id = po.id
+    LEFT JOIN jxc_project pp ON pp.id = po.project_id
+    WHERE mm.machine_card_no = #{routeVo.machineCarNo}
+    AND mm.delete_status = 0
+    AND oo.order_state = 2
+  </select>
+
+    <select id="getDriverId" parameterType="com.weiwei.jixieche.vo.JxcMachineRouteVo" resultType="java.lang.Integer">
+    SELECT driver_id
+    FROM jxc_clock_in_out_pair
+    WHERE machine_id = #{routeVo.machineId}
+    AND clock_out_id = -1
+  </select>
+
+    <select id="getMachineCardNoByDriverId" resultType="java.lang.String">
+    SELECT mm.machine_card_no
+    FROM jxc_machine_ref_driver rd
+    LEFT JOIN jxc_machine mm ON mm.id = rd.machine_id
+    WHERE rd.user_id = #{driverId}
+    AND bind_state = 1
+  </select>
+
+    <select id="queryOrderRefSite" parameterType="com.weiwei.jixieche.bean.JxcOrderRefSite"
+            resultType="com.weiwei.jixieche.bean.JxcOrderRefSite">
+    SELECT user_id AS userId,
+           tenantry_order_id AS tenantryOrderId,
+           site_id AS siteId,
+           estimate_miles AS estimateMiles,
+           estimate_price AS estimatePrice,
+           fixed_price AS fixedPrice,
+           pricing_mode AS pricingMode,
+           state AS state
+    FROM jxc_order_ref_site
+    WHERE tenantry_order_id = #{os.tenantryOrderId}
+    AND site_id = #{os.siteId}
+    ORDER BY create_time DESC
+    limit 1
+  </select>
+
+    <select id="getDriverThirdId" resultType="java.lang.String">
+    SELECT third_id
+    FROM jxc_user
+    WHERE id = #{driverId}
+  </select>
+
+    <select id="getDriverHandover" resultType="com.weiwei.jixieche.vo.JxcDriverHandoverVo">
+    SELECT route_id AS routeId,
+           third_id_down AS thirdIdDown,
+           third_id_up AS thirdIdUp,
+           DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') AS createTimeStr,
+           create_time AS createTime
+    FROM jxc_driver_handover
+    WHERE route_id = #{routeId}
+  </select>
+
+    <insert id="insertJxcTradeOwner" parameterType="com.weiwei.jixieche.bean.JxcTradeOwner">
+    INSERT INTO jxc_trade_owner(id,trade_type,payer_user_id,payee_user_id,tenantry_order_id,route_id,trade_amount,trade_status,payment_method,lock_status)
+    VALUE (#{jxcTradeOwner.id},#{jxcTradeOwner.tradeType},#{jxcTradeOwner.payerUserId},#{jxcTradeOwner.payeeUserId},#{jxcTradeOwner.tenantryOrderId},#{jxcTradeOwner.routeId},
+            #{jxcTradeOwner.tradeAmount},#{jxcTradeOwner.tradeStatus},#{jxcTradeOwner.paymentMethod},#{jxcTradeOwner.lockStatus})
+  </insert>
+
+    <update id="updateSiteCoupon1" parameterType="com.weiwei.jixieche.vo.SiteClockVo">
+        UPDATE jxc_site_coupon
+        SET coupon_flag = 2 ,
+        check_user_id = #{vo.siteAdminId},
+        abnormal_type = 0,
+        check_time = NOW()
+        WHERE id = #{vo.siteCouponId}
+        AND coupon_flag = 1
+    </update>
+
+    <update id="updateSiteCoupon" parameterType="com.weiwei.jixieche.vo.SiteClockVo">
+    UPDATE jxc_site_coupon
+    SET coupon_flag = 2 ,
+    check_user_id = #{vo.siteAdminId},
+    abnormal_type = #{vo.couponAbnormalType},
+    abnormal_causes = #{vo.abnormalCauses},
+    check_time = NOW(),
+    abnormal_img = #{vo.abnormalImg}
+    WHERE id = #{vo.siteCouponId}
+  </update>
+
+    <select id="getMachineIdByCouponId" resultType="java.lang.Integer">
+        SELECT machine_id
+        FROM jxc_site_coupon
+        WHERE id = #{couponId}
+    </select>
+
+    <update id="updateCouponFlag">
+        UPDATE jxc_site_coupon
+        SET coupon_flag = 0,project_id = null, pair_time = null ,machine_id = null
+        WHERE machine_id = #{machineId}
+        AND coupon_flag = 1
+    </update>
+
+    <select id="dateListWhichHasRouteFinishedOrError" resultType="String">
+        select distinct left(t.start_time,10) as dt from(
+        select start_time from jxc_machine_route
+        where owner_order_id = #{orderId}
+        <if test="driverId != null and driverId != 0">
+            AND driverId = #{driverId}
+        </if>
+        <if test="yearMonth != null and yearMonth !=''">
+            and ifnull(start_time,end_time) &gt;= CONCAT(#{yearMonth},'-01') and ifnull(start_time,end_time) &lt; DATE_ADD(CONCAT(#{yearMonth},'-01'),INTERVAL 1 MONTH)
+        </if>
+        ) t
+    </select>
+    <select id="dateListWhichHasRouteFinishedOrError1" resultType="String">
+        select distinct left(t.end_time,10) as dt from(
+        select end_time from jxc_machine_route
+        where owner_order_id = #{orderId}
+        <if test="driverId != null and driverId != 0">
+            AND driverId = #{driverId}
+        </if>
+        <if test="yearMonth != null and yearMonth !=''">
+            and ifnull(end_time,start_time) &gt;= CONCAT(#{yearMonth},'-01') and ifnull(end_time,start_time) &lt; DATE_ADD(CONCAT(#{yearMonth},'-01'),INTERVAL
+            1 MONTH)
+        </if>
+        and (abnormal_type != 0  or (abnormal_type = 0 and pay_state = 1))
+        ) t
+    </select>
+
+    <select id="dateRouteHasError" resultType="int">
+    SELECT ifnull(count(1),0)
+    FROM jxc_machine_route
+    WHERE owner_order_id = #{ownerOrderId}
+        <if test="driverId != null and driverId != 0">
+            AND driverId = #{driverId}
+        </if>
+    AND ifnull(start_time,end_time) &gt;= #{date}
+    AND ifnull(start_time,end_time) &lt; DATE_ADD(#{date},INTERVAL 1 DAY)
+    AND abnormal_type != 0
+  </select>
+
+    <select id="getAbnormalRouteDetail" resultType="com.weiwei.jixieche.vo.AbnormalRouteVo">
+        SELECT mr.id AS routeId,
+                mr.amount,
+                mr.to_owner_amount AS toOwnerAmount,
+                mr.tenantry_order_id AS tenantryOrderId,
+                mr.fact_mileage AS factMileage,
+                ifnull(ea.abnormal_status,-1) AS abnormalStatus,
+                ifnull(ors.estimate_price,ors.fixed_price) AS estimatePrice,
+                ors.estimate_miles AS estimateMiles,
+                pp.project_name AS projectName,
+                ss.site_address AS siteAddress,
+                pp.project_address AS projectAddress,
+                DATE_FORMAT(mr.start_time,'%Y-%m-%d %H:%i:%s') AS startTime,
+                DATE_FORMAT(mr.end_time,'%Y-%m-%d %H:%i:%s') AS endTime,
+                mr.machine_id AS machineId,
+                mm.machine_card_no AS machineCardNo,
+                mr.abnormal_type AS abnormalType,
+                mr.pay_state AS payState,
+                us.third_id AS thirdId,
+                uu.real_name AS ownerName,
+                uu.phone AS ownerPhone,
+                us.phone AS driverPhone
+        FROM jxc_machine_route mr
+        LEFT JOIN jxc_project_order po ON po.id = mr.tenantry_order_id
+        LEFT JOIN jxc_project pp ON pp.id = po.project_id
+        LEFT JOIN jxc_order_ref_site ors ON ors.tenantry_order_id = mr.tenantry_order_id
+        LEFT JOIN jxc_site ss ON ss.id = ors.site_id
+        LEFT JOIN jxc_machine mm ON mm.id = mr.machine_id
+        LEFT JOIN jxc_user uu ON uu.id = mm.user_id
+        LEFT JOIN jxc_user us ON us.id = mr.driver_id
+        LEFT JOIN jxc_exception_appeal ea ON ea.route_id = mr.id
+        WHERE mr.id = #{routeId}
+        AND ors.state = 1
+    </select>
+
+    <select id="getById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jxc_machine_route
+        where id = #{routeId,jdbcType=BIGINT}
+    </select>
+
+</mapper>

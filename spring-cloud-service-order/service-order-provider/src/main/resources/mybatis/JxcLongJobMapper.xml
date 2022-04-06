@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcLongJobMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcLongJob" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="project_type" property="projectType" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="work_area" property="workArea" jdbcType="VARCHAR" />
+    <result column="machine_type" property="machineType" jdbcType="INTEGER" />
+    <result column="drive_year" property="driveYear" jdbcType="VARCHAR" />
+    <result column="need_num" property="needNum" jdbcType="INTEGER" />
+    <result column="work_type" property="workType" jdbcType="INTEGER" />
+    <result column="work_type_time" property="workTypeTime" jdbcType="VARCHAR" />
+    <result column="welfare" property="welfare" jdbcType="VARCHAR" />
+    <result column="other_welfare" property="otherWelfare" jdbcType="VARCHAR" />
+    <result column="job_type" property="jobType" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="DATE" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="payment" property="payment" jdbcType="INTEGER" />
+    <result column="pay_money" property="payMoney" jdbcType="INTEGER" />
+    <result column="experience" property="experience" jdbcType="LONGVARCHAR" />
+    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_id, project_type, area_id, work_area, machine_type, drive_year, need_num,
+    work_type, work_type_time, welfare, other_welfare, job_type, start_time, end_time, 
+    payment, pay_money, experience, contact_name, contact_phone, status, deleted, create_time, 
+    update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, user_id AS userId, project_type AS projectType, area_id AS areaId, work_area AS workArea,
+    machine_type AS machineType, drive_year AS driveYear, need_num AS needNum, work_type AS workType, 
+    work_type_time AS workTypeTime, welfare, other_welfare AS otherWelfare, job_type AS jobType, 
+    start_time AS startTime, end_time AS endTime, payment, pay_money AS payMoney, experience, 
+    contact_name AS contactName, contact_phone AS contactPhone, status, deleted, create_time AS createTime, 
+    update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_long_job
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcLongJob" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_long_job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="projectType != null" >
+        project_type,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="workArea != null" >
+        work_area,
+      </if>
+      <if test="machineType != null" >
+        machine_type,
+      </if>
+      <if test="driveYear != null" >
+        drive_year,
+      </if>
+      <if test="needNum != null" >
+        need_num,
+      </if>
+      <if test="workType != null" >
+        work_type,
+      </if>
+      <if test="workTypeTime != null" >
+        work_type_time,
+      </if>
+      <if test="welfare != null" >
+        welfare,
+      </if>
+      <if test="otherWelfare != null" >
+        other_welfare,
+      </if>
+      <if test="jobType != null" >
+        job_type,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="payment != null" >
+        payment,
+      </if>
+      <if test="payMoney != null" >
+        pay_money,
+      </if>
+      <if test="experience != null" >
+        experience,
+      </if>
+      <if test="contactName != null" >
+        contact_name,
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="projectType != null" >
+        #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="workArea != null" >
+        #{workArea,jdbcType=VARCHAR},
+      </if>
+      <if test="machineType != null" >
+        #{machineType,jdbcType=INTEGER},
+      </if>
+      <if test="driveYear != null" >
+        #{driveYear,jdbcType=VARCHAR},
+      </if>
+      <if test="needNum != null" >
+        #{needNum,jdbcType=INTEGER},
+      </if>
+      <if test="workType != null" >
+        #{workType,jdbcType=INTEGER},
+      </if>
+      <if test="workTypeTime != null" >
+        #{workTypeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="welfare != null" >
+        #{welfare,jdbcType=VARCHAR},
+      </if>
+      <if test="otherWelfare != null" >
+        #{otherWelfare,jdbcType=VARCHAR},
+      </if>
+      <if test="jobType != null" >
+        #{jobType,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null" >
+        #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="experience != null" >
+        #{experience,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contactName != null" >
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcLongJob" >
+    update jxc_long_job
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="projectType != null" >
+        project_type = #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="workArea != null" >
+        work_area = #{workArea,jdbcType=VARCHAR},
+      </if>
+      <if test="machineType != null" >
+        machine_type = #{machineType,jdbcType=INTEGER},
+      </if>
+      <if test="driveYear != null" >
+        drive_year = #{driveYear,jdbcType=VARCHAR},
+      </if>
+      <if test="needNum != null" >
+        need_num = #{needNum,jdbcType=INTEGER},
+      </if>
+      <if test="workType != null" >
+        work_type = #{workType,jdbcType=INTEGER},
+      </if>
+      <if test="workTypeTime != null" >
+        work_type_time = #{workTypeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="welfare != null" >
+        welfare = #{welfare,jdbcType=VARCHAR},
+      </if>
+      <if test="otherWelfare != null" >
+        other_welfare = #{otherWelfare,jdbcType=VARCHAR},
+      </if>
+      <if test="jobType != null" >
+        job_type = #{jobType,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null" >
+        pay_money = #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="experience != null" >
+        experience = #{experience,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contactName != null" >
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcLongJob" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_long_job
+    <where >
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="projectType != null" >
+        AND project_type = #{projectType,jdbcType=VARCHAR}
+      </if>
+      <if test="areaId != null" >
+        AND area_id = #{areaId,jdbcType=INTEGER}
+      </if>
+      <if test="workArea != null" >
+        AND work_area = #{workArea,jdbcType=VARCHAR}
+      </if>
+      <if test="machineType != null" >
+        AND machine_type = #{machineType,jdbcType=INTEGER}
+      </if>
+      <if test="driveYear != null" >
+        AND drive_year = #{driveYear,jdbcType=VARCHAR}
+      </if>
+      <if test="needNum != null" >
+        AND need_num = #{needNum,jdbcType=INTEGER}
+      </if>
+      <if test="workType != null" >
+        AND work_type = #{workType,jdbcType=INTEGER}
+      </if>
+      <if test="workTypeTime != null" >
+        AND work_type_time = #{workTypeTime,jdbcType=VARCHAR}
+      </if>
+      <if test="welfare != null" >
+        AND welfare = #{welfare,jdbcType=VARCHAR}
+      </if>
+      <if test="otherWelfare != null" >
+        AND other_welfare = #{otherWelfare,jdbcType=VARCHAR}
+      </if>
+      <if test="jobType != null" >
+        AND job_type = #{jobType,jdbcType=INTEGER}
+      </if>
+      <if test="startTime != null" >
+        AND start_time = #{startTime,jdbcType=DATE}
+      </if>
+      <if test="endTime != null" >
+        AND end_time = #{endTime,jdbcType=DATE}
+      </if>
+      <if test="payment != null" >
+        AND payment = #{payment,jdbcType=INTEGER}
+      </if>
+      <if test="payMoney != null" >
+        AND pay_money = #{payMoney,jdbcType=INTEGER}
+      </if>
+      <if test="experience != null" >
+        AND experience = #{experience,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="contactName != null" >
+        AND contact_name = #{contactName,jdbcType=VARCHAR}
+      </if>
+      <if test="contactPhone != null" >
+        AND contact_phone = #{contactPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null" >
+        AND status = #{status,jdbcType=TINYINT}
+      </if>
+      <if test="deleted != null" >
+        AND deleted = #{deleted,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <!-- 长期司机招聘列表 -->
+  <select id="getLongJobList" resultType="com.weiwei.jixieche.bean.JxcLongJob" parameterType="com.weiwei.jixieche.vo.DriverJobVo">
+    select jlj.id, jlj.user_id AS userId, jlj.project_type AS projectType, jlj.area_id AS areaId, jlj.work_area AS workArea,
+    jlj.machine_type AS machineType, jlj.drive_year AS driveYear, jlj.need_num AS needNum, jlj.work_type AS workType,
+    jlj.work_type_time AS workTypeTime, jlj.welfare, jlj.other_welfare AS otherWelfare, jlj.job_type AS jobType,
+    jlj.start_time AS startTime, jlj.end_time AS endTime, jlj.payment, jlj.pay_money AS payMoney, jlj.experience,
+    jlj.contact_name AS contactName, jlj.contact_phone AS contactPhone, jlj.status, jlj.deleted, jlj.create_time AS createTime,
+    jlj.update_time AS updateTime
+      from jxc_long_job jlj
+      LEFT JOIN jxc_user ju ON ju.id = jlj.user_id
+    <where>
+      jlj.status = 0 and jlj.deleted = 0
+      <if test="ownerUserId != null" >
+        AND jlj.user_id = #{ownerUserId}
+      </if>
+      <if test="payment != null" >
+        AND jlj.payment = #{payment}
+      </if>
+      <if test="startMoney != null">
+        AND jlj.pay_money >= #{startMoney}
+      </if>
+      <if test="endMoney != null and endMoney != 15000">
+        <![CDATA[ AND jlj.pay_money <= #{endMoney} ]]>
+      </if>
+      <if test="areaId != null">
+        AND jlj.area_id = #{areaId}
+      </if>
+    </where>
+    ORDER BY jlj.id DESC
+    <if test="socreSortType == 1">
+      , ju.score
+    </if>
+    <if test="socreSortType == 2">
+      , ju.score DESC
+    </if>
+  </select>
+  <select id="hasNextPage" resultType="java.lang.Integer">
+    select jlj.id from jxc_long_job jlj
+      LEFT JOIN jxc_user ju ON ju.id = jlj.user_id
+      <where>
+        jlj.status = 0 and jlj.delete = 0
+        <if test="ownerUserId != null" >
+          AND jlj.user_id = #{ownerUserId,jdbcType=INTEGER}
+        </if>
+        <if test="payment != null" >
+          AND jlj.payment = #{payment}
+        </if>
+        <if test="startMoney != null">
+          AND jlj.pay_money >= #{startMoney}
+        </if>
+        <if test="endMoney != null and endMoney != 15000">
+          <![CDATA[ AND jlj.pay_money <= #{endMoney} ]]>
+        </if>
+        <if test="areaId != null">
+          AND jlj.area_id = #{areaId}
+        </if>
+        <if test="lastPageLastId != null and lastPageLastId != ''">
+          <![CDATA[ and jlj.id < #{lastPageLastId}  ]]>
+        </if>
+      </where>
+      ORDER BY jlj.id DESC
+      <if test="socreSortType == 1">
+        , ju.score
+      </if>
+      <if test="socreSortType == 2">
+        , ju.score DESC
+      </if>
+      limit 1
+  </select>
+
+</mapper>

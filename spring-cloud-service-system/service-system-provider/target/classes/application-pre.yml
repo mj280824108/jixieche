@@ -1,0 +1,62 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: system-service-provider
+  main:
+    allow-bean-definition-overriding: true
+#数据库连接，应用名称以及文件上传设置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.79.4.103:3306/jxc?characterEncoding=utf8&useSSL=false
+    username: root
+    password: xyx@123
+  redis:
+    database: 0
+    # Redis服务器地址
+    host: 172.18.10.6
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: jxc2018
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 10000ms
+#服务注册中心配置
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://120.79.4.103:8081/eureka/
+
+#mybatis的配置
+mybatis:
+  type-aliases-package: com.weiwei.jixieche.bean
+  mapper-locations: classpath:mybatis/*.xml,classpath:mybatis/*/*.xml
+
+#分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#android下载地址
+android:
+  downloadUrlOwner: http://app.vvjx.cn/pro/mechanicalsowner.apk
+  downloadUrlTenantry: http://app.vvjx.cn/pro/mechanicalsuser.apk
+  downloadUrlOwnerTest: http://app.vvjx.cn/ceshi/apk/mechanicalsuser.apk
+  downloadUrlTenantryTest: http://app.vvjx.cn/ceshi/apk/mechanicalsuser.apk
+
+#日志记录设置
+logging:
+  file: /data/spingCloud/systemProvider/yytn.log
+  level:
+       com:
+           weiwei:
+                    jixieche: trace
+       root: warn

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/quill.bubble.css">
+    <link rel="stylesheet" href="/css/quill.core.css">
+    <link rel="stylesheet" href="/css/quill.snow.css">
+    <title></title>
+</head>
+<body>
+<main>
+    <img  style="width: 100px;height: 18px;margin-top: 10px;" src="/images/logo.jpg" alt="">
+    <i style="display: inline-block;height: 1px;width: 100%;background: #f0f0f0;margin-bottom: 10px"></i>
+    <section id="rules" class="ql-editor">
+    </section>
+</main>
+
+
+<script>
+    (function(){
+        var rules=document.getElementById("rules")
+
+
+        var currClientWidth,
+            fontValue,
+            originWidth;
+        originWidth = 750;//ui设计稿的宽度，一般750或640
+        __resize();
+
+        window.addEventListener('resize', __resize, false);
+
+        function __resize() {
+            currClientWidth = document.documentElement.clientWidth;
+            if (currClientWidth > 768){
+                currClientWidth = 768;
+            }
+            if (currClientWidth < 320){
+                currClientWidth = 320;
+            }
+            fontValue = ((625 * currClientWidth) / originWidth).toFixed(2);
+            // document.documentElement.style.fontSize = fontValue + '%';
+            // console.log(document.documentElement.style.fontSize);
+        }
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+        var userType=getUrlParam("userType")
+        var descriptType=getUrlParam("descriptType")
+        var data={ "descriptType":descriptType,"userType": userType,disable: "0"}
+        var ids=""
+        var url=""
+        var des=["用户协议","计费规则","名词说明" ,"服务条款","信用分规则","隐私条款","发票须知","增票资质确认书"]
+            $.ajax({
+            type: "POST",
+            headers:{"Content-Type":"application/json;charset=UTF-8"},
+            url: "https://api.admin.vvjx.cn:7000/jxcPlatDescription/front/findByPage",
+            data: JSON.stringify(data),
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                ids=res.data.queryResult[0].id
+               document.title=des[res.data.queryResult[0].descriptType]
+                url="https://api.admin.vvjx.cn:7000/jxcPlatDescription/queryById?id="+ids
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res);
+                        var string= res.data.content
+                        rules.innerHTML=string
+                    }
+                });
+            }
+        });
+    })();
+
+</script>
+</body>
+</html>

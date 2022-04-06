@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiwei.jixieche.mapper.JxcPushDeviceTokenMapper" >
+  <resultMap id="BaseResultMap" type="com.weiwei.jixieche.bean.JxcPushDeviceToken" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="device_tag" property="deviceTag" jdbcType="VARCHAR" />
+    <result column="phoneType" property="phonetype" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_id, device_tag, phoneType, create_time, update_time
+  </sql>
+
+  <sql id="BaseAliasColumn" >
+    id, user_id AS userId, device_tag AS deviceTag, phoneType, create_time AS createTime, 
+    update_time AS updateTime
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jxc_push_device_token
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jxc_push_device_token
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.weiwei.jixieche.bean.JxcPushDeviceToken" useGeneratedKeys="true" keyProperty="id" >
+    insert into jxc_push_device_token
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="deviceTag != null" >
+        device_tag,
+      </if>
+      <if test="phonetype != null" >
+        phoneType,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceTag != null" >
+        #{deviceTag,jdbcType=VARCHAR},
+      </if>
+      <if test="phonetype != null" >
+        #{phonetype,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.jixieche.bean.JxcPushDeviceToken" >
+    update jxc_push_device_token
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceTag != null" >
+        device_tag = #{deviceTag,jdbcType=VARCHAR},
+      </if>
+      <if test="phonetype != null" >
+        phoneType = #{phonetype,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByConditions" parameterType="com.weiwei.jixieche.bean.JxcPushDeviceToken" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List"/> from jxc_push_device_token
+    <where >
+      <if test="userId != null" >
+        AND user_id = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="deviceTag != null" >
+        AND device_tag = #{deviceTag,jdbcType=VARCHAR}
+      </if>
+      <if test="phonetype != null" >
+        AND phoneType = #{phonetype,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null" >
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null" >
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+</mapper>
